@@ -601,7 +601,7 @@ body.atac .vant .v1,body.atac .vant .v2{display:none}
 @media(max-width:960px){.ks-stage-m{display:block;position:sticky;top:var(--nav-h);z-index:30;background:#fff;padding:6px 0 4px;margin:0 0 12px}.ks-stage-m .ks-stage{height:150px;margin:0}
  .ks-fams{grid-template-columns:repeat(3,1fr)}.ks-prods{grid-template-columns:repeat(2,1fr)}.kit-bar .buy{font-size:.72rem;letter-spacing:.08em;padding:0 18px;white-space:nowrap}.ks-hero p{font-size:.9rem}}
 body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
-@media(max-width:960px){body:has(.kit-bar.on) .wpp{bottom:96px}}
+@media(max-width:960px){body:has(.kit-bar.on) .wpp{bottom:96px}body:has(.ks-wrap) .wpp{display:none}}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -1162,7 +1162,7 @@ function stageHtml(){
   const pecas=its.map(s=>{
     const i=slots.indexOf(s);
     if(s.prod){const p=byId(s.prod);return `<button class="st-p" style="height:${Math.max(26,Math.round(altCm(p)/max*100))}%" onclick="slotOpen(${i})" title="${p.name} · ${s.color}"><img src="${fotoCor(p,s.color)}" alt="">${s.qty>1?`<i>${s.qty}x</i>`:''}</button>`;}
-    const ic=PAPEIS[s.papel].icone; return ic?`<button class="st-p st-vazio" style="height:${PAPEIS[s.papel].alt}%" onclick="slotOpen(${i})" title="Escolher ${PAPEIS[s.papel].nome.toLowerCase()}"><img src="${IMGS.cat[ic]}" alt=""><em>${PAPEIS[s.papel].nome}</em></button>`:'';
+    const ic=PAPEIS[s.papel].icone; return ic?`<button class="st-p st-vazio" style="height:${PAPEIS[s.papel].alt}%" onclick="slotOpen(${i})" title="Escolher ${PAPEIS[s.papel].nome.toLowerCase()}"><img src="${IMGS.cat[ic]}" alt=""><em>${s.papel==='copo'?'Copo':PAPEIS[s.papel].nome}</em></button>`:'';
   }).join('');
   return `<div class="ks-stage">${pecas}</div>`;
 }
