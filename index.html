@@ -338,25 +338,6 @@ footer{background:var(--bege);color:#fff;margin-top:60px}
 
 /* ==== HOME v2: carrossel de ícones ==== */
 .home-top{padding:0}
-.hcw{position:relative;min-height:min(60vh,540px);display:flex;align-items:center}
-.home-top{opacity:0;transform:translateY(44px);transition:.9s var(--ease)}
-.home-top.in{opacity:1;transform:none}
-.hrow{flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(16px,3.6vw,58px);padding:0 clamp(60px,7vw,110px)}
-.hc{display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:.45s var(--ease);opacity:.6}
-.hc img{height:clamp(64px,11vh,122px);width:auto;transition:.5s var(--ease)}
-.hc:hover{opacity:1;transform:translateY(-8px) scale(1.14)}
-.hc .pills{display:none}
-.hc.ctr{opacity:1}
-.hc.ctr:hover{transform:none}
-.hc.ctr img{height:clamp(150px,28vh,270px);filter:brightness(0);animation:ctrIn .75s var(--ease)}
-.hc.ctr .pills{display:flex;flex-direction:column;gap:7px;align-items:center;margin-top:26px;animation:ctrIn .75s .08s var(--ease) backwards}
-.hc.ctr .pills span{border:1.2px solid var(--ink);border-radius:var(--r-pill);padding:5px 18px;font-size:clamp(.7rem,1.3vw,.92rem);font-weight:500;letter-spacing:.2em;text-transform:uppercase;background:#fff}
-.hc.ctr .pills span.v{padding:4px 14px;font-size:clamp(.62rem,1.1vw,.8rem)}
-@keyframes ctrIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
-.hcar-arrow{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1.4px solid var(--ink);display:grid;place-items:center;color:var(--ink);transition:.3s;background:#fff;z-index:5}
-.hcar-arrow:hover{background:var(--ink);color:#fff}
-.hcar-arrow.l{left:26px}.hcar-arrow.r{right:26px}
-@media(max-width:960px){.hrow .hc:not(.ctr):nth-child(-n+2),.hrow .hc:not(.ctr):nth-last-child(-n+2){display:none}}
 .home-tag{text-align:center;font-weight:100;font-size:clamp(1.25rem,2.5vw,1.9rem);letter-spacing:.01em;color:var(--ink);padding:4px 24px 40px}
 .home-tag b{font-weight:500;color:var(--bege)}
 /* ==== slider de banners ==== */
@@ -391,7 +372,6 @@ footer{background:var(--bege);color:#fff;margin-top:60px}
 /* ==== thumb no Monte Seu Kit ==== */
 .slot-th{width:52px;height:52px;border:1px solid var(--bege-line);border-radius:14px;overflow:hidden;background:#fff;display:grid;place-items:center;flex:none;padding:3px}
 .slot-th img{width:100%;height:100%;object-fit:contain}
-@media(max-width:640px){.hrow{gap:14px;padding:0 54px}.hc img{height:52px}.hc.ctr img{height:min(26vh,190px)}}
 
 /* ==== v1: acesso PF x CNPJ e atacado ==== */
 .acc-tabs{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--bege-line);border-radius:var(--r-pill);padding:4px;margin-bottom:20px}
@@ -449,6 +429,7 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
 .wpp svg{width:24px;height:24px}
 .wpp:hover{background:var(--bege);color:#0B0B0A;transform:translateY(-2px)}
 body:has(.kit-bar.on) .wpp{bottom:96px}
+@media(min-width:961px){body:has(.ks-side) .wpp{right:auto;left:22px}}
 .foot-bar div{flex-wrap:wrap}
 .foot-bar .proto{opacity:.7}
 @media(max-width:960px){.nav-busca{display:none}.nico-busca{display:grid}.vant .v3{display:none}}
@@ -458,6 +439,108 @@ body:has(.kit-bar.on) .wpp{bottom:96px}
 .pinfo h1 .t1{font-weight:100}
 .pinfo h1 .t2{font-weight:500}
 .pinfo h1 .t3{font-weight:100;font-size:.62em;letter-spacing:.01em;margin-top:6px;color:var(--ink-soft)}
+/* ==== v1.5: menu de famílias da home ==== */
+.fam-wrap{max-width:1280px;margin:0 auto;padding:64px 28px 8px}
+.fam-row{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;align-items:end}
+.fam{display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 4px 14px;border-radius:18px;transition:background .15s,transform .15s}
+.fam-ic{height:112px;display:flex;align-items:flex-end;justify-content:center}
+.fam-ic img{max-height:100%;width:auto;transition:filter .15s,transform .2s var(--ease)}
+.fam-lb{font-size:.58rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:center;line-height:1.35;min-height:2.7em}
+.fam-lb i{font-style:normal;color:var(--bege)}
+.fam:hover,.fam.on{background:var(--bege-soft)}
+.fam:hover .fam-ic img,.fam.on .fam-ic img{filter:brightness(0);transform:translateY(-4px)}
+.fam.on .fam-lb{color:var(--ink)}
+.fam-prev{margin-top:18px;border:1px solid var(--bege-line);border-radius:24px;padding:22px 26px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;min-height:150px}
+.fp-txt{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.fp-pills{display:flex;flex-wrap:wrap;gap:6px;max-width:260px}
+.fp-pills span{border:1.2px solid var(--ink);border-radius:var(--r-pill);padding:4px 14px;font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.fp-pills span.v{border-color:var(--bege);color:var(--bege)}
+.fp-prods{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fp-prods a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border-radius:16px;transition:.2s}
+.fp-prods a:hover{background:var(--bege-soft);transform:translateY(-3px)}
+.fp-prods img{width:100%;aspect-ratio:1;object-fit:contain}
+.fp-prods span{font-size:.72rem;font-weight:800}
+@media(max-width:960px){.fam-wrap{padding:40px 0 4px}.fam-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px;scrollbar-width:none}.fam-row::-webkit-scrollbar{display:none}.fam{flex:0 0 92px;scroll-snap-align:start}.fam-ic{height:78px}.fam-prev{margin:12px 16px 0;grid-template-columns:1fr;gap:16px;padding:18px}.fp-prods{grid-template-columns:repeat(5,minmax(70px,1fr));overflow-x:auto}}
+/* ==== v1.5: Monte seu Kit ==== */
+.ks-wrap{max-width:1240px;margin:0 auto;padding:10px 28px 120px;display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.ks-presets{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.ks-presets>span{font-size:.66rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);width:100%}
+.ks-presets button{border:1.5px solid var(--bege-line);border-radius:var(--r-pill);padding:10px 18px;font-size:.8rem;font-weight:300;transition:.2s;text-align:left}
+.ks-presets button b{font-weight:500}
+.ks-presets button:hover{border-color:var(--ink);background:var(--bege-soft)}
+#kitBody{display:flex;flex-direction:column;gap:16px}
+.ks-slot{border:1px solid var(--bege-line);border-radius:var(--r-card);background:#fff}
+.ks-open{padding:24px;border-color:#D8D5C6;box-shadow:0 18px 40px -26px rgba(11,11,10,.25)}
+.ks-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.ks-head h3{flex:1;font-weight:300;font-size:1.05rem}
+.ks-head h3 b{font-weight:500}
+.ks-step{margin-top:18px}
+.ks-step label{display:block;font-size:.66rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.ks-step label b{color:var(--ink)}
+.ks-step label small{font-weight:300;letter-spacing:.1em;margin-left:6px}
+.ks-fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:8px}
+.ks-fams button{border:1px solid var(--bege-line);border-radius:14px;padding:12px 6px 9px;display:flex;flex-direction:column;align-items:center;gap:7px;transition:.15s}
+.ks-fams img{height:40px;width:auto;transition:filter .15s}
+.ks-fams span{font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--ink-soft);text-align:center;line-height:1.3}
+.ks-fams button:hover{border-color:var(--bege)}
+.ks-fams button:hover img,.ks-fams button.on img{filter:brightness(0)}
+.ks-fams button.on{border-color:var(--ink);background:var(--bege-soft)}
+.ks-prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ks-prods button{border:1.5px solid var(--bege-line);border-radius:18px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:6px;text-align:left;transition:.15s}
+.ks-prods button:hover{border-color:var(--bege);transform:translateY(-2px)}
+.ks-prods button.on{border-color:var(--ink);background:var(--bege-soft)}
+.ks-prods img{width:100%;aspect-ratio:1;object-fit:contain}
+.ks-prods span{font-size:.78rem;font-weight:300;line-height:1.3}
+.ks-prods span b{font-weight:500}
+.ks-prods em{font-style:normal;font-weight:800;font-size:.86rem}
+.ks-cols{display:grid;grid-template-columns:1fr 210px;gap:24px;align-items:center}
+.ks-l4{margin-top:20px}
+.ks-qtyrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ks-each{font-size:.85rem;font-weight:300;color:var(--ink-soft)}
+.ks-each b{color:var(--ink);font-weight:800}
+.ks-ok{margin-top:20px;height:46px;padding:0 28px;flex:none}
+.ks-photo{border:1px solid var(--bege-line);border-radius:20px;padding:10px;background:#fff}
+.ks-photo img{width:100%;aspect-ratio:1;object-fit:contain}
+.ks-done{display:grid;grid-template-columns:34px 60px 1fr auto auto auto;gap:14px;align-items:center;padding:12px 16px}
+.ks-mini{width:60px;height:60px;border:1px solid var(--bege-line);border-radius:14px;padding:3px;background:#fff}
+.ks-mini img{width:100%;height:100%;object-fit:contain}
+.ks-info{display:flex;flex-direction:column;gap:3px;font-size:.88rem;font-weight:300}
+.ks-info b{font-weight:500}
+.ks-info small{font-size:.7rem;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.ks-dot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(0,0,0,.15);display:inline-block}
+.ks-done .qty{height:38px}
+.ks-sub{font-weight:800;min-width:84px;text-align:right}
+.ks-ed{display:flex;flex-direction:column;gap:4px}
+.ks-ed button{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--ink-soft)}
+.ks-ed button:hover{color:var(--ink)}
+.ks-actions{display:flex;gap:16px;align-items:center}
+.ks-actions .kit-add{flex:1}
+.ks-side{position:sticky;top:calc(var(--nav-h) + 20px)}
+body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
+.ks-card{border:1px solid var(--bege-line);border-radius:var(--r-card);padding:22px;background:#fff}
+.ks-card h3{font-weight:100;font-size:1.5rem;margin-bottom:14px}
+.ks-card h3 b{font-weight:500}
+.ks-card ul{list-style:none;display:flex;flex-direction:column;gap:10px;max-height:44vh;overflow:auto}
+.ks-card li{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;font-size:.78rem;font-weight:300}
+.ks-card li button{width:48px;height:48px;border:1px solid var(--bege-line);border-radius:12px;padding:2px;background:#fff}
+.ks-card li img{width:100%;height:100%;object-fit:contain}
+.ks-card li b{font-weight:800}
+.ks-card li span b{font-weight:500}
+.ks-card li small{display:block;color:var(--ink-soft);font-size:.68rem}
+.ks-vazio{font-size:.85rem;font-weight:300;color:var(--ink-soft);line-height:1.6}
+.ks-comb{margin-top:16px;padding-top:14px;border-top:1px solid var(--bege-soft)}
+.ks-comb>span{font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.ks-comb div{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ks-comb button{display:flex;align-items:center;gap:6px;border:1px solid var(--bege-line);border-radius:var(--r-pill);padding:5px 11px;font-size:.72rem;transition:.15s}
+.ks-comb button:hover{border-color:var(--ink)}
+.ks-comb i{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.ks-tot{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 12px;padding-top:14px;border-top:1px solid var(--bege-line)}
+.ks-tot span{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.ks-tot b{font-size:1.5rem;font-weight:800}
+.ks-min{display:block;font-size:.72rem;font-weight:300;color:var(--ink-soft);margin-bottom:12px}
+.ks-card .buy{width:100%;height:50px}
+@media(min-width:961px){.kit-bar{display:none}}
+@media(max-width:960px){.ks-wrap{grid-template-columns:1fr;padding:10px 16px 120px}.ks-side{display:none}.ks-cols{grid-template-columns:1fr}.ks-photo{max-width:220px;order:-1}.ks-done{grid-template-columns:28px 52px 1fr auto;row-gap:8px}.ks-done .qty{grid-column:3}.ks-sub{grid-column:4}.ks-ed{grid-column:1/-1;flex-direction:row;justify-content:flex-end;gap:16px}.ks-mini{width:52px;height:52px}}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -691,10 +774,9 @@ function renderHome(){
       <div class="bs-dots" id="bsDots">${[{n:'Linha completa'},...CATS].map((c,i)=>`<button class="${i===0?'on':''}" onclick="bsGo(${i})" aria-label="${c.n}"></button>`).join('')}</div>
     </div>
     <div class="home-top">
-      <div class="hcw">
-        <button class="hcar-arrow l" onclick="hcarStep(-1)" aria-label="Anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <div class="hrow" id="hrow"></div>
-        <button class="hcar-arrow r" onclick="hcarStep(1)" aria-label="Próximo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="fam-wrap" onmouseleave="famShow(famFix)">
+        <nav class="fam-row" id="famRow" aria-label="Famílias de produtos"></nav>
+        <div class="fam-prev" id="famPrev" aria-live="polite"></div>
       </div>
       <p class="home-tag">Sua loja, do seu jeito — <b>design e qualidade</b> em cada detalhe.</p>
     </div>
@@ -731,25 +813,30 @@ function renderHome(){
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ht.classList.add('in');io.disconnect();}}),{threshold:.18});
     io.observe(ht);
   }
-  homeTimers.push(setInterval(()=>hcarStep(1),3600));
   homeTimers.push(setInterval(()=>bsGo(bsI+1),4800));
 }
+/* menu de famílias: passar o mouse mostra a família na hora; clicar leva direto */
+let famFix=0;
 function hcRender(){
-  const row=document.getElementById('hrow');
-  if(!row) return;
-  const N=CATS.length, MID=Math.floor(N/2);
-  const seq=[...Array(N)].map((_,i)=>(hcIdx+i-MID+N*2)%N);
-  row.innerHTML=seq.map((ci,pos)=>{
-    const c=CATS[ci], ctr=pos===MID;
-    const pills=c.n2.split(' ').map(w=>`<span>${w}</span>`).join('')+(c.vol?`<span class="v">${c.vol}</span>`:'');
-    return `<button class="hc ${ctr?'ctr':''}" onclick="hcarPick(${ci})" aria-label="${c.n}">
-      <img src="${IMGS.cat[c.id]}" alt="">
-      <span class="pills">${pills}</span>
-    </button>`;
-  }).join('');
+  const row=document.getElementById('famRow'); if(!row) return;
+  row.innerHTML=CATS.map((c,i)=>`<a class="fam" href="#cat/${c.id}" data-i="${i}" onmouseenter="famShow(${i})" onfocus="famShow(${i})">
+      <span class="fam-ic"><img src="${IMGS.cat[c.id]}" alt=""></span>
+      <span class="fam-lb">${c.n2}${c.vol?' <i>'+c.vol+'</i>':''}</span>
+    </a>`).join('');
+  famShow(famFix);
 }
-function hcarStep(d){hcIdx=(hcIdx+d+CATS.length)%CATS.length;hcRender();}
-function hcarPick(i){ if(i===hcIdx){location.hash='#cat/'+CATS[i].id;} else {hcIdx=i;hcRender();} }
+function famShow(i){
+  const c=CATS[i]; if(!c) return;
+  document.querySelectorAll('#famRow .fam').forEach(a=>a.classList.toggle('on',+a.dataset.i===i));
+  const box=document.getElementById('famPrev'); if(!box) return;
+  const its=P.filter(p=>p.cats.includes(c.id));
+  box.innerHTML=`<div class="fp-txt">
+      <div class="fp-pills">${c.n2.split(' ').map(w=>`<span>${w}</span>`).join('')}${c.vol?`<span class="v">${c.vol}</span>`:''}</div>
+      <a class="link-pill dark" href="#cat/${c.id}">Ver ${its.length} ${its.length===1?'produto':'produtos'} →</a>
+    </div>
+    <div class="fp-prods">${its.slice(0,5).map(p=>`<a href="#produto/${p.id}" title="${p.name}"><img src="${p.img}" alt="${p.name}" loading="lazy"><span>${p.price==null?'Preço em breve':(ATACADO?'':'')+fmt(precoMin(p))}</span></a>`).join('')}</div>`;
+}
+function hcarStep(d){famFix=(famFix+d+CATS.length)%CATS.length;famShow(famFix);}
 function bsGo(i){
   bsI=(i+NSLIDES)%NSLIDES;
   const tr=document.getElementById('bsTrack');
@@ -922,7 +1009,7 @@ function pdpQtyStep(d){
 
 /* =================== KIT =================== */
 let slots=[];
-const BLANK=()=>({cat:null,prod:null,color:null,qty:1});
+const BLANK=()=>({cat:null,prod:null,color:null,qty:1,open:true});
 const KIT_ADD_LBL=`Adicionar ao kit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`;
 const KIT_GO_LBL=`Vá para o kit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 function kitHasProd(id){return slots.some(x=>x.prod===id);}
@@ -937,14 +1024,13 @@ function addToKit(id,color,qty){
   const p=byId(id);
   let sl=slots.find(x=>!x.prod);
   if(!sl){sl=BLANK();slots.push(sl);}
-  sl.cat=p.cats[0]; sl.prod=id; sl.color=color||p.colors[0]; sl.qty=qty||1;
+  sl.cat=p.cats[0]; sl.prod=id; sl.color=color||p.colors[0]; sl.qty=qty||1; sl.open=false;
   toast('Adicionado ao seu kit 🧩');
 }
 function clearCart(){cart.length=0;updateCartN();drawCart();toast('Sacola esvaziada');}
-function clearKit(){slots=[BLANK(),BLANK()];drawSlots();toast('Kit limpo');}
+function clearKit(){slots=[BLANK()];drawSlots();toast('Kit limpo');}
 function renderKit(){
-  if(!slots.length||!slots.some(x=>x.prod)&&slots.length<2) slots=[BLANK(),BLANK()];
-  if(!slots.length) slots=[BLANK(),BLANK()];
+  if(!slots.length) slots=[BLANK()];
   app.innerHTML=`
   <section class="view on">
     <div class="kit-hero">
@@ -952,10 +1038,19 @@ function renderKit(){
         <span class="l1">MONTE</span><span class="l2">SEU</span>
         <span class="l3"><span class="k">KIT</span><span class="plus">+</span></span>
       </div>
-      <p>Escolha a família, o modelo, a cor e a quantidade de cada item. Preencha só o que quiser — dois itens já formam um kit.</p>
+      <p>Escolha a família, o modelo, a cor e a quantidade de cada item. Dois itens já formam um kit.</p>
     </div>
-    <div class="kit-body" id="kitBody"></div>
-    <div style="height:40px"></div>
+    <div class="ks-wrap">
+      <div class="ks-main">
+        <div class="ks-presets">
+          <span>Comece por uma sugestão</span>
+          <button onclick="kitPreset('g25a')"><b>Garrafa AZARTE 2,5L</b> + copo térmico 300mL + bomba lisa corte</button>
+          <button onclick="kitPreset('g25l')"><b>Garrafa Lisa 2,5L</b> + copo térmico 300mL + bomba lisa corte</button>
+        </div>
+        <div id="kitBody"></div>
+      </div>
+      <aside class="ks-side" id="kitSide"></aside>
+    </div>
     ${footerHtml()}
   </section>
   <div class="kit-bar" id="kitBarWrap"><div class="kit-bar-in">
@@ -964,48 +1059,81 @@ function renderKit(){
   </div></div>`;
   drawSlots();
 }
-function drawSlots(){
-  const body=document.getElementById('kitBody');
-  body.innerHTML=slots.map((s,i)=>{
-    const prods=s.cat?P.filter(p=>p.cats.includes(s.cat)&&p.price!=null):[];
-    const prod=s.prod?byId(s.prod):null;
-    return `<div class="slot">
-      <div class="slot-head">
-        <div class="t"><span class="slot-num">${i+1}</span>${prod?`<span class="slot-th"><img src="${fotoCor(prod,s.color)}" alt=""></span>`:''}<h3>${prod?prod.name:(s.cat?'Escolha o modelo':'Escolha a família do item')}</h3></div>
-        ${slots.length>1?`<button class="slot-rm" onclick="rmSlot(${i})">Remover</button>`:''}
-      </div>
-      <div class="icon-pick">
-        ${CATS.filter(c=>c.id!=='kits'&&P.some(p=>p.cats.includes(c.id)&&p.price!=null)).map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}
-      </div>
-      ${s.cat?`
-      <div class="slot-fields">
-        <div class="field"><label>Modelo</label>
-          <select onchange="slotProd(${i},this.value)">
-            <option value="">Selecionar…</option>
-            ${prods.map(p=>`<option value="${p.id}" ${s.prod===p.id?'selected':''}>${p.name} — ${fmt(p.price)}</option>`).join('')}
-          </select>
-        </div>
-        <div class="field"><label>Cor</label>
-          <select onchange="slotColor(${i},this.value)" ${!prod?'disabled':''}>
-            ${prod?prod.colors.map(c=>`<option ${s.color===c?'selected':''}>${c}</option>`).join(''):'<option>—</option>'}
-          </select>
-        </div>
-        <div class="field"><label>Qtd.</label>
-          <div class="qty" style="height:48px;width:100%;justify-content:space-between"><button onclick="slotQty(${i},-1)">−</button><span>${s.qty}</span><button onclick="slotQty(${i},1)">+</button></div>
-        </div>
-      </div>
-      ${prod?`<div class="slot-price">${fmt(precoDe(prod,s.color)*s.qty)}<small>${s.qty} × ${fmt(precoDe(prod,s.color))}</small></div>`:''}
-      `:''}
+const famsKit=()=>CATS.filter(c=>c.id!=='kits'&&P.some(p=>p.cats.includes(c.id)&&p.price!=null));
+const prodsKit=cat=>P.filter(p=>p.cats.includes(cat)&&p.price!=null);
+const tituloCurto=p=>{const t=(PRODUTOS.find(x=>x.id===p.id)||{}).titulo;return t?`${t.tipo} <b>${t.modelo}</b>`:p.name;};
+const GRUPOS_COR={'Preto':['Preto'],'Branco':['Branco'],'Inox':['Inox Escovado','Cromado'],'Verde':['Verde Militar'],'Rosa':['Rosa Claro','Rosa Pink'],'Rosé':['Rosé'],'Bege':['Bege Nude','Bege'],'Azul':['Azul Escuro','Azul Petróleo'],'Roxo':['Roxo','Violeta']};
+const corDoGrupo=(p,g)=>p.colors.find(c=>GRUPOS_COR[g].includes(c));
+function slotHtml(s,i){
+  const prod=s.prod?byId(s.prod):null;
+  if(prod&&!s.open){
+    return `<div class="ks-slot ks-done" id="slot${i}">
+      <span class="slot-num">${i+1}</span>
+      <button class="ks-mini" onclick="slotOpen(${i})" aria-label="Editar item"><img src="${fotoCor(prod,s.color)}" alt=""></button>
+      <div class="ks-info"><span>${tituloCurto(prod)}</span><small><i class="ks-dot" style="background:${HEX[s.color]||'#ccc'}"></i>${s.color}${prod.refs[s.color]?' · REF '+prod.refs[s.color]:''}</small></div>
+      <div class="qty"><button onclick="slotQty(${i},-1)" aria-label="Menos">−</button><span>${s.qty}</span><button onclick="slotQty(${i},1)" aria-label="Mais">+</button></div>
+      <b class="ks-sub">${fmt(precoDe(prod,s.color)*s.qty)}</b>
+      <div class="ks-ed"><button onclick="slotOpen(${i})">Editar</button><button onclick="rmSlot(${i})">Remover</button></div>
     </div>`;
-  }).join('')+`<div style="display:flex;gap:16px;align-items:center"><button class="kit-add" style="flex:1" onclick="addSlot()">＋ Adicionar mais um item</button><button class="clear-lnk" onclick="clearKit()">Limpar kit</button></div>`;
+  }
+  const prods=s.cat?prodsKit(s.cat):[];
+  return `<div class="ks-slot ks-open" id="slot${i}">
+    <div class="ks-head"><span class="slot-num">${i+1}</span><h3>${prod?tituloCurto(prod):'Novo item'}</h3>${slots.length>1||prod?`<button class="slot-rm" onclick="rmSlot(${i})">Remover</button>`:''}</div>
+    <div class="ks-step"><label>1 · Família</label>
+      <div class="ks-fams">${famsKit().map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}</div>
+    </div>
+    ${s.cat?`<div class="ks-step"><label>2 · Modelo</label>
+      <div class="ks-prods">${prods.map(p=>`<button class="${s.prod===p.id?'on':''}" onclick="slotProd(${i},'${p.id}')"><img src="${fotoCor(p,s.prod===p.id?s.color:p.colors[0])}" alt="" loading="lazy"><span>${tituloCurto(p)}</span><em>${precoMin(p)<p.price?'a partir de ':''}${fmt(precoMin(p))}</em></button>`).join('')}</div>
+    </div>`:''}
+    ${prod?`<div class="ks-step ks-cols">
+      <div>
+        <label>3 · Cor · <b>${s.color}</b>${prod.refs[s.color]?` <small>REF ${prod.refs[s.color]}</small>`:''}</label>
+        <div class="sw-row">${prod.colors.map(c=>`<button class="sw ${c===s.color?'on':''}" style="background:${HEX[c]}" title="${c}" aria-label="${c}" onclick="slotColor(${i},'${c}')"></button>`).join('')}</div>
+        <label class="ks-l4">4 · Quantidade</label>
+        <div class="ks-qtyrow"><div class="qty"><button onclick="slotQty(${i},-1)" aria-label="Menos">−</button><span>${s.qty}</span><button onclick="slotQty(${i},1)" aria-label="Mais">+</button></div>
+          <span class="ks-each">${s.qty} × ${fmt(precoDe(prod,s.color))} = <b>${fmt(precoDe(prod,s.color)*s.qty)}</b></span></div>
+        <button class="buy ks-ok" onclick="slotDone(${i})">Confirmar item</button>
+      </div>
+      <div class="ks-photo"><img src="${fotoCor(prod,s.color)}" alt="${prod.name}"></div>
+    </div>`:''}
+  </div>`;
+}
+function drawSlots(){
+  const body=document.getElementById('kitBody'); if(!body) return;
+  body.innerHTML=slots.map(slotHtml).join('')+`<div class="ks-actions"><button class="kit-add" onclick="addSlot()">＋ Adicionar outro item</button>${slots.some(x=>x.prod)?`<button class="clear-lnk" onclick="clearKit()">Limpar kit</button>`:''}</div>`;
   kitSum();
 }
-function slotCat(i,c){slots[i].cat=c;slots[i].prod=null;slots[i].color=null;drawSlots();}
-function slotProd(i,id){slots[i].prod=id||null;slots[i].color=id?byId(id).colors[0]:null;drawSlots();}
+function drawSide(sel,total,n){
+  const side=document.getElementById('kitSide'); if(!side) return;
+  const grupos=Object.keys(GRUPOS_COR).filter(g=>sel.filter(s=>corDoGrupo(byId(s.prod),g)).length>=2);
+  side.innerHTML=`<div class="ks-card">
+    <h3>Seu <b>kit</b></h3>
+    ${sel.length?`<ul>${sel.map(s=>{const p=byId(s.prod);const i=slots.indexOf(s);return `<li><button onclick="slotOpen(${i})"><img src="${fotoCor(p,s.color)}" alt=""></button><span>${tituloCurto(p)}<small>${s.color} · ${s.qty} un.</small></span><b>${fmt(precoDe(p,s.color)*s.qty)}</b></li>`;}).join('')}</ul>`
+      :`<p class="ks-vazio">Escolha o primeiro item ao lado ou comece por uma sugestão.</p>`}
+    ${grupos.length?`<div class="ks-comb"><span>Combinar cores</span><div>${grupos.map(g=>`<button onclick="kitCombinar('${g}')" title="Deixar o kit em ${g}"><i style="background:${HEX[GRUPOS_COR[g][0]]}"></i>${g}</button>`).join('')}</div></div>`:''}
+    <div class="ks-tot"><span>Total · ${n} ${n===1?'item':'itens'}</span><b>${fmt(total)}</b></div>
+    ${ATACADO?`<small class="ks-min">${total>=ATACADO_MINIMO?'Pedido mínimo do atacado atingido ✓':`Atacado: faltam ${fmt(ATACADO_MINIMO-total)} para o mínimo de ${fmt(ATACADO_MINIMO)} (pode completar na sacola)`}</small>`:''}
+    <button class="buy" ${sel.length?'':'disabled'} onclick="kitBuy()">Adicionar kit à sacola</button>
+  </div>`;
+}
+function kitPreset(garrafa){
+  const cor=c=>c;
+  slots=[{cat:'garrafas25',prod:garrafa,color:'Preto',qty:1,open:false},{cat:'copos',prod:'c300',color:'Preto',qty:1,open:false},{cat:'bombas',prod:'corte',color:'Preto',qty:1,open:false}]
+    .filter(s=>byId(s.prod)&&byId(s.prod).price!=null);
+  drawSlots(); toast('Sugestão montada em Preto · use Combinar cores ou Editar');
+}
+function kitCombinar(g){
+  let n=0; slots.forEach(s=>{if(!s.prod)return; const c=corDoGrupo(byId(s.prod),g); if(c){s.color=c;n++;}});
+  drawSlots(); toast(n+' itens em '+g);
+}
+function slotCat(i,c){const s=slots[i]; s.cat=c; const ps=prodsKit(c); if(ps.length===1){s.prod=ps[0].id;s.color=ps[0].colors[0];}else{s.prod=null;s.color=null;} drawSlots();}
+function slotProd(i,id){const s=slots[i],p=byId(id); s.prod=id; if(!p.colors.includes(s.color)) s.color=p.colors[0]; drawSlots();}
 function slotColor(i,c){slots[i].color=c;drawSlots();}
 function slotQty(i,d){slots[i].qty=Math.max(1,slots[i].qty+d);drawSlots();}
-function addSlot(){slots.push({cat:null,prod:null,color:null,qty:1});drawSlots();}
-function rmSlot(i){slots.splice(i,1);drawSlots();}
+function slotDone(i){slots[i].open=false;drawSlots();}
+function slotOpen(i){slots.forEach((x,k)=>x.open=k===i);drawSlots();document.getElementById('slot'+i)?.scrollIntoView({behavior:'smooth',block:'center'});}
+function addSlot(){slots.forEach(x=>{if(x.prod)x.open=false;});slots.push(BLANK());drawSlots();const k=slots.length-1;document.getElementById('slot'+k)?.scrollIntoView({behavior:'smooth',block:'center'});}
+function rmSlot(i){slots.splice(i,1);if(!slots.length)slots=[BLANK()];drawSlots();}
 function kitSum(){
   const sel=slots.filter(s=>s.prod);
   const total=sel.reduce((t,s)=>t+precoDe(byId(s.prod),s.color)*s.qty,0);
@@ -1016,12 +1144,13 @@ function kitSum(){
     document.getElementById('kitTotal').textContent=fmt(total);
     document.getElementById('kitCount').textContent=n+(n===1?' item':' itens');
   }
+  drawSide(sel,total,n);
 }
 function kitBuy(){
   const sel=slots.filter(s=>s.prod);
   if(!sel.length) return;
   sel.forEach(s=>addCart(s.prod,s.color||byId(s.prod).colors[0],s.qty,true));
-  slots=[BLANK(),BLANK()];drawSlots();
+  slots=[BLANK()];drawSlots();
   toast('Kit adicionado à sacola 🧉');
   openCart();
 }
