@@ -635,12 +635,19 @@ body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
 .brh-txt p{font-weight:300;color:var(--ink-soft);font-size:1.05rem;line-height:1.6;max-width:48ch}
 .brh-cta{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 14px}
 .brh-txt small{display:block;font-size:.78rem;font-weight:300;color:var(--ink-soft)}
-.brh-vit{position:relative;height:min(52vh,470px);border-radius:32px;background:radial-gradient(ellipse 70% 60% at 50% 88%,#E9E6DA,var(--bege-soft) 72%);display:flex;align-items:flex-end;justify-content:center;gap:0;padding:30px 20px 24px;overflow:hidden}
-.brh-p{position:relative;display:flex;align-items:flex-end;height:100%;transition:transform .3s var(--ease)}
-.brh-p:hover{transform:translateY(-8px)}
-.brh-p img{height:100%;width:auto;object-fit:contain;mix-blend-mode:multiply}
-.brh-p0{height:92%;z-index:2;margin-right:-24px}.brh-p1{height:72%;z-index:1}.brh-p2{height:76%;margin-left:-18px}
-.brh-tag{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-90deg);border:1.5px dashed #fff;color:#fff;font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:8px;white-space:nowrap;background:rgba(11,11,10,.18)}
+.brh-vit{position:relative;height:min(52vh,470px);border-radius:32px;background:radial-gradient(ellipse 70% 60% at 50% 88%,#E9E6DA,var(--bege-soft) 72%);display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:end;padding:28px 26px 26px}
+.brh-p{position:relative;display:flex;align-items:flex-end;justify-content:center;height:100%;padding:44px 10px 10px;border-radius:22px;border:1px solid transparent;transition:transform .3s var(--ease),background .25s,border-color .25s,box-shadow .3s}
+.brh-p:focus{outline:none}.brh-p:focus-visible{border-color:var(--ink)}
+.brh-p img{width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply}
+.brh-p:hover,.brh-p:focus-visible{transform:translateY(-6px);background:#fff;border-color:var(--bege-line);box-shadow:0 22px 46px -24px rgba(11,11,10,.28)}
+.brh-p .brh-cta{position:absolute;top:12px;left:50%;transform:translate(-50%,-6px);opacity:0;transition:.25s var(--ease);background:#0B0B0A;color:#fff;font-size:.6rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:99px;white-space:nowrap}
+.brh-p:hover .brh-cta,.brh-p:focus-visible .brh-cta{opacity:1;transform:translate(-50%,0)}
+.brh-tag{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%) rotate(-90deg);border:1.5px dashed #fff;color:#fff;font-size:.56rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:5px 10px;border-radius:8px;white-space:nowrap;background:rgba(11,11,10,.18);pointer-events:none}
+.br-prodcards a{position:relative}
+.br-prodcards a .brh-cta{position:absolute;top:14px;left:50%;transform:translate(-50%,-6px);opacity:0;transition:.25s var(--ease);background:#0B0B0A;color:#fff;font-size:.6rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:99px;white-space:nowrap;font-style:normal}
+.br-prodcards a:hover .brh-cta{opacity:1;transform:translate(-50%,0)}
+.br-up.destaque{animation:brPulso 1.6s var(--ease) 2;border-color:var(--ink)}
+@keyframes brPulso{0%,100%{box-shadow:0 0 0 0 rgba(151,147,109,0)}50%{box-shadow:0 0 0 8px rgba(151,147,109,.28)}}
 .br-sec{padding-top:56px}
 .br-h2{font-weight:100;font-size:clamp(1.7rem,3vw,2.5rem);margin-bottom:22px}
 .br-h2 b{font-weight:500}
@@ -1568,8 +1575,9 @@ function renderBrindes(aba){
     ${aba==='monte'?brMonteHtml():brInfoHtml()}
     ${footerHtml()}
   </section>`;
-  if(aba==='monte'){brDesenha();brLigaArraste();}
+  if(aba==='monte'){brDesenha();brLigaArraste();if(BR.irMarca){BR.irMarca=false;setTimeout(()=>{const up=document.querySelector('.br-up');if(up){window.scrollTo({top:up.getBoundingClientRect().top+window.scrollY-window.innerHeight/2+up.offsetHeight/2,behavior:'smooth'});up.classList.add('destaque');}},350);}}
 }
+function brIrMarca(id,cor){BR.prod=id;BR.cor=cor;brPosPadrao(true);BR.irMarca=true;}
 const brWhats=t=>window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(t),'_blank','noopener');
 function brHeroHtml(){
   const ps=brProdutos(), cores={g800:'Azul Petróleo',g25l:'Preto',kitli:'Verde Militar'};
@@ -1581,7 +1589,7 @@ function brHeroHtml(){
       <div class="brh-cta"><a class="link-pill dark" href="#brindes/monte">Montar meu brinde</a><button class="link-pill" onclick="brWhats('Olá! Quero orçamento de brinde corporativo com a minha marca.')">Falar com o Comercial</button></div>
       <small>A partir de ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}. Prazo e preço combinados direto com você pelo WhatsApp do Comercial.</small>
     </div>
-    <div class="brh-vit">${ps.map((p,i)=>`<a href="#brindes/monte" onclick="BR.prod='${p.id}';BR.cor='${cores[p.id]||p.colors[0]}';brPosPadrao(true)" class="brh-p brh-p${i}"><img src="${fotoCor(p,cores[p.id]||p.colors[0])}" alt="${p.name}">${i===0?'<span class="brh-tag">sua marca aqui</span>':''}</a>`).join('')}</div>
+    <div class="brh-vit">${ps.map((p,i)=>`<a href="#brindes/monte" onclick="brIrMarca('${p.id}','${cores[p.id]||p.colors[0]}')" class="brh-p brh-p${i}" aria-label="Coloque a sua marca: ${p.name}"><span class="brh-cta">Coloque sua marca →</span><img src="${fotoCor(p,cores[p.id]||p.colors[0])}" alt="${p.name}">${i===0?'<span class="brh-tag">sua marca aqui</span>':''}</a>`).join('')}</div>
   </div>`;
 }
 function brInfoHtml(){
@@ -1600,7 +1608,7 @@ function brInfoHtml(){
     <div class="wrap br-sec"><h2 class="br-h2">Para quem é</h2>
       <div class="br-chips">${['Empresas e escritórios','Clínicas e consultórios','Academias e esporte','Eventos e feiras','Agro e cooperativas','Fim de ano e datas especiais'].map(t=>`<span>${t}</span>`).join('')}</div></div>
     <div class="wrap br-sec"><h2 class="br-h2">Produtos para <b>personalizar</b></h2>
-      <div class="br-prodcards">${ps.map(p=>`<a href="#brindes/monte" onclick="BR.prod='${p.id}';BR.cor=null;brPosPadrao(true)"><img src="${p.img}" alt="${p.name}"><span>${tituloCurto(p)}</span><small>${p.colors.length} ${p.colors.length===1?'cor':'cores'} · versão lisa, só com a sua marca</small><em>Personalizar →</em></a>`).join('')}</div></div>
+      <div class="br-prodcards">${ps.map(p=>`<a href="#brindes/monte" onclick="brIrMarca('${p.id}',null)"><em class="brh-cta">Coloque sua marca →</em><img src="${p.img}" alt="${p.name}"><span>${tituloCurto(p)}</span><small>${p.colors.length} ${p.colors.length===1?'cor':'cores'} · versão lisa, só com a sua marca</small><em>Personalizar →</em></a>`).join('')}</div></div>
     <div class="wrap br-sec"><h2 class="br-h2">Como <b>funciona</b></h2><div class="atac-grid" style="padding-top:0">
       <div class="atac-card"><span>1</span><h3>Escolha o produto e a cor</h3><p>Garrafinha, garrafa ou kit de tereré, na cor que combina com a sua marca.</p></div>
       <div class="atac-card"><span>2</span><h3>Monte a arte</h3><p>Envie a logo, posicione e ajuste o tamanho. A prévia é livre, sem cadastro.</p></div>
