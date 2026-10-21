@@ -1643,7 +1643,7 @@ function brMonteHtml(){
         <p class="br-nota">${BR.logo&&!brTemTransparencia(BR.logo)?'Prévia com a imagem como você enviou. Na geração, a IA separa só a logo e aplica como gravação a laser, sem cor.':'Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista.'}</p>
         ${ATACADO?'':`<p class="br-trava">🔒 Monte à vontade. Para <b>gerar o mockup com IA</b> e <b>salvar a arte</b>, entre com o cadastro da sua empresa. <a href="#" onclick="abrirAtacado();return false">Entrar</a> · <a href="#" onclick="openLogin();accTab('cad');return false">Cadastrar CNPJ</a></p>`}
         <button class="buy" onclick="gerarMockupIA()" ${BR.logo?'':'disabled'}>${ATACADO?'':'🔒 '}Gerar 3 opções com IA</button>
-        <small class="br-rest" id="brRest">${ATACADO?`${Math.max(0,BRINDES_LIMITE_HORA-brTentativas().length)} de ${BRINDES_LIMITE_HORA} tentativas nesta hora · cada uma gera 3 opções`:''}</small>
+        <small class="br-rest" id="brRest">${ATACADO?brRestaTxt():''}</small>
         <div class="br-acoes"><button class="link-pill" onclick="brSalvar()" ${BR.logo?'':'disabled'}>${ATACADO?'':'🔒 '}Salvar arte</button><button class="link-pill dark" onclick="brOrcamento()">Pedir orçamento</button></div>
       </div>
       ${ATACADO&&BR.salvos.length?`<div class="ks-card br-salvos"><h3>Suas artes <b>salvas</b></h3><ul>${BR.salvos.map((a,i)=>`<li><img src="${a.previa}" alt=""><span>${tituloCurto(byId(a.prod))}<small>${a.cor} · ${a.data}</small></span><div><button onclick="brAbrirSalva(${i})">Abrir</button><button onclick="brBaixar(${i})">Baixar</button><button onclick="brApagarSalva(${i})">Apagar</button></div></li>`).join('')}</ul><p class="br-nota">No site final as artes ficam guardadas no cadastro da empresa.</p></div>`:''}
@@ -1738,13 +1738,16 @@ function brOrcamento(){
 /* Geração com IA: o site monta o pedido; o servidor (BRINDES_API) chama o motor de imagem com a chave guardada lá. */
 const brUso={};
 const brTentativas=()=>(brUso[CNPJ]||[]).filter(t=>Date.now()-t<3600e3);
-function brRestante(){const el=document.getElementById('brRest');if(el)el.textContent=ATACADO?`${Math.max(0,BRINDES_LIMITE_HORA-brTentativas().length)} de ${BRINDES_LIMITE_HORA} tentativas nesta hora · cada uma gera 3 opções`:'';}
+const brTentativasDia=()=>{const h=new Date().toDateString();return (brUso[CNPJ]||[]).filter(t=>new Date(t).toDateString()===h);};
+const brRestaTxt=()=>{const hr=Math.max(0,BRINDES_LIMITE_HORA-brTentativas().length),dia=Math.max(0,BRINDES_LIMITE_DIA-brTentativasDia().length);return `${Math.min(hr,dia)} tentativa${Math.min(hr,dia)===1?'':'s'} agora · ${dia} de ${BRINDES_LIMITE_DIA} hoje · cada uma gera 3 opções`;};
+function brRestante(){const el=document.getElementById('brRest');if(el)el.textContent=ATACADO?brRestaTxt():'';}
 async function gerarMockupIA(){
   if(!BR.logo){toast('Envie a sua logo primeiro');return;}
   if(!ATACADO){abrirAtacado();toast('Entre com o cadastro da empresa para gerar o mockup com IA');return;}
   const agora=Date.now(), lista=brTentativas();
+  if(brTentativasDia().length>=BRINDES_LIMITE_DIA){toast(`Limite de ${BRINDES_LIMITE_DIA} tentativas por dia atingido · libera amanhã ou fale com o Comercial`);return;}
   if(lista.length>=BRINDES_LIMITE_HORA){const min=Math.max(1,Math.ceil((3600e3-(agora-lista[0]))/60000));toast(`Limite de ${BRINDES_LIMITE_HORA} tentativas por hora · libera de novo em ${min} min`);return;}
-  brUso[CNPJ]=[...lista,agora];
+  brUso[CNPJ]=[...(brUso[CNPJ]||[]),agora];
   const p=byId(BR.prod), pos={x:BR.x,y:BR.y,esc:BR.esc};
   const pedido={cnpj:CNPJ,produto:p.id,nome:p.name,cor:BR.cor,ref:p.refs[BR.cor]||'',quantidade:BR.qtd,tecnica:'gravacao_laser',
     posicao:pos,tinta:BR.tinta,fotoProduto:location.origin+location.pathname.replace(/[^/]*$/,'')+fotoCor(p,BR.cor),

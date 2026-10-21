@@ -11,6 +11,7 @@
      Quando o Alisson definir, preencher BRINDES_CONDICOES.
    ===================================================================== */
 const BRINDES_API = '';
+const BRINDES_LIMITE_DIA = 5;  /* e no máximo 5 tentativas por CNPJ por dia (regra do Alisson, 21/10/2026) */
 const BRINDES_LIMITE_HORA = 3; /* tentativas de geração com IA por CNPJ por hora (regra do Alisson, 21/10/2026).
    Cada tentativa gera as 3 opções. O servidor TEM que aplicar o mesmo limite. */
 const BRINDES_CONDICOES = { minimo: null, prazo: null }; /* null = "a combinar com o Comercial" */
