@@ -10,6 +10,7 @@
    ===================================================================== */
 const WHATS='5544991832018';
 const ATACADO_MINIMO=500;
+const PIX_DESCONTO=0.05; /* 5% de desconto no Pix (varejo) */
 const CATALOGO_PDF='https://drive.google.com/file/d/10w4QfCUntm82I-lIwRd35vAmS0mBHIpJ/view?usp=sharing';
 var ATACADO=false; /* true quando entra como CNPJ */
 const FAMILIAS=[
@@ -68,17 +69,48 @@ const FAMILIAS=[
   "volume": ""
  }
 ];
+/* banners: versão computador e versão celular (no WordPress: dois campos de imagem por banner). Celular = mesma foto até chegar a arte vertical. */
 const BANNERS={
- "hero": "img/banners/hero.webp",
- "bombas": "img/banners/bombas.webp",
- "cuias": "img/banners/cuias.webp",
- "copos": "img/banners/copos.webp",
- "garrafinhas": "img/banners/garrafinhas.webp",
- "garrafas25": "img/banners/garrafas25.webp",
- "garrafas4": "img/banners/garrafas4.webp",
- "garrafao6": "img/banners/garrafao6.webp",
- "garrafao95": "img/banners/garrafao95.webp",
- "kits": "img/banners/kits.webp"
+ "hero": {
+  "desktop": "img/banners/hero.webp",
+  "mobile": "img/banners/hero.webp"
+ },
+ "bombas": {
+  "desktop": "img/banners/bombas.webp",
+  "mobile": "img/banners/bombas.webp"
+ },
+ "cuias": {
+  "desktop": "img/banners/cuias.webp",
+  "mobile": "img/banners/cuias.webp"
+ },
+ "copos": {
+  "desktop": "img/banners/copos.webp",
+  "mobile": "img/banners/copos.webp"
+ },
+ "garrafinhas": {
+  "desktop": "img/banners/garrafinhas.webp",
+  "mobile": "img/banners/garrafinhas.webp"
+ },
+ "garrafas25": {
+  "desktop": "img/banners/garrafas25.webp",
+  "mobile": "img/banners/garrafas25.webp"
+ },
+ "garrafas4": {
+  "desktop": "img/banners/garrafas4.webp",
+  "mobile": "img/banners/garrafas4.webp"
+ },
+ "garrafao6": {
+  "desktop": "img/banners/garrafao6.webp",
+  "mobile": "img/banners/garrafao6.webp"
+ },
+ "garrafao95": {
+  "desktop": "img/banners/garrafao95.webp",
+  "mobile": "img/banners/garrafao95.webp"
+ },
+ "kits": {
+  "desktop": "img/banners/kits.webp",
+  "mobile": "img/banners/kits.webp"
+ }
 };
 const ICONES={
  "bombas": "img/icones/bombas.png",
@@ -89,7 +121,7 @@ const ICONES={
  "garrafas4": "img/icones/garrafas4.png",
  "garrafao6": "img/icones/garrafao6.png",
  "garrafao95": "img/icones/garrafao95.png",
- "kits": "img/icones/kits.png"
+ "kits": "img/icones/kits.svg"
 };
 const HEX={
  "Azul Petróleo": "#16324F",
@@ -656,7 +688,7 @@ const PRODUTOS=[
    }
   ],
   "curto": "Botijão inox 18/8 com torneira, pé retrátil e até 16h de conservação. O parceiro oficial de restaurantes, hotéis e grandes rodas.",
-  "descricao": "<h2>Feito para <b>grupos grandes</b></h2><p>Botijão térmico de 6 litros em inox 18/8, livre de BPA e ecologicamente correto. Até 16 horas de conservação para bebidas frias e 8 horas para quentes, com exterior em aço inoxidável e polipropileno que une resistência e design.</p><div class=\"hl\"><h3>Torneira com bico de válvula</h3><p style=\"margin:0\">Acesso simples e funcional que evita desperdício e mantém a temperatura ideal — com alça e pé retrátil. Ideal para restaurantes e hotéis.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 31,5 cm · Largura 30 cm · Inox Escovado · Produto sob demanda</p>",
+  "descricao": "<h2>Feito para <b>grupos grandes</b></h2><p>Botijão térmico de 6 litros em inox 18/8, livre de BPA e ecologicamente correto. Até 16 horas de conservação para bebidas frias e 8 horas para quentes, com exterior em aço inoxidável e polipropileno que une resistência e design.</p><div class=\"hl\"><h3>Torneira com bico de válvula</h3><p style=\"margin:0\">Acesso simples e funcional que evita desperdício e mantém a temperatura ideal — com alça e pé retrátil. Ideal para restaurantes e hotéis.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 31,5 cm · Largura 30 cm · Inox Escovado</p>",
   "relacionados": [
    "g95",
    "red",
@@ -969,7 +1001,7 @@ const PRODUTOS=[
    "cuias"
   ],
   "nome": "Copo Térmico Cuia Redondo 269mL — AZARTE",
-  "titulo": "Copo Térmico Cuia <b>CHACAL 269mL</b>",
+  "titulo": "Copo Térmico Cuia <b>Redondo 269mL</b><br>AZARTE",
   "selo": "",
   "preco": {
    "varejo": 48.4,
@@ -1111,7 +1143,7 @@ const PRODUTOS=[
    }
   ],
   "curto": "Mola externa para segurança e controle, com fluxo regulável e filtro removível. A bomba mais amada da linha.",
-  "descricao": "<h2>Controle total do <b>fluxo</b></h2><p>Aço inoxidável com durabilidade e resistência à corrosão. A mola externa proporciona maior segurança e controle na operação, e o fluxo regulável permite ajustar a sucção do seu jeito — versatilidade e precisão em cada gole.</p><div class=\"hl\"><h3>Filtro removível + limpador incluso</h3><p style=\"margin:0\">Manutenção simples: desmonta, limpa com a escovinha inclusa e volta pra roda.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 17,5 cm · Formato arredondado · Aço inox · 6 cores</p>",
+  "descricao": "<h2>Controle total do <b>fluxo</b></h2><p>Aço inoxidável com durabilidade e resistência à corrosão. A mola externa proporciona maior segurança e controle na operação, e o fluxo regulável permite ajustar a sucção do seu jeito — versatilidade e precisão em cada gole.</p><div class=\"hl\"><h3>Filtro removível + limpador incluso</h3><p style=\"margin:0\">Manutenção simples: desmonta, limpa com a escovinha inclusa e volta pra roda.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 17,5 cm · Formato arredondado · Aço inox · 7 cores</p>",
   "relacionados": [
    "conica",
    "quad",
@@ -1247,24 +1279,21 @@ const PRODUTOS=[
     "nome": "Preto",
     "ref": "1031219",
     "fotos": [
-     "img/produtos/corte-preto-1.webp",
-     "img/produtos/corte-detalhe.webp"
+     "img/produtos/corte-preto-1.webp"
     ]
    },
    {
     "nome": "Verde Militar",
     "ref": "1031218",
     "fotos": [
-     "img/produtos/corte-verde-militar-1.webp",
-     "img/produtos/corte-detalhe.webp"
+     "img/produtos/corte-verde-militar-1.webp"
     ]
    },
    {
     "nome": "Bege",
     "ref": "1031220",
     "fotos": [
-     "img/produtos/corte-bege-1.webp",
-     "img/produtos/corte-detalhe.webp"
+     "img/produtos/corte-bege-1.webp"
     ]
    },
    {
@@ -1277,7 +1306,7 @@ const PRODUTOS=[
    }
   ],
   "curto": "Corte na base que não entope e garante ótimo fluxo. Curva achatada, inox puro, simples e eficiente.",
-  "descricao": "<h2>Simples. Eficiente. <b>Não entope.</b></h2><p>O corte na base garante excelente fluxo de líquido sem entupimentos — perfeita para momentos de descontração. Fabricada em aço inoxidável, resistente e durável, com composição livre de BPA.</p><div class=\"hl\"><h3>Limpeza sem esforço</h3><p style=\"margin:0\">Limpador integrado, apta para lava-louças e leve para transportar em todas as suas aventuras.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 18,5 cm · Curva achatada · Aço inox · 3 cores</p>",
+  "descricao": "<h2>Simples. Eficiente. <b>Não entope.</b></h2><p>O corte na base garante excelente fluxo de líquido sem entupimentos — perfeita para momentos de descontração. Fabricada em aço inoxidável, resistente e durável, com composição livre de BPA.</p><div class=\"hl\"><h3>Limpeza sem esforço</h3><p style=\"margin:0\">Limpador integrado, apta para lava-louças e leve para transportar em todas as suas aventuras.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 18,5 cm · Curva achatada · Aço inox · 4 cores</p>",
   "relacionados": [
    "kitaz",
    "red",
@@ -1322,32 +1351,28 @@ const PRODUTOS=[
     "nome": "Rosé",
     "ref": "1031073",
     "fotos": [
-     "img/produtos/grossa-rose-1.webp",
-     "img/produtos/grossa-detalhe.webp"
+     "img/produtos/grossa-rose-1.webp"
     ]
    },
    {
     "nome": "Preto",
     "ref": "100249",
     "fotos": [
-     "img/produtos/grossa-preto-1.webp",
-     "img/produtos/grossa-detalhe.webp"
+     "img/produtos/grossa-preto-1.webp"
     ]
    },
    {
     "nome": "Verde Militar",
     "ref": "1003042",
     "fotos": [
-     "img/produtos/grossa-verde-militar-1.webp",
-     "img/produtos/grossa-detalhe.webp"
+     "img/produtos/grossa-verde-militar-1.webp"
     ]
    },
    {
     "nome": "Cromado",
     "ref": "100247",
     "fotos": [
-     "img/produtos/grossa-cromado-1.webp",
-     "img/produtos/grossa-detalhe.webp"
+     "img/produtos/grossa-cromado-1.webp"
     ]
    },
    {
@@ -1360,7 +1385,7 @@ const PRODUTOS=[
    }
   ],
   "curto": "6 telinhas anti-entupimento em curva achatada larga: máxima proteção com ótimo fluxo.",
-  "descricao": "<h2>6 telinhas de <b>proteção</b></h2><p>A V6 Grossa protege contra partículas e impurezas, prolongando a vida útil e garantindo bebida sempre limpa. Curva achatada larga com ótimo fluxo, construída em inox para suportar uso intenso e resistir à corrosão.</p><div class=\"hl\"><h3>Escovinha inclusa</h3><p style=\"margin:0\">Design de fácil acesso com escovinha de limpeza prática para manter o equipamento sempre em ótimo estado. Livre de BPA, apta para lava-louças.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 18,5 cm · Curva achatada larga · Aço inox · 3 cores</p>",
+  "descricao": "<h2>6 telinhas de <b>proteção</b></h2><p>A V6 Grossa protege contra partículas e impurezas, prolongando a vida útil e garantindo bebida sempre limpa. Curva achatada larga com ótimo fluxo, construída em inox para suportar uso intenso e resistir à corrosão.</p><div class=\"hl\"><h3>Escovinha inclusa</h3><p style=\"margin:0\">Design de fácil acesso com escovinha de limpeza prática para manter o equipamento sempre em ótimo estado. Livre de BPA, apta para lava-louças.</p></div><p style=\"font-weight:500;color:var(--ink)\">Altura 18,5 cm · Curva achatada larga · Aço inox · 5 cores</p>",
   "relacionados": [
    "g25l",
    "quad",
@@ -1405,8 +1430,7 @@ const PRODUTOS=[
     "nome": "Preto",
     "ref": "1031173",
     "fotos": [
-     "img/produtos/slim-preto-1.webp",
-     "img/produtos/slim-detalhe.webp"
+     "img/produtos/slim-preto-1.webp"
     ]
    },
    {
@@ -1472,8 +1496,7 @@ const PRODUTOS=[
     "nome": "Cromado",
     "ref": "1031239",
     "fotos": [
-     "img/produtos/quadt-cromado-1.webp",
-     "img/produtos/quadt-detalhe.webp"
+     "img/produtos/quadt-cromado-1.webp"
     ]
    }
   ],
@@ -1523,16 +1546,14 @@ const PRODUTOS=[
     "nome": "Preto",
     "ref": "1031017",
     "fotos": [
-     "img/produtos/perf-preto-1.webp",
-     "img/produtos/perf-detalhe.webp"
+     "img/produtos/perf-preto-1.webp"
     ]
    },
    {
     "nome": "Rosa Pink",
     "ref": "1031018",
     "fotos": [
-     "img/produtos/perf-rosa-pink-1.webp",
-     "img/produtos/perf-detalhe.webp"
+     "img/produtos/perf-rosa-pink-1.webp"
     ]
    },
    {
@@ -1557,8 +1578,10 @@ const PRODUTOS=[
 
 /* ---------- adaptador: converte os dados acima para o formato que a página usa ---------- */
 const CATS=FAMILIAS.map(f=>({id:f.id,n:f.nome,n2:f.rotulo,vol:f.volume}));
-const IMGS={hero:BANNERS.hero,bn:{},cat:ICONES};
-FAMILIAS.forEach(f=>IMGS.bn[f.id]=BANNERS[f.id]);
+const IMGS={hero:BANNERS.hero.desktop,bn:{},cat:ICONES};
+FAMILIAS.forEach(f=>IMGS.bn[f.id]=BANNERS[f.id].desktop);
+/* <picture> com a versão certa para cada tela */
+function bannerPic(k,alt,lazy){const b=BANNERS[k];return `<picture><source media="(max-width:760px)" srcset="${b.mobile}"><img src="${b.desktop}" alt="${alt}"${lazy?' loading="lazy"':''}></picture>`;}
 const VARS={},GALS={},FOTOS={},TT={},SHORTS={},DESCS={},RELATED={};
 const P=PRODUTOS.map(p=>{
   VARS[p.id]={};FOTOS[p.id]={};

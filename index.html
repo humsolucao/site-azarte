@@ -19,7 +19,7 @@
   --paper:#FFFFFF;
   --r-pill:999px;
   --r-card:22px;
-  --nav-h:64px;
+  --nav-h:94px;
   --ease:cubic-bezier(.22,.9,.24,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -32,8 +32,12 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 :focus-visible{outline:2px solid var(--bege);outline-offset:3px;border-radius:6px}
 
 /* ============ NAV ============ */
-.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);background:#0B0B0A;z-index:90;display:flex;align-items:center}
-.nav-in{width:100%;max-width:1440px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);background:#0B0B0A;z-index:90;display:flex;flex-direction:column}
+.vant{height:30px;background:var(--bege);color:#fff;font-size:.68rem;letter-spacing:.06em;flex:none}
+.vant>div{max-width:1280px;height:100%;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;white-space:nowrap}
+.vant b{font-weight:800}
+.nav-in{flex:1}
+.nav-in{width:100%;max-width:1440px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex:1}
 .nav-logo{color:var(--bege);display:flex;flex-direction:column;gap:2px;line-height:0}
 .nav-logo svg{height:13px;width:auto;display:block}
 .nav-logo svg:nth-child(2){opacity:.55}
@@ -360,6 +364,7 @@ footer{background:var(--bege);color:#fff;margin-top:60px}
 .bs-track{display:flex;height:100%;transition:transform .95s var(--ease)}
 .bs-slide{flex:0 0 100%;position:relative;cursor:pointer}
 .bs-slide img{width:100%;height:100%;object-fit:cover}
+.bs-slide picture,.cat-banner picture{display:block;width:100%;height:100%}
 .bs-slide .fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.55) 80%,#fff 100%)}
 .bs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.9);border:1px solid var(--bege-line);display:grid;place-items:center;color:var(--ink);transition:.3s;z-index:2;backdrop-filter:blur(4px)}
 .bs-arrow:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -422,6 +427,32 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
 .link-pill.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
 @media(max-width:760px){.atac-grid{grid-template-columns:1fr}.nav-atac{display:none}.atac-bar>div{padding:8px 16px;font-size:.68rem}}
 @media(max-width:480px){.nav-in{padding:0 14px}.nav-acts{gap:0}.nico{width:38px;height:38px}.nav-kit{padding:4px 6px}.nav-acts a.nico[href="#home"]{display:none}.atac-bar .lg{display:none}}
+/* ==== v1: chamada B2B antes do login ==== */
+.b2b-lnk{font-size:.66rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--bege);text-align:left;padding:2px 0;border-bottom:1px solid transparent;width:max-content;transition:.25s}
+.b2b-lnk:hover{border-color:var(--bege)}
+.b2b-box{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;margin-top:14px;padding:13px 18px;border:1.5px solid var(--bege);border-radius:16px;background:var(--bege-soft);text-align:left;transition:.3s}
+.b2b-box span{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:300;color:var(--ink-soft)}
+.b2b-box b{font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.b2b-box i{font-style:normal;font-size:1.2rem;color:var(--bege)}
+.b2b-box:hover{background:var(--bege);}.b2b-box:hover span,.b2b-box:hover b,.b2b-box:hover i{color:#fff}
+/* ==== v1: busca aberta, Pix, WhatsApp, rodapé ==== */
+.nav-busca{display:flex;align-items:center;gap:10px;height:40px;width:300px;padding:0 16px;margin-right:8px;border:1px solid rgba(151,147,109,.45);border-radius:var(--r-pill);color:rgba(255,255,255,.55);font-size:.78rem;font-weight:300;text-align:left;transition:.3s}
+.nav-busca svg{width:17px;height:17px;color:var(--bege);flex:none}
+.nav-busca:hover{border-color:var(--bege);color:#fff}
+.nico-busca{display:none}
+.pix{font-size:.72rem;font-weight:300;color:var(--ink-soft)}
+.pix b{font-weight:800;color:var(--ink)}
+.p-pix{font-size:.95rem;font-weight:300;color:var(--ink-soft);margin-top:6px}
+.p-pix b{font-weight:800;color:var(--ink)}
+.p-pix span{font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--bege);border:1px solid var(--bege);border-radius:var(--r-pill);padding:3px 9px;margin-left:6px;vertical-align:2px}
+.wpp{position:fixed;right:22px;bottom:22px;z-index:95;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 16px;border-radius:var(--r-pill);background:#0B0B0A;color:var(--bege);box-shadow:0 14px 34px -10px rgba(11,11,10,.45);font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:.3s var(--ease)}
+.wpp svg{width:24px;height:24px}
+.wpp:hover{background:var(--bege);color:#0B0B0A;transform:translateY(-2px)}
+body:has(.kit-bar.on) .wpp{bottom:96px}
+.foot-bar div{flex-wrap:wrap}
+.foot-bar .proto{opacity:.7}
+@media(max-width:960px){.nav-busca{display:none}.nico-busca{display:grid}.vant .v3{display:none}}
+@media(max-width:600px){.vant>div{justify-content:center;padding:0 12px}.vant .v2{display:none}.wpp{right:14px;bottom:14px;height:50px;width:50px;padding:0;justify-content:center}.wpp span{display:none}}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -448,6 +479,11 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
 
 <!-- NAV -->
 <header class="nav">
+  <div class="vant" aria-label="Vantagens"><div>
+    <span><b>5% de desconto</b> no Pix</span>
+    <span class="v2"><b>Atacado</b> para CNPJ · mínimo R$ 500</span>
+    <span class="v3">Atendimento pelo <b>WhatsApp</b> (44) 99183-2018</span>
+  </div></div>
   <div class="nav-in">
     <a href="#home" class="nav-logo" aria-label="AZARTE — início">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="645.3 494.0 629.4 92.0"> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 912.03125 546.667969 C 906.59375 546.667969 901.53125 545.035156 897.3125 542.238281 L 904.574219 526.667969 L 908.511719 518.21875 L 912.453125 526.667969 L 922.414062 548.035156 C 919.101562 547.140625 915.621094 546.667969 912.03125 546.667969 M 920.945312 513.332031 L 915.867188 502.445312 L 914.726562 500 L 902.292969 500 L 901.152344 502.445312 L 896.082031 513.332031 L 889.859375 526.667969 L 887.792969 531.105469 L 881.125 545.398438 L 865 580 L 879.707031 580 L 891.640625 554.40625 C 897.605469 557.960938 904.585938 560 912.03125 560 C 920.214844 560 927.53125 563.6875 932.425781 569.488281 C 934.964844 572.5 936.847656 576.074219 937.859375 580 L 952.03125 580 L 927.160156 526.667969 Z M 920.945312 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 698.332031 546.667969 C 692.894531 546.667969 687.832031 545.035156 683.613281 542.238281 L 690.875 526.667969 L 694.8125 518.21875 L 698.753906 526.667969 L 708.714844 548.035156 C 705.402344 547.140625 701.921875 546.667969 698.332031 546.667969 M 707.246094 513.332031 L 702.167969 502.445312 L 701.027344 500 L 688.59375 500 L 687.453125 502.445312 L 682.378906 513.332031 L 676.160156 526.667969 L 674.09375 531.105469 L 667.425781 545.398438 L 651.300781 580 L 666.007812 580 L 677.941406 554.40625 C 683.90625 557.960938 690.886719 560 698.332031 560 C 706.511719 560 713.832031 563.6875 718.726562 569.488281 C 721.265625 572.5 723.148438 576.074219 724.160156 580 L 738.332031 580 L 713.460938 526.667969 Z M 707.246094 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1255.367188 513.332031 C 1255.367188 528.058594 1243.425781 540 1228.699219 540 C 1213.972656 540 1202.035156 528.058594 1202.035156 513.332031 Z M 1206.585938 546.667969 C 1212.917969 550.878906 1220.519531 553.332031 1228.699219 553.332031 C 1236.875 553.332031 1244.480469 550.878906 1250.8125 546.667969 C 1261.59375 539.507812 1268.699219 527.253906 1268.699219 513.332031 L 1268.699219 500 L 1188.699219 500 L 1188.699219 580 L 1268.699219 580 L 1268.699219 566.667969 L 1202.035156 566.667969 L 1202.035156 543.152344 C 1203.460938 544.433594 1204.980469 545.605469 1206.585938 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 801.667969 546.667969 C 809.839844 546.667969 817.445312 544.214844 823.78125 540 C 825.386719 538.941406 826.90625 537.757812 828.332031 536.488281 C 834.945312 530.566406 839.578125 522.472656 841.105469 513.332031 C 841.480469 511.167969 841.667969 508.941406 841.667969 506.667969 C 841.667969 504.394531 841.464844 502.167969 841.097656 500 L 761.667969 500 L 761.667969 513.332031 L 827.492188 513.332031 C 824.535156 524.832031 814.085938 533.332031 801.667969 533.332031 C 793.492188 533.332031 785.886719 535.785156 779.554688 540 C 770.535156 545.992188 764.085938 555.554688 762.226562 566.667969 C 761.851562 568.832031 761.667969 571.058594 761.667969 573.332031 C 761.667969 575.605469 761.867188 577.832031 762.226562 580 L 841.667969 580 L 841.667969 566.667969 L 775.839844 566.667969 C 778.800781 555.167969 789.246094 546.667969 801.667969 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1042.03125 513.332031 C 1042.03125 528.058594 1030.09375 540 1015.367188 540 C 1000.640625 540 988.699219 528.058594 988.699219 513.332031 Z M 975.367188 580 L 988.699219 580 L 988.699219 543.152344 C 990.125 544.433594 991.644531 545.605469 993.253906 546.667969 C 999.585938 550.878906 1007.1875 553.332031 1015.367188 553.332031 C 1030.09375 553.332031 1042.03125 565.273438 1042.03125 580 L 1055.367188 580 C 1055.367188 566.078125 1048.257812 553.828125 1037.480469 546.667969 C 1048.257812 539.507812 1055.367188 527.253906 1055.367188 513.332031 L 1055.367188 500 L 975.367188 500 Z M 975.367188 580 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1082.03125 513.332031 L 1115.367188 513.332031 L 1115.367188 580 L 1128.699219 580 L 1128.699219 526.667969 C 1128.699219 519.300781 1134.667969 513.332031 1142.03125 513.332031 L 1162.03125 513.332031 L 1162.03125 500 L 1082.03125 500 Z M 1082.03125 513.332031 "/> </svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="645.3 494.0 629.4 92.0"> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 912.03125 546.667969 C 906.59375 546.667969 901.53125 545.035156 897.3125 542.238281 L 904.574219 526.667969 L 908.511719 518.21875 L 912.453125 526.667969 L 922.414062 548.035156 C 919.101562 547.140625 915.621094 546.667969 912.03125 546.667969 M 920.945312 513.332031 L 915.867188 502.445312 L 914.726562 500 L 902.292969 500 L 901.152344 502.445312 L 896.082031 513.332031 L 889.859375 526.667969 L 887.792969 531.105469 L 881.125 545.398438 L 865 580 L 879.707031 580 L 891.640625 554.40625 C 897.605469 557.960938 904.585938 560 912.03125 560 C 920.214844 560 927.53125 563.6875 932.425781 569.488281 C 934.964844 572.5 936.847656 576.074219 937.859375 580 L 952.03125 580 L 927.160156 526.667969 Z M 920.945312 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 698.332031 546.667969 C 692.894531 546.667969 687.832031 545.035156 683.613281 542.238281 L 690.875 526.667969 L 694.8125 518.21875 L 698.753906 526.667969 L 708.714844 548.035156 C 705.402344 547.140625 701.921875 546.667969 698.332031 546.667969 M 707.246094 513.332031 L 702.167969 502.445312 L 701.027344 500 L 688.59375 500 L 687.453125 502.445312 L 682.378906 513.332031 L 676.160156 526.667969 L 674.09375 531.105469 L 667.425781 545.398438 L 651.300781 580 L 666.007812 580 L 677.941406 554.40625 C 683.90625 557.960938 690.886719 560 698.332031 560 C 706.511719 560 713.832031 563.6875 718.726562 569.488281 C 721.265625 572.5 723.148438 576.074219 724.160156 580 L 738.332031 580 L 713.460938 526.667969 Z M 707.246094 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1255.367188 513.332031 C 1255.367188 528.058594 1243.425781 540 1228.699219 540 C 1213.972656 540 1202.035156 528.058594 1202.035156 513.332031 Z M 1206.585938 546.667969 C 1212.917969 550.878906 1220.519531 553.332031 1228.699219 553.332031 C 1236.875 553.332031 1244.480469 550.878906 1250.8125 546.667969 C 1261.59375 539.507812 1268.699219 527.253906 1268.699219 513.332031 L 1268.699219 500 L 1188.699219 500 L 1188.699219 580 L 1268.699219 580 L 1268.699219 566.667969 L 1202.035156 566.667969 L 1202.035156 543.152344 C 1203.460938 544.433594 1204.980469 545.605469 1206.585938 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 801.667969 546.667969 C 809.839844 546.667969 817.445312 544.214844 823.78125 540 C 825.386719 538.941406 826.90625 537.757812 828.332031 536.488281 C 834.945312 530.566406 839.578125 522.472656 841.105469 513.332031 C 841.480469 511.167969 841.667969 508.941406 841.667969 506.667969 C 841.667969 504.394531 841.464844 502.167969 841.097656 500 L 761.667969 500 L 761.667969 513.332031 L 827.492188 513.332031 C 824.535156 524.832031 814.085938 533.332031 801.667969 533.332031 C 793.492188 533.332031 785.886719 535.785156 779.554688 540 C 770.535156 545.992188 764.085938 555.554688 762.226562 566.667969 C 761.851562 568.832031 761.667969 571.058594 761.667969 573.332031 C 761.667969 575.605469 761.867188 577.832031 762.226562 580 L 841.667969 580 L 841.667969 566.667969 L 775.839844 566.667969 C 778.800781 555.167969 789.246094 546.667969 801.667969 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1042.03125 513.332031 C 1042.03125 528.058594 1030.09375 540 1015.367188 540 C 1000.640625 540 988.699219 528.058594 988.699219 513.332031 Z M 975.367188 580 L 988.699219 580 L 988.699219 543.152344 C 990.125 544.433594 991.644531 545.605469 993.253906 546.667969 C 999.585938 550.878906 1007.1875 553.332031 1015.367188 553.332031 C 1030.09375 553.332031 1042.03125 565.273438 1042.03125 580 L 1055.367188 580 C 1055.367188 566.078125 1048.257812 553.828125 1037.480469 546.667969 C 1048.257812 539.507812 1055.367188 527.253906 1055.367188 513.332031 L 1055.367188 500 L 975.367188 500 Z M 975.367188 580 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1082.03125 513.332031 L 1115.367188 513.332031 L 1115.367188 580 L 1128.699219 580 L 1128.699219 526.667969 C 1128.699219 519.300781 1134.667969 513.332031 1142.03125 513.332031 L 1162.03125 513.332031 L 1162.03125 500 L 1082.03125 500 Z M 1082.03125 513.332031 "/> </svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="645.3 494.0 629.4 92.0"> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 912.03125 546.667969 C 906.59375 546.667969 901.53125 545.035156 897.3125 542.238281 L 904.574219 526.667969 L 908.511719 518.21875 L 912.453125 526.667969 L 922.414062 548.035156 C 919.101562 547.140625 915.621094 546.667969 912.03125 546.667969 M 920.945312 513.332031 L 915.867188 502.445312 L 914.726562 500 L 902.292969 500 L 901.152344 502.445312 L 896.082031 513.332031 L 889.859375 526.667969 L 887.792969 531.105469 L 881.125 545.398438 L 865 580 L 879.707031 580 L 891.640625 554.40625 C 897.605469 557.960938 904.585938 560 912.03125 560 C 920.214844 560 927.53125 563.6875 932.425781 569.488281 C 934.964844 572.5 936.847656 576.074219 937.859375 580 L 952.03125 580 L 927.160156 526.667969 Z M 920.945312 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 698.332031 546.667969 C 692.894531 546.667969 687.832031 545.035156 683.613281 542.238281 L 690.875 526.667969 L 694.8125 518.21875 L 698.753906 526.667969 L 708.714844 548.035156 C 705.402344 547.140625 701.921875 546.667969 698.332031 546.667969 M 707.246094 513.332031 L 702.167969 502.445312 L 701.027344 500 L 688.59375 500 L 687.453125 502.445312 L 682.378906 513.332031 L 676.160156 526.667969 L 674.09375 531.105469 L 667.425781 545.398438 L 651.300781 580 L 666.007812 580 L 677.941406 554.40625 C 683.90625 557.960938 690.886719 560 698.332031 560 C 706.511719 560 713.832031 563.6875 718.726562 569.488281 C 721.265625 572.5 723.148438 576.074219 724.160156 580 L 738.332031 580 L 713.460938 526.667969 Z M 707.246094 513.332031 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1255.367188 513.332031 C 1255.367188 528.058594 1243.425781 540 1228.699219 540 C 1213.972656 540 1202.035156 528.058594 1202.035156 513.332031 Z M 1206.585938 546.667969 C 1212.917969 550.878906 1220.519531 553.332031 1228.699219 553.332031 C 1236.875 553.332031 1244.480469 550.878906 1250.8125 546.667969 C 1261.59375 539.507812 1268.699219 527.253906 1268.699219 513.332031 L 1268.699219 500 L 1188.699219 500 L 1188.699219 580 L 1268.699219 580 L 1268.699219 566.667969 L 1202.035156 566.667969 L 1202.035156 543.152344 C 1203.460938 544.433594 1204.980469 545.605469 1206.585938 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 801.667969 546.667969 C 809.839844 546.667969 817.445312 544.214844 823.78125 540 C 825.386719 538.941406 826.90625 537.757812 828.332031 536.488281 C 834.945312 530.566406 839.578125 522.472656 841.105469 513.332031 C 841.480469 511.167969 841.667969 508.941406 841.667969 506.667969 C 841.667969 504.394531 841.464844 502.167969 841.097656 500 L 761.667969 500 L 761.667969 513.332031 L 827.492188 513.332031 C 824.535156 524.832031 814.085938 533.332031 801.667969 533.332031 C 793.492188 533.332031 785.886719 535.785156 779.554688 540 C 770.535156 545.992188 764.085938 555.554688 762.226562 566.667969 C 761.851562 568.832031 761.667969 571.058594 761.667969 573.332031 C 761.667969 575.605469 761.867188 577.832031 762.226562 580 L 841.667969 580 L 841.667969 566.667969 L 775.839844 566.667969 C 778.800781 555.167969 789.246094 546.667969 801.667969 546.667969 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1042.03125 513.332031 C 1042.03125 528.058594 1030.09375 540 1015.367188 540 C 1000.640625 540 988.699219 528.058594 988.699219 513.332031 Z M 975.367188 580 L 988.699219 580 L 988.699219 543.152344 C 990.125 544.433594 991.644531 545.605469 993.253906 546.667969 C 999.585938 550.878906 1007.1875 553.332031 1015.367188 553.332031 C 1030.09375 553.332031 1042.03125 565.273438 1042.03125 580 L 1055.367188 580 C 1055.367188 566.078125 1048.257812 553.828125 1037.480469 546.667969 C 1048.257812 539.507812 1055.367188 527.253906 1055.367188 513.332031 L 1055.367188 500 L 975.367188 500 Z M 975.367188 580 "/> <path fill-rule="nonzero" fill="currentColor" fill-opacity="1" d="M 1082.03125 513.332031 L 1115.367188 513.332031 L 1115.367188 580 L 1128.699219 580 L 1128.699219 526.667969 C 1128.699219 519.300781 1134.667969 513.332031 1142.03125 513.332031 L 1162.03125 513.332031 L 1162.03125 500 L 1082.03125 500 Z M 1082.03125 513.332031 "/> </svg>
@@ -458,7 +494,8 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
         <span class="k1">MONTE SEU</span>
         <span class="k2">KIT<i>+</i></span>
       </a>
-      <button class="nico" aria-label="Buscar" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></button>
+      <button class="nav-busca" onclick="openSearch()" aria-label="Buscar produtos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span>Buscar produtos ou código REF</span></button>
+      <button class="nico nico-busca" aria-label="Buscar" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></button>
       <a class="nico" href="#home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/></svg></a>
       <button class="nico" aria-label="Entrar" onclick="openLogin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.5 20c1.4-3.6 4.2-5.4 7.5-5.4s6.1 1.8 7.5 5.4"/></svg></button>
       <button class="nico" aria-label="Carrinho" onclick="openCart()">
@@ -499,7 +536,16 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
       <div class="f"><label>CNPJ</label><input id="inCnpj" inputmode="numeric" placeholder="00.000.000/0000-00" oninput="this.value=mascaraCnpj(this.value)"></div>
       <div class="f"><label>Senha</label><input type="password" placeholder="••••••••"></div>
       <button class="buy" onclick="entrarCNPJ()">Entrar no atacado</button>
-      <p class="alt">Ainda não é cliente atacado? <a href="#atacado" onclick="closeOv()">Saiba como comprar</a></p>
+      <p class="alt">Ainda não tem cadastro? <a href="#" onclick="accTab('cad');return false">Cadastrar meu CNPJ</a> · <a href="#atacado" onclick="closeOv()">Como funciona</a></p>
+    </div>
+    <div class="acc-pane" data-p="cad">
+      <p class="acc-note">Cadastro de atacado (B2B). Nosso Comercial confere os dados e libera o seu acesso aos preços de atacado.</p>
+      <div class="f"><label>CNPJ</label><input id="cadCnpj" inputmode="numeric" placeholder="00.000.000/0000-00" oninput="this.value=mascaraCnpj(this.value)"></div>
+      <div class="f"><label>Razão social</label><input id="cadRazao" placeholder="Nome da empresa"></div>
+      <div class="f"><label>Seu nome</label><input id="cadNome" placeholder="Responsável pelas compras"></div>
+      <div class="f"><label>WhatsApp</label><input id="cadWhats" inputmode="tel" placeholder="(44) 90000-0000"></div>
+      <button class="buy" onclick="cadastrarCNPJ()">Enviar cadastro</button>
+      <p class="alt">Já tem cadastro? <a href="#" onclick="accTab('cnpj');return false">Entrar com CNPJ</a></p>
     </div>
   </div>
 </div>
@@ -526,6 +572,7 @@ body.atac .strip,body.atac .mstrip{top:calc(var(--nav-h) + 38px)}
 </div>
 
 <div class="toast" id="toastEl"></div>
+<a class="wpp" href="#" aria-label="Falar com a AZARTE no WhatsApp" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2A9.7 9.7 0 0 0 3.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.2-.2-.2-.4-.3Z"/></svg><span>Fale conosco</span></a>
 
 <script src="dados/produtos.js"></script>
 <script>
@@ -597,7 +644,9 @@ function cardHtml(p){
         : ATACADO
         ? `<div class="price-line">${pm<p.price?'<span class="parc">a partir de</span>':''}<span class="now">${fmt(pm)}</span><span class="parc">/un · atacado</span></div>`
         : `<div class="price-line"><span class="old">${fmt(p.old)}</span><span class="now">${fmt(p.price)}</span></div>
-           <span class="parc">${p.parc}</span>`}
+           <span class="parc">${p.parc}</span>
+           <span class="pix">ou <b>${fmt(p.price*(1-PIX_DESCONTO))}</b> no Pix</span>
+           ${p.atac!=null?`<button class="b2b-lnk" onclick="abrirAtacado()">Compre no atacado (B2B) →</button>`:''}`}
       <div class="dots">${p.colors.slice(0,8).map(c=>`<span class="dot" style="background:${HEX[c]}" title="${c}"></span>`).join('')}</div>
       <div class="card-buy">
         ${out
@@ -627,8 +676,8 @@ function renderHome(){
   <section class="view on">
     <div class="bslider">
       <div class="bs-track" id="bsTrack">
-        <div class="bs-slide" onclick="document.querySelector('.home-top')?.scrollIntoView({behavior:'smooth'})"><img src="${IMGS.hero}" alt="AZARTE — linha completa"><div class="fade"></div></div>
-        ${CATS.map(c=>`<div class="bs-slide" onclick="location.hash='#cat/${c.id}'"><img src="${IMGS.bn[c.id]}" alt="${c.n}" loading="lazy"><div class="fade"></div></div>`).join('')}
+        <div class="bs-slide" onclick="document.querySelector('.home-top')?.scrollIntoView({behavior:'smooth'})">${bannerPic('hero','AZARTE — linha completa')}<div class="fade"></div></div>
+        ${CATS.map(c=>`<div class="bs-slide" onclick="location.hash='#cat/${c.id}'">${bannerPic(c.id,c.n,true)}<div class="fade"></div></div>`).join('')}
       </div>
       <button class="bs-arrow l" onclick="bsGo(bsI-1)" aria-label="Banner anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="bs-arrow r" onclick="bsGo(bsI+1)" aria-label="Próximo banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -709,7 +758,7 @@ function renderCat(cid){
   <section class="view on">
     ${stripHtml(c.id)}
     <div class="cat-banner" id="catBanner">
-      <img src="${IMGS.bn[c.id]}" alt="${c.n}">
+      ${bannerPic(c.id,c.n)}
       <div class="cat-fade"></div>
       <div class="cat-veil" id="catVeil"></div>
       <div class="cat-title"><div class="pills"><span>${c.n2}</span>${c.vol?`<span class="vol">${c.vol}</span>`:''}</div></div>
@@ -773,6 +822,8 @@ function renderPDP(id){
                <div class="p-parc">Pedido mínimo de R$ 500,00 · pode misturar os produtos que quiser</div>`
             : `<div class="p-price"><span class="old">${fmt(p.old)}</span><span class="now">${fmt(p.price)}</span><span class="offp">${p.off}</span></div>
                <div class="p-parc">${p.parc}</div>
+               <div class="p-pix">ou <b>${fmt(p.price*(1-PIX_DESCONTO))}</b> à vista no Pix <span>5% de desconto</span></div>
+               <button class="b2b-box" onclick="abrirAtacado()"><span><b>Compre no atacado (B2B)</b>Tem CNPJ? Entre ou cadastre-se para ver o preço de atacado.</span><i>→</i></button>
                `}
           <div class="specs">
             ${[['material','Material',p.specs.material],['volume','Volume',p.specs.volume],['ret','Retenção',p.specs.ret],['alt','Altura',p.specs.alt],['larg','Largura',p.specs.larg],['cores','Cores',p.specs.cores]]
@@ -916,7 +967,7 @@ function drawSlots(){
         ${slots.length>1?`<button class="slot-rm" onclick="rmSlot(${i})">Remover</button>`:''}
       </div>
       <div class="icon-pick">
-        ${CATS.filter(c=>c.id!=='kits').map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}
+        ${CATS.filter(c=>c.id!=='kits'&&P.some(p=>p.cats.includes(c.id)&&p.price!=null)).map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}
       </div>
       ${s.cat?`
       <div class="slot-fields">
@@ -1023,9 +1074,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOv();closeCart
 function doSearch(v){
   const box=document.getElementById('srBox');
   if(!v.trim()){box.innerHTML='';return;}
-  const rs=P.filter(p=>p.name.toLowerCase().includes(v.toLowerCase()));
+  const q=v.toLowerCase().trim();
+  const rs=P.filter(p=>p.name.toLowerCase().includes(q)||Object.values(p.refs||{}).some(r=>r&&r.toLowerCase().includes(q)));
   box.innerHTML=rs.length
-    ? rs.map(p=>`<a href="#" onclick="closeOv();goProduct('${p.id}');return false"><span style="color:var(--ink);font-weight:300">${p.name.replace(new RegExp('('+v+')','i'),'<b>$1</b>')}</span><span>${p.price==null?'Preço em breve':fmt(p.price)}</span></a>`).join('')
+    ? rs.map(p=>`<a href="#" onclick="closeOv();goProduct('${p.id}');return false"><span style="color:var(--ink);font-weight:300">${p.name.replace(new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<b>$1</b>')}</span><span>${p.price==null?'Preço em breve':fmt(p.price)}</span></a>`).join('')
     : `<a><span style="color:var(--ink-soft)">Nenhum resultado para “${v}”</span></a>`;
 }
 let tT;
@@ -1037,8 +1089,17 @@ function toast(m){
 
 /* =================== ACESSO: Pessoa Física x CNPJ =================== */
 let CNPJ='';
-function accTab(t){document.querySelectorAll('.acc-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.acc-pane').forEach(p=>p.classList.toggle('on',p.dataset.p===t));}
+function abrirAtacado(){openLogin();accTab('cnpj');}
+function accTab(t){document.querySelectorAll('.acc-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===(t==='cad'?'cnpj':t)));document.querySelectorAll('.acc-pane').forEach(p=>p.classList.toggle('on',p.dataset.p===t));}
 function mascaraCnpj(v){v=v.replace(/\D/g,'').slice(0,14);return v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');}
+function cadastrarCNPJ(){
+  const g=id=>document.getElementById(id).value.trim();
+  if(g('cadCnpj').replace(/\D/g,'').length!==14){toast('Digite os 14 números do CNPJ');return;}
+  if(!g('cadRazao')||!g('cadNome')||g('cadWhats').replace(/\D/g,'').length<10){toast('Preencha razão social, nome e WhatsApp');return;}
+  const msg=`Olá! Quero me cadastrar no atacado AZARTE (B2B).\nCNPJ: ${g('cadCnpj')}\nRazão social: ${g('cadRazao')}\nResponsável: ${g('cadNome')}\nWhatsApp: ${g('cadWhats')}\n\nEstou ciente do pedido mínimo de R$ 500,00.`;
+  window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
+  closeOv(); toast('Cadastro enviado ao Comercial. Você recebe o acesso pelo WhatsApp.');
+}
 function entrarPF(){if(ATACADO)sairAtacado(true);closeOv();toast('Login demonstrativo — Pessoa Física (preços de varejo)');}
 function entrarCNPJ(){
   const v=document.getElementById('inCnpj').value;
@@ -1072,7 +1133,7 @@ function renderAtacado(){
       <div class="atac-card"><span>3</span><h3>Escolha produtos e quantidades</h3><p>Pelo nome ou pelo código REF de cada cor. Enviamos o pedido direto ao nosso Comercial.</p></div>
     </div>
     <div class="wrap atac-ctas">
-      ${ATACADO?`<a class="link-pill dark" href="#cat/garrafinhas">Ver produtos com preço de atacado</a>`:`<button class="link-pill dark" onclick="openLogin();accTab('cnpj')">Entrar com CNPJ</button>`}
+      ${ATACADO?`<a class="link-pill dark" href="#cat/garrafinhas">Ver produtos com preço de atacado</a>`:`<button class="link-pill dark" onclick="abrirAtacado()">Entrar com CNPJ</button><button class="link-pill" onclick="openLogin();accTab('cad')">Cadastrar meu CNPJ</button>`}
       <a class="link-pill" href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Quero comprar no atacado da AZARTE.'),'_blank','noopener');return false">Falar com o Comercial</a>
       <a class="link-pill" href="${CATALOGO_PDF}" target="_blank" rel="noopener">Catálogo digital 2026</a>
     </div>
@@ -1085,7 +1146,7 @@ function footerHtml(){
     <div class="foot">
       <div class="foot-l">
         <a href="#" onclick="window.open('https://wa.me/'+WHATS,'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.7.9c.5 1 1.5 2 2.5 2.5l.9-.7 1.7.7v.8c0 .3 0 .7-.8 1-.8.4-2.7.2-4.6-1.6-1.8-1.9-2-3.8-1.6-4.6Z" fill="currentColor" stroke="none"/></svg> Contato</a>
-        <a href="#" onclick="toast('Instagram — link definido no lançamento');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> Rede Social</a>
+        <a href="https://www.instagram.com/azarte.oficial/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @azarte.oficial</a>
         <a href="#atacado">Atacado (CNPJ)</a>
         <a href="#" onclick="toast('SAC — canal definido no lançamento');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3.5a8.5 8.5 0 0 0-8.5 8.5c0 1.6.4 3 1.2 4.3L3.5 20.5l4.3-1.2A8.5 8.5 0 1 0 12 3.5Z"/></svg> SAC</a>
       </div>
@@ -1093,7 +1154,7 @@ function footerHtml(){
     </div>
     <div class="foot-bar"><div>
       <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 2.6 3.1-.9.5 3.2 3.2.5-.9 3.1L22.5 12l-2.6 2 .9 3.1-3.2.5-.5 3.2-3.1-.9L12 22.5l-2-2.6-3.1.9-.5-3.2-3.2-.5.9-3.1L1.5 12l2.6-2-.9-3.1 3.2-.5.5-3.2 3.1.9L12 2z" opacity=".9"/><path d="M9.5 12.2l1.8 1.8 3.4-3.6" stroke="#97936D" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-      Todos os direitos reservados a AZARTE · Protótipo — versão final: WordPress + WooCommerce + Bling · Preços provisórios
+      <span>© AZARTE E-COMMERCE LTDA · CNPJ 26.174.911/0001-29 · Loc. Celso Garcia Cid, 130, Barracão 03, Box 69 · Jardim Sabará · Londrina-PR · CEP 86.066-230</span><span class="proto">Protótipo · preços provisórios · versão final em WordPress + WooCommerce + Bling</span>
     </div></div>
   </footer>`;
 }
