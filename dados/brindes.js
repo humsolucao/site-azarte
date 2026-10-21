@@ -60,9 +60,9 @@ const COPO_IDS = ['quad', 'red', 'c300', 'c269'];
 const BRINDE_FORMATO = '16:9';
 const BRINDE_OPCOES = [
   { tipo: 'horizontal', nome: 'Horizontal',
-    texto: 'LAYOUT 1, HORIZONTAL: arrange the logo elements from reference 2 in one horizontal line, symbol on the left and brand name to its right, reusing the exact artwork of each element' },
+    texto: 'LAYOUT 1, HORIZONTAL: the symbol and the brand name side by side in ONE horizontal line across the width of the body, symbol on the left, name to its right, the name reading left to right (NOT vertical, NOT rotated), scaled down as needed to fit the body width, reusing the exact artwork of each element' },
   { tipo: 'vertical', nome: 'Vertical',
-    texto: 'LAYOUT 2, VERTICAL: symbol on top and the brand name below it written vertically along the body, reading from bottom to top, reusing the exact artwork of each element' },
+    texto: 'LAYOUT 2, VERTICAL: the symbol on top and the brand name below it rotated 90 degrees, running vertically along the body and reading from bottom to top, reusing the exact artwork of each element' },
   { tipo: 'completa', nome: 'Logo completa',
     texto: 'LAYOUT 3, COMPLETE LOGO: the entire logo exactly as provided in reference 2, every element including any tagline, in its original arrangement' }
 ];
@@ -88,11 +88,11 @@ function promptMockupBrinde(p, cor, pos, opcao) {
     ? ` Rotate the complete logo ${Math.abs(rot)} degrees ${rot > 0 ? 'clockwise' : 'counterclockwise'}, exactly as the customer positioned it on the body.` : '';
   return [
     `Commercial product mockup photograph, clean neutral light-gray studio background, soft natural floor shadow.`,
-    `Reference 1 is the exact product: a ${nome} in ${corEn}, same shape, proportions, materials, finish and factory markings.${detalhes}`,
+    `Reference 1 is the exact product: a ${nome} in ${corEn}, same shape, proportions, materials, finish and factory markings; keep the exact body color and hue of reference 1, do not shift it.${detalhes}`,
     `Reference 2 is the customer's brand image; it may be a photo, screenshot, print or file with a background or other objects: isolate only the logo artwork (symbol and lettering), discard backgrounds, paper, borders, mockups and anything else.`,
     `${opcao.texto}.${giro} Place it on the ${onde}, sized to fit comfortably inside the body, following the curvature and perspective of the surface, as ${gravacao}.`,
     `Ignore the original colors of the logo: the whole mark becomes only the engraved metal tone, no ink, no print, no color fill. Do not redraw or invent letters: keep the exact letterforms, shapes and proportions of every element, crisp edges.`,
-    `— TECHNICAL — Subject: ${kit ? 'the complete kit as one group' : 'single product'}, same camera angle as reference 1, centered with generous side space. Lighting: large softbox key from viewer's left, gentle fill, realistic metal reflections. Lens: 85mm, f/8, tack-sharp on the engraving. Color: true-to-life, neutral white balance. Sharpness: crisp edges, high microcontrast, no AI artifacts. Realism: real photograph, not CGI. Aspect ratio ${BRINDE_FORMATO}.`,
+    `— TECHNICAL — Subject: ${kit ? 'the complete kit as one group' : 'single product'}, same camera angle as reference 1, centered with generous side space. Lighting: soft diffused studio light from the viewer's left, gentle fill, realistic metal reflections; no lighting equipment, softboxes, stands or reflectors visible anywhere in the frame. Lens: 85mm, f/8, tack-sharp on the engraving. Color: true-to-life, neutral white balance. Sharpness: crisp edges, high microcontrast, no AI artifacts. Realism: real photograph, not CGI. Aspect ratio ${BRINDE_FORMATO}.`,
     `Fidelity Lock: product geometry, color, ${kit ? 'all kit parts' : copo ? 'rim and walls' : 'lid and handle'} and the logo artwork unchanged; no extra text, no extra objects.`
   ].join(' ');
 }
