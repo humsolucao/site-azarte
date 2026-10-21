@@ -1593,7 +1593,7 @@ function brInfoHtml(){
     <div class="wrap br-sec"><h2 class="br-h2">Para quem é</h2>
       <div class="br-chips">${['Empresas e escritórios','Clínicas e consultórios','Academias e esporte','Eventos e feiras','Agro e cooperativas','Fim de ano e datas especiais'].map(t=>`<span>${t}</span>`).join('')}</div></div>
     <div class="wrap br-sec"><h2 class="br-h2">Produtos para <b>personalizar</b></h2>
-      <div class="br-prodcards">${ps.map(p=>`<a href="#brindes/monte" onclick="BR.prod='${p.id}';BR.cor=null;brPosPadrao(true)"><img src="${p.img}" alt="${p.name}" loading="lazy"><span>${tituloCurto(p)}</span><small>${p.colors.length} ${p.colors.length===1?'cor':'cores'} · versão lisa, só com a sua marca</small><em>Personalizar →</em></a>`).join('')}</div></div>
+      <div class="br-prodcards">${ps.map(p=>`<a href="#brindes/monte" onclick="BR.prod='${p.id}';BR.cor=null;brPosPadrao(true)"><img src="${p.img}" alt="${p.name}"><span>${tituloCurto(p)}</span><small>${p.colors.length} ${p.colors.length===1?'cor':'cores'} · versão lisa, só com a sua marca</small><em>Personalizar →</em></a>`).join('')}</div></div>
     <div class="wrap br-sec"><h2 class="br-h2">Como <b>funciona</b></h2><div class="atac-grid" style="padding-top:0">
       <div class="atac-card"><span>1</span><h3>Escolha o produto e a cor</h3><p>Garrafinha, garrafa ou kit de tereré, na cor que combina com a sua marca.</p></div>
       <div class="atac-card"><span>2</span><h3>Monte a arte</h3><p>Envie a logo, posicione e ajuste o tamanho. A prévia é livre, sem cadastro.</p></div>
