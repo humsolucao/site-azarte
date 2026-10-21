@@ -1492,7 +1492,7 @@ function toggleFav(id,btn){
 function openCart(){drawCart();document.getElementById('drawer').classList.add('on');document.body.classList.add('cart-on');}
 function closeCart(){document.getElementById('drawer').classList.remove('on');document.body.classList.remove('cart-on');}
 function openSearch(){document.getElementById('ovSearch').classList.add('on');setTimeout(()=>{const i=document.getElementById('searchIn');i.focus();i.select();},80);}
-function openLogin(){accTab(ATACADO?'logado':'pf');if(ATACADO)document.getElementById('logCnpj').textContent=CNPJ;document.getElementById('ovLogin').classList.add('on');}
+function openLogin(){accTab(ATACADO?'logado':(DEMO()?'cnpj':'pf'));if(ATACADO)document.getElementById('logCnpj').textContent=CNPJ;document.getElementById('ovLogin').classList.add('on');}
 function closeOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOv();closeCart();}});
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
