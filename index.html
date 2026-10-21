@@ -582,7 +582,7 @@ body:has(.kit-bar.on) .wpp{bottom:96px}
 <script src="dados/produtos.js"></script>
 <script>
 /* Dados de produtos, famílias e fotos: dados/produtos.js */
-const fmt=v=>'R$ '+v.toFixed(2).replace('.',',');
+const fmt=v=>'R$ '+(Math.round((v+Number.EPSILON)*100)/100).toFixed(2).replace('.',',');
 const byId=id=>P.find(p=>p.id===id);
 
 /* =================== STATE (memória — sem localStorage) =================== */
@@ -645,7 +645,7 @@ function cardHtml(p){
       ${starsHtml(p.stars,p.rev)}
       <h3 onclick="goProduct('${p.id}')">${p.name}</h3>
       ${out
-        ? `<div class="price-line"><span class="parc">${ATACADO?'Atacado sob consulta':'Preço em breve'}</span></div>`
+        ? `<div class="price-line"><span class="parc">${ATACADO?'Atacado sob consulta':'Preço em breve'}</span></div>${!ATACADO&&p.atac!=null?`<button class="b2b-lnk" onclick="abrirAtacado()">Compre no atacado (B2B) →</button>`:''}`
         : ATACADO
         ? `<div class="price-line">${pm<p.price?'<span class="parc">a partir de</span>':''}<span class="now">${fmt(pm)}</span><span class="parc">/un · atacado</span></div>`
         : `<div class="price-line"><span class="old">${fmt(p.old)}</span><span class="now">${fmt(p.price)}</span></div>
@@ -662,7 +662,9 @@ function cardHtml(p){
     </div>
   </article>`;
 }
-function goProduct(id){location.hash='#produto/'+id;}
+let corPedida=null;
+function goProduct(id,cor){corPedida=cor||null;location.hash='#produto/'+id;}
+const semAcento=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function qtyStep(btn,d){
   const span=btn.parentElement.querySelector('span');
   span.textContent=Math.max(1,parseInt(span.textContent)+d);
@@ -790,7 +792,7 @@ function renderCat(cid){
 /* =================== PDP (todos os produtos) =================== */
 let pdpColor='', pdpQty=1, pdpId='g800', pdpShot=0;
 function renderPDP(id){
-  const p=byId(id)||byId('g800'); pdpId=p.id; pdpColor=p.colors[0]; pdpQty=1;
+  const p=byId(id)||byId('g800'); pdpId=p.id; pdpColor=(corPedida&&p.colors.includes(corPedida))?corPedida:p.colors[0]; corPedida=null; pdpQty=1;
   const cat=CATS.find(c=>c.id===p.cats[0]);
   const out=p.price==null;
   const gal=VARS[p.id]||null;
@@ -821,14 +823,15 @@ function renderPDP(id){
           ${starsHtml(p.stars,p.rev)}
           ${out
             ? `<div class="p-price"><span class="now" style="font-size:1.3rem;font-weight:500">${ATACADO?'Atacado sob consulta':'Preço em breve'}</span></div>
-               <div class="p-parc">Fale com o nosso Comercial pelo WhatsApp.</div>`
+               <div class="p-parc">Fale com o nosso Comercial pelo WhatsApp.</div>
+               ${!ATACADO&&p.atac!=null?`<button class="b2b-box" onclick="abrirAtacado()"><span><b>Compre no atacado (B2B)</b>Tem CNPJ? Entre ou cadastre-se para ver o preço de atacado.</span><i>→</i></button>`:''}`
             : ATACADO
             ? `<div class="p-price"><span class="now" id="pPrice">${fmt(precoDe(p,pdpColor))}</span><span class="offp">por unidade · atacado</span></div>
                <div class="p-parc">Pedido mínimo de R$ 500,00 · pode misturar os produtos que quiser</div>`
             : `<div class="p-price"><span class="old">${fmt(p.old)}</span><span class="now">${fmt(p.price)}</span><span class="offp">${p.off}</span></div>
                <div class="p-parc">${p.parc}</div>
                <div class="p-pix">ou <b>${fmt(p.price*(1-PIX_DESCONTO))}</b> à vista no Pix <span>5% de desconto</span></div>
-               <button class="b2b-box" onclick="abrirAtacado()"><span><b>Compre no atacado (B2B)</b>Tem CNPJ? Entre ou cadastre-se para ver o preço de atacado.</span><i>→</i></button>
+               ${p.atac!=null?`<button class="b2b-box" onclick="abrirAtacado()"><span><b>Compre no atacado (B2B)</b>Tem CNPJ? Entre ou cadastre-se para ver o preço de atacado.</span><i>→</i></button>`:''}
                `}
           <div class="specs">
             ${[['material','Material',p.specs.material],['volume','Volume',p.specs.volume],['ret','Retenção',p.specs.ret],['alt','Altura',p.specs.alt],['larg','Largura',p.specs.larg],['cores','Cores',p.specs.cores]]
@@ -1079,10 +1082,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOv();closeCart
 function doSearch(v){
   const box=document.getElementById('srBox');
   if(!v.trim()){box.innerHTML='';return;}
-  const q=v.toLowerCase().trim();
-  const rs=P.filter(p=>p.name.toLowerCase().includes(q)||Object.values(p.refs||{}).some(r=>r&&r.toLowerCase().includes(q)));
+  const q=semAcento(v.trim()), palavras=q.split(/\s+/).filter(Boolean);
+  const corRef=p=>Object.keys(p.refs||{}).find(c=>p.refs[c]&&p.refs[c].toLowerCase().includes(q));
+  const rs=P.filter(p=>palavras.every(w=>semAcento(p.name).includes(w))||corRef(p));
   box.innerHTML=rs.length
-    ? rs.map(p=>`<a href="#" onclick="closeOv();goProduct('${p.id}');return false"><span style="color:var(--ink);font-weight:300">${p.name.replace(new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<b>$1</b>')}</span><span>${p.price==null?'Preço em breve':fmt(p.price)}</span></a>`).join('')
+    ? rs.map(p=>`<a href="#" onclick="closeOv();goProduct('${p.id}'${corRef(p)?`,'${corRef(p)}'`:''});return false"><span style="color:var(--ink);font-weight:300">${p.name.replace(new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<b>$1</b>')}</span><span>${corRef(p)?`${corRef(p)} · REF ${p.refs[corRef(p)]} · `:''}${p.price==null?'Preço em breve':fmt(p.price)}</span></a>`).join('')
     : `<a><span style="color:var(--ink-soft)">Nenhum resultado para “${v}”</span></a>`;
 }
 let tT;
