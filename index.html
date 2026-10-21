@@ -608,6 +608,26 @@ body:has(.kit-bar.on) .toast{bottom:100px}
  .ks-fams{grid-template-columns:repeat(3,1fr)}.ks-prods{grid-template-columns:repeat(2,1fr)}.kit-bar .buy{font-size:.72rem;letter-spacing:.08em;padding:0 18px;white-space:nowrap}.ks-hero p{font-size:.9rem}}
 body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
 @media(max-width:960px){body:has(.kit-bar.on) .wpp{bottom:96px}body:has(.ks-wrap) .wpp{display:none}}
+.cor-filtro{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-14px 0 26px}
+.cor-filtro>span{font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-right:4px}
+.cor-filtro button{display:flex;align-items:center;gap:6px;border:1px solid var(--bege-line);border-radius:var(--r-pill);padding:6px 13px;font-size:.76rem;transition:.15s}
+.cor-filtro button i{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.cor-filtro button:hover{border-color:var(--ink)}
+.cor-filtro button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab-atac{padding-top:40px}
+.tab-atac h2{font-weight:100;font-size:clamp(1.8rem,3vw,2.6rem)}
+.tab-atac h2 b{font-weight:500}
+.tab-atac>p{font-weight:300;color:var(--ink-soft);margin:6px 0 20px}
+.tab-scroll{overflow-x:auto;border:1px solid var(--bege-line);border-radius:var(--r-card)}
+.tab-atac table{width:100%;border-collapse:collapse;min-width:560px}
+.tab-atac th{text-align:left;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;padding:14px 16px;border-bottom:1px solid var(--bege-line)}
+.tab-atac td{padding:10px 16px;border-bottom:1px solid var(--bege-soft);font-size:.86rem;font-weight:300;vertical-align:middle}
+.tab-atac tr{cursor:pointer;transition:background .15s}.tab-atac tbody tr:hover{background:var(--bege-soft)}
+.tab-atac td img{width:52px;height:52px;object-fit:contain;mix-blend-mode:multiply}
+.tab-atac td b{font-weight:500}.tab-atac td small{display:block;font-size:.7rem;color:var(--ink-soft)}
+.tab-atac .tp{font-weight:800;white-space:nowrap}.tab-atac .tp span{display:block}.tab-atac .tp small{display:inline;font-weight:300}
+.tab-atac .tp em{font-style:normal;font-weight:300;color:var(--ink-soft)}
+.tab-atac .link-pill{padding:8px 14px;font-size:.66rem;white-space:nowrap}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -948,7 +968,7 @@ function renderCat(cid){
         <div><h2>${c.n2.charAt(0)+c.n2.slice(1).toLowerCase()} ${c.vol?`<b>${c.vol}</b>`:''}</h2>
         <p>${items.length} ${items.length===1?'produto':'produtos'} · cores e especificações fiéis ao catálogo AZARTE 2026</p></div>
       </div>
-      <div class="grid">${items.map(cardHtml).join('')}</div>
+      ${corChips(items)}<div class="grid" id="catGrid">${items.map(cardHtml).join('')}</div>
     </div>
     ${ribbonHtml()}
     ${footerHtml()}
@@ -1045,6 +1065,22 @@ function renderPDP(id){
   centraAtivo(document.querySelector('.mstrip-in'),document.querySelector('.pdp-ic.on'));
 }
 function fotoCor(p,c){return (VARS[p.id]&&VARS[p.id][c])||p.img;}
+function corChips(items){
+  const gs=Object.keys(GRUPOS_COR).filter(g=>items.some(p=>corDoGrupo(p,g)));
+  if(gs.length<2) return '';
+  return `<div class="cor-filtro"><span>Filtrar por cor</span><button class="on" onclick="filtraCor(this,'')">Todas</button>${gs.map(g=>`<button onclick="filtraCor(this,'${g}')"><i style="background:${HEX[GRUPOS_COR[g][0]]}"></i>${g}</button>`).join('')}</div>`;
+}
+function filtraCor(b,g){
+  b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  let n=0;
+  document.querySelectorAll('#catGrid .card').forEach(card=>{
+    const p=byId(card.dataset.id); const c=g?corDoGrupo(p,g):null;
+    const ok=!g||!!c; card.style.display=ok?'':'none'; if(ok)n++;
+    const alvo=c||p.colors[0]; const dot=[...card.querySelectorAll('.dot')].find(d=>d.title===alvo);
+    if(dot) cardCor(dot,p.id,alvo); else {card.dataset.cor=alvo;const im=card.querySelector('.ph img');if(im)im.src=fotoCor(p,alvo);}
+  });
+  if(g) toast(n+(n===1?' produto':' produtos')+' em '+g);
+}
 function centraAtivo(box,item){if(!box||!item)return;box.scrollLeft=item.offsetLeft-box.clientWidth/2+item.clientWidth/2;}
 function refHtml(p,c){const r=p.refs&&p.refs[c];return r?` · REF <b>${r}</b>`:'';}
 function tagsHtml(p){return p.tags&&p.tags.length?`<div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>`:'';}
@@ -1391,6 +1427,15 @@ function finalizar(){
   window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
 }
 /* =================== PÁGINA ATACADO =================== */
+function tabelaAtacado(){
+  const linhas=P.filter(p=>!p.cats.includes('kits')||p.atac!=null).map(p=>{
+    const cores=p.colors.length, temCor=p.atacCor&&Object.keys(p.atacCor).length;
+    const preco=p.atac==null?'<em>sob consulta</em>':temCor?Object.entries({...Object.fromEntries(p.colors.map(c=>[c,precoDe(p,c)]))}).reduce((m,[c,v])=>{(m[v]=m[v]||[]).push(c);return m;},{}):fmt(p.atac);
+    const precoTxt=typeof preco==='object'?Object.entries(preco).map(([v,cs])=>`<span>${fmt(+v)} <small>${cs.length===1?cs[0]:cs.length+' cores'}</small></span>`).join(''):preco;
+    return `<tr onclick="goProduct('${p.id}')"><td><img src="${p.img}" alt=""></td><td>${tituloCurto(p)}<small>${cores} ${cores===1?'cor':'cores'}</small></td><td class="tp">${precoTxt}</td><td>${p.atac==null?`<button class="link-pill" onclick="event.stopPropagation();interesse('${p.id}')">Tenho interesse</button>`:`<button class="link-pill dark" onclick="event.stopPropagation();goProduct('${p.id}')">Escolher cores</button>`}</td></tr>`;
+  }).join('');
+  return `<div class="wrap tab-atac" id="tabAtac"><h2>Tabela de <b>atacado</b></h2><p>Preço por unidade · pedido mínimo de R$ 500,00 · pode misturar os produtos.</p><div class="tab-scroll"><table><thead><tr><th></th><th>Produto</th><th>Preço/un</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div></div>`;
+}
 function renderAtacado(){
   app.innerHTML=`
   <section class="view on">
@@ -1404,8 +1449,9 @@ function renderAtacado(){
       <div class="atac-card"><span>2</span><h3>Pedido mínimo de R$ 500,00</h3><p>Pode misturar os produtos que quiser, independente do item.</p></div>
       <div class="atac-card"><span>3</span><h3>Escolha produtos e quantidades</h3><p>Pelo nome ou pelo código REF de cada cor. Enviamos o pedido direto ao nosso Comercial.</p></div>
     </div>
+    ${ATACADO?tabelaAtacado():''}
     <div class="wrap atac-ctas">
-      ${ATACADO?`<a class="link-pill dark" href="#cat/garrafinhas">Ver produtos com preço de atacado</a>`:`<button class="link-pill dark" onclick="abrirAtacado()">Entrar com CNPJ</button><button class="link-pill" onclick="openLogin();accTab('cad')">Cadastrar meu CNPJ</button>`}
+      ${ATACADO?`<a class="link-pill dark" href="#" onclick="document.getElementById('tabAtac')?.scrollIntoView({behavior:'smooth',block:'start'});return false">Ver a tabela de preços</a>`:`<button class="link-pill dark" onclick="abrirAtacado()">Entrar com CNPJ</button><button class="link-pill" onclick="openLogin();accTab('cad')">Cadastrar meu CNPJ</button>`}
       <a class="link-pill" href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Quero comprar no atacado da AZARTE.'),'_blank','noopener');return false">Falar com o Comercial</a>
       <a class="link-pill" href="${CATALOGO_PDF}" target="_blank" rel="noopener">Catálogo digital 2026</a>
     </div>
