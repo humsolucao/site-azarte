@@ -82,11 +82,14 @@ function promptMockupBrinde(p, cor, pos, opcao) {
     : kit ? ' Keep every kit part exactly as in reference 1: jug, lever lid, side cup holder, cup and bombilla straw.'
     : copo ? ' Keep the exact rim, walls and base as in reference 1.'
     : ' Keep the exact lever lid and handle as in reference 1.';
+  const rot = Math.round(pos.rot || 0);
+  const giro = opcao.tipo === 'completa' && Math.abs(rot) >= 5
+    ? ` Rotate the complete logo ${Math.abs(rot)} degrees ${rot > 0 ? 'clockwise' : 'counterclockwise'}, exactly as the customer positioned it on the body.` : '';
   return [
     `Commercial product mockup photograph, clean neutral light-gray studio background, soft natural floor shadow.`,
     `Reference 1 is the exact product: a ${nome} in ${corEn}, same shape, proportions, materials, finish and factory markings.${detalhes}`,
     `Reference 2 is the customer's brand image; it may be a photo, screenshot, print or file with a background or other objects: isolate only the logo artwork (symbol and lettering), discard backgrounds, paper, borders, mockups and anything else.`,
-    `${opcao.texto}. Place it on the ${onde}, sized to fit comfortably inside the body, following the curvature and perspective of the surface, as ${gravacao}.`,
+    `${opcao.texto}.${giro} Place it on the ${onde}, sized to fit comfortably inside the body, following the curvature and perspective of the surface, as ${gravacao}.`,
     `Ignore the original colors of the logo: the whole mark becomes only the engraved metal tone, no ink, no print, no color fill. Do not redraw or invent letters: keep the exact letterforms, shapes and proportions of every element, crisp edges.`,
     `— TECHNICAL — Subject: ${kit ? 'the complete kit as one group' : 'single product'}, same camera angle as reference 1, centered with generous side space. Lighting: large softbox key from viewer's left, gentle fill, realistic metal reflections. Lens: 85mm, f/8, tack-sharp on the engraving. Color: true-to-life, neutral white balance. Sharpness: crisp edges, high microcontrast, no AI artifacts. Realism: real photograph, not CGI. Aspect ratio ${BRINDE_FORMATO}.`,
     `Fidelity Lock: product geometry, color, ${kit ? 'all kit parts' : copo ? 'rim and walls' : 'lid and handle'} and the logo artwork unchanged; no extra text, no extra objects.`

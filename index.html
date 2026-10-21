@@ -706,6 +706,7 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
 .br-ctrl{display:flex;flex-direction:column;gap:14px;margin-top:16px}
 .br-ctrl>label{display:flex;align-items:center;gap:12px;font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
 .br-ctrl input[type=range]{flex:1;accent-color:#0B0B0A}
+.br-ctrl>label b{min-width:40px;text-align:right;color:var(--ink)}
 .br-tinta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .br-tinta span{font-size:.66rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-right:6px}
 .br-tinta button{border:1px solid var(--bege-line);border-radius:var(--r-pill);padding:6px 12px;font-size:.74rem}
@@ -816,7 +817,7 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
       <p class="alt">Ainda não tem conta? <a href="#" onclick="toast('Cadastro de Pessoa Física: na versão final, conta da loja');return false">Criar conta</a></p>
     </div>
     <div class="acc-pane" data-p="cnpj">
-      <p class="acc-note">Preços de atacado · pedido mínimo de <b>R$ 500,00</b> · pode misturar os produtos que quiser.</p>
+      <p class="acc-note">Preços de atacado · pedido mínimo de <b>R$ 500,00 em produtos</b> · pode misturar os produtos que quiser · frete à parte, não conta no mínimo.</p>
       <div class="f"><label>CNPJ</label><input id="inCnpj" inputmode="numeric" placeholder="00.000.000/0000-00" oninput="this.value=mascaraCnpj(this.value)"></div>
       <div class="f"><label>Senha</label><input type="password" placeholder="••••••••"></div>
       <button class="buy" onclick="entrarCNPJ()">Entrar no atacado</button>
@@ -1457,7 +1458,7 @@ function drawCart(){
   const mn=document.getElementById('drMin'), bt=document.getElementById('drBuy');
   if(ATACADO){
     const falta=Math.max(0,ATACADO_MINIMO-tot), pc=Math.min(100,tot/ATACADO_MINIMO*100);
-    mn.innerHTML=`<div class="min-bar"><i style="width:${pc}%"></i></div><small>${falta>0?`Faltam <b>${fmt(falta)}</b> para o pedido mínimo de ${fmt(ATACADO_MINIMO)}`:'Pedido mínimo atingido ✓'}</small>`;
+    mn.innerHTML=`<div class="min-bar"><i style="width:${pc}%"></i></div><small>${falta>0?`Faltam <b>${fmt(falta)}</b> em produtos para o mínimo de ${fmt(ATACADO_MINIMO)} (frete à parte)`:'Pedido mínimo atingido ✓'}</small>`;
     bt.textContent=falta>0?'Faltam '+fmt(falta)+' para enviar':'Enviar pedido ao Comercial'; bt.disabled=falta>0;
   } else { mn.innerHTML=`<small class="dr-pix">ou <b>${fmt(tot*(1-PIX_DESCONTO))}</b> no Pix (5% de desconto)</small>`; bt.textContent='Finalizar compra'; bt.disabled=false; }
 }
@@ -1551,7 +1552,7 @@ function atacNav(at){
   return `<nav class="atac-nav" aria-label="Opções do atacado"><a class="${at==='atacado'?'on':''}" href="#atacado">Como funciona o atacado</a>${ATACADO?`<a href="#atacado" onclick="setTimeout(()=>document.getElementById('tabAtac')?.scrollIntoView({behavior:'smooth'}),60)">Tabela de preços</a>`:''}<a class="${at==='brindes'?'on':''}" href="#brindes">Brindes personalizados</a></nav>`;
 }
 /* =================== BRINDES PERSONALIZADOS =================== */
-const BR={prod:'g800',cor:null,logo:null,logoNome:'',x:.5,y:.6,esc:.16,tinta:'auto',qtd:10,arr:null,salvos:[]};
+const BR={prod:'g800',cor:null,logo:null,logoNome:'',x:.5,y:.6,esc:.16,rot:0,tinta:'auto',qtd:10,arr:null,salvos:[]};
 const brProdutos=()=>Object.keys(BRINDES_PRODUTOS).map(byId).filter(Boolean);
 function brCondicao(v,txt){return v?txt.replace('#',v):'a combinar com o Comercial';}
 function renderBrindes(aba){
@@ -1627,6 +1628,8 @@ function brMonteHtml(){
           <span>${BR.logo?`<b>${esc(BR.logoNome)}</b> · trocar imagem`:'<b>Enviar a sua logo</b> · pode ser foto, print ou qualquer imagem (até 5 MB). A nossa IA separa a logo do fundo.'}</span></label>
         ${BR.logo?`<div class="br-ctrl">
           <label>Tamanho <input type="range" min="6" max="${brEscMax()}" value="${Math.round(BR.esc*100)}" oninput="BR.esc=this.value/100;brDesenha()"></label>
+          <label>Girar <input type="range" min="-90" max="90" step="5" value="${BR.rot}" oninput="BR.rot=+this.value;document.getElementById('brRotV').textContent=BR.rot+'°';brDesenha()"><b id="brRotV">${BR.rot}°</b></label>
+          <div class="br-tinta"><span>Girar rápido</span>${[0,90,-90].map(a=>`<button class="${BR.rot===a?'on':''}" onclick="BR.rot=${a};brRender()">${a>0?'+':''}${a}°</button>`).join('')}</div>
           <p class="ks-dica">Gravação a laser: nos produtos coloridos a marca aparece em inox prateado; no inox, em grafite.</p>
           <button class="clear-lnk" onclick="brPosPadrao()">Voltar à posição padrão</button>
         </div>`:''}
@@ -1655,7 +1658,7 @@ function brRender(){const y=window.scrollY;renderBrindes('monte');window.scrollT
 function brProd(id){BR.prod=id;const p=byId(id);if(!p.colors.includes(BR.cor))BR.cor=p.colors[0];brPosPadrao(true);brRender();}
 function brCor(c){BR.cor=c;brRender();}
 function brQtd(d){BR.qtd=Math.max(10,Math.round((BR.qtd+d)/10)*10);document.getElementById('brQtd').value=BR.qtd;}
-function brPosPadrao(silencio){const d=BRINDES_PRODUTOS[BR.prod]||{x:.5,y:.6,esc:.2};BR.x=d.x;BR.y=d.y;BR.esc=d.esc;if(!silencio)brRender();}
+function brPosPadrao(silencio){const d=BRINDES_PRODUTOS[BR.prod]||{x:.5,y:.6,esc:.2};BR.x=d.x;BR.y=d.y;BR.esc=d.esc;BR.rot=0;if(!silencio)brRender();}
 function brLogo(f){
   if(!f) return;
   if(f.size>5*1024*1024){toast('Imagem maior que 5 MB');return;}
@@ -1700,8 +1703,8 @@ function brDesenha(){
     if(BR.logo){
       const key=BR.logoNome+'|'+brCorTinta().join(',');
       if(brCache.monoKey!==key||!brCache.mono){brCache.mono=brTemTransparencia(BR.logo)?brLogoMono():BR.logo;brCache.monoKey=key;}
-      const m=brCache.mono, mw=m.naturalWidth||m.width, mh=m.naturalHeight||m.height, hMax=((BRINDES_PRODUTOS[BR.prod]||{}).hmax||.34)*H; let lw=BR.esc*W, lh=lw*mh/mw; if(lh>hMax){lw=lw*hMax/lh;lh=hMax;} const lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
-      g.drawImage(m,lx,ly,lw,lh); BR.caixa=[lx,ly,lw,lh];
+      const m=brCache.mono, mw=m.naturalWidth||m.width, mh=m.naturalHeight||m.height, hMax=((BRINDES_PRODUTOS[BR.prod]||{}).hmax||.34)*H; let lw=BR.esc*W, lh=lw*mh/mw; const ang=BR.rot*Math.PI/180, co=Math.abs(Math.cos(ang)), si=Math.abs(Math.sin(ang)); let hh=lw*si+lh*co; if(hh>hMax){const k=hMax/hh;lw*=k;lh*=k;hh=hMax;} const ww=lw*co+lh*si, lx=BR.x*W-ww/2, ly=BR.y*H-hh/2;
+      g.save(); g.translate(BR.x*W,BR.y*H); g.rotate(ang); g.drawImage(m,-lw/2,-lh/2,lw,lh); g.restore(); BR.caixa=[lx,ly,ww,hh];
     }
   };
   if(brCache.fotoSrc===src&&brCache.foto&&brCache.foto.complete){pinta(brCache.foto);return;}
@@ -1725,10 +1728,10 @@ function brSalvar(){
   if(!BR.logo){toast('Envie a sua logo primeiro');return;}
   if(!ATACADO){abrirAtacado();toast('Entre com o cadastro da empresa para salvar a arte');return;}
   const cv=document.getElementById('brCanvas');
-  BR.salvos.unshift({prod:BR.prod,cor:BR.cor,x:BR.x,y:BR.y,esc:BR.esc,logo:BR.logo,logoNome:BR.logoNome,logoUrl:BR.logoUrl,previa:cv.toDataURL('image/jpeg',.85),data:new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})});
+  BR.salvos.unshift({prod:BR.prod,cor:BR.cor,x:BR.x,y:BR.y,esc:BR.esc,rot:BR.rot,logo:BR.logo,logoNome:BR.logoNome,logoUrl:BR.logoUrl,previa:cv.toDataURL('image/jpeg',.85),data:new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})});
   brRender(); toast('Arte salva ✓');
 }
-function brAbrirSalva(i){const a=BR.salvos[i];Object.assign(BR,{prod:a.prod,cor:a.cor,x:a.x,y:a.y,esc:a.esc,logo:a.logo,logoNome:a.logoNome,logoUrl:a.logoUrl});brCache.mono=null;brRender();document.getElementById('brCanvas')?.scrollIntoView({behavior:'smooth',block:'center'});}
+function brAbrirSalva(i){const a=BR.salvos[i];Object.assign(BR,{prod:a.prod,cor:a.cor,x:a.x,y:a.y,esc:a.esc,rot:a.rot||0,logo:a.logo,logoNome:a.logoNome,logoUrl:a.logoUrl});brCache.mono=null;brRender();document.getElementById('brCanvas')?.scrollIntoView({behavior:'smooth',block:'center'});}
 function brApagarSalva(i){if(!confirm('Apagar esta arte salva?'))return;BR.salvos.splice(i,1);brRender();}
 function brResumo(){const p=byId(BR.prod),r=p.refs[BR.cor];return `${p.name.replace(/ — .*/,'')} · ${BR.cor}${r?' (REF '+r+')':''} · ${BR.qtd} peças · gravação a laser`;}
 function brOrcamento(){
@@ -1748,7 +1751,7 @@ async function gerarMockupIA(){
   if(brTentativasDia().length>=BRINDES_LIMITE_DIA){toast(`Limite de ${BRINDES_LIMITE_DIA} tentativas por dia atingido · libera amanhã ou fale com o Comercial`);return;}
   if(lista.length>=BRINDES_LIMITE_HORA){const min=Math.max(1,Math.ceil((3600e3-(agora-lista[0]))/60000));toast(`Limite de ${BRINDES_LIMITE_HORA} tentativas por hora · libera de novo em ${min} min`);return;}
   brUso[CNPJ]=[...(brUso[CNPJ]||[]),agora];
-  const p=byId(BR.prod), pos={x:BR.x,y:BR.y,esc:BR.esc};
+  const p=byId(BR.prod), pos={x:BR.x,y:BR.y,esc:BR.esc,rot:BR.rot};
   const pedido={cnpj:CNPJ,produto:p.id,nome:p.name,cor:BR.cor,ref:p.refs[BR.cor]||'',quantidade:BR.qtd,tecnica:'gravacao_laser',
     posicao:pos,tinta:BR.tinta,fotoProduto:location.origin+location.pathname.replace(/[^/]*$/,'')+fotoCor(p,BR.cor),
     logo:BR.logoUrl,previa:document.getElementById('brCanvas').toDataURL('image/jpeg',.85),formato:BRINDE_FORMATO,opcoes:promptsMockupBrinde(p,BR.cor,pos)};
@@ -1784,7 +1787,7 @@ function renderAtacado(){
     ${atacNav('atacado')}
     <div class="wrap atac-grid">
       <div class="atac-card"><span>1</span><h3>Tenha um CNPJ</h3><p>O atacado é exclusivo para empresas.</p></div>
-      <div class="atac-card"><span>2</span><h3>Pedido mínimo de R$ 500,00</h3><p>Pode misturar os produtos que quiser, independente do item.</p></div>
+      <div class="atac-card"><span>2</span><h3>Pedido mínimo de R$ 500,00</h3><p>Pode misturar os produtos que quiser. O mínimo é a soma dos produtos; o frete é à parte e não conta.</p></div>
       <div class="atac-card"><span>3</span><h3>Escolha produtos e quantidades</h3><p>Pelo nome ou pelo código REF de cada cor. Enviamos o pedido direto ao nosso Comercial.</p></div>
     </div>
     ${ATACADO?tabelaAtacado():''}
