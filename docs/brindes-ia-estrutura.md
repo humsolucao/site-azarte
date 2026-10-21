@@ -36,3 +36,13 @@ pedido = {cnpj, produto, cor, ref,    1. confere login CNPJ, 3/hora e 5/dia     
 4. Se outras técnicas além da gravação a laser entram (cor, posição dupla, nome individual).
 5. Garrafa Black Erva 4L ficou fora dos brindes (marca Black Erva e vai sair do site). Confirmar.
 6. Fotos de linha já têm a marca AZARTE impressa em alguns modelos: o brinde sai com as duas marcas ou só a do cliente (versões Lisa)?
+
+## Teste real do gerador (21/10/2026, Magnific Nano Banana Pro 2K 16:9)
+- Garrafinha Lisa 800 mL azul-petróleo + logo vertical de teste. 7 imagens, 525 créditos.
+- Funcionou: gravação a laser prata, símbolo + nome na vertical, cor do corpo certa (depois de travar o tom), fundo limpo (depois de tirar "softbox" do prompt).
+- Não funcionou: pedir para a IA **rearrumar** a logo (vertical → horizontal). Ela mantém como veio e, forçada, redesenha e **erra a escrita**.
+- **Regra para a versão final:** a IA só aplica a logo como recebe. Cada uma das 3 opções deve ir com a sua própria referência pronta:
+  1. Horizontal: versão horizontal da logo (enviada pelo cliente) ou a logo principal deitada (lado maior na horizontal).
+  2. Vertical: versão vertical da logo (enviada pelo cliente) ou a logo principal girada 90° (lendo de baixo para cima).
+  3. Logo completa: a logo principal exatamente como o cliente posicionou (com o giro escolhido).
+  O site prepara essas 3 imagens (canvas) e manda uma por chamada; o prompt de cada uma diz "aplique exatamente como na referência, sem rearrumar".
