@@ -148,7 +148,11 @@ const PRODUTOS=[
    "garrafinhas"
   ],
   "nome": "Garrafa Térmica Lisa 800mL — com Alça",
-  "titulo": "Garrafa Térmica <b>Lisa 800mL</b><br>com Alça",
+  "titulo": {
+   "tipo": "Garrafa Térmica",
+   "modelo": "Lisa 800mL",
+   "complemento": "com Alça"
+  },
   "selo": "Best-seller",
   "preco": {
    "varejo": 33.99,
@@ -257,7 +261,11 @@ const PRODUTOS=[
    "kits"
   ],
   "nome": "Kit Térmico Tereré AZARTE — Garrafa 2,5L + Copo + Bomba",
-  "titulo": "Kit Térmico <b>Tereré AZARTE</b><br>garrafa, copo e bomba",
+  "titulo": {
+   "tipo": "Kit Térmico",
+   "modelo": "Tereré AZARTE",
+   "complemento": "garrafa, copo e bomba"
+  },
   "selo": "Lançamento",
   "preco": {
    "varejo": null,
@@ -332,7 +340,11 @@ const PRODUTOS=[
    "kits"
   ],
   "nome": "Kit Térmico Tereré LISA — Garrafa 2,5L + Copo + Bomba",
-  "titulo": "Kit Térmico <b>Tereré LISA</b><br>garrafa, copo e bomba",
+  "titulo": {
+   "tipo": "Kit Térmico",
+   "modelo": "Tereré LISA",
+   "complemento": "garrafa, copo e bomba"
+  },
   "selo": "Lançamento",
   "preco": {
    "varejo": null,
@@ -407,7 +419,11 @@ const PRODUTOS=[
    "garrafas25"
   ],
   "nome": "Garrafa Térmica AZARTE 2,5L — com Alavanca",
-  "titulo": "Garrafa Térmica <b>AZARTE 2,5L</b><br>com Alavanca",
+  "titulo": {
+   "tipo": "Garrafa Térmica",
+   "modelo": "AZARTE 2,5L",
+   "complemento": "com Alavanca"
+  },
   "selo": "",
   "preco": {
    "varejo": 91,
@@ -500,7 +516,11 @@ const PRODUTOS=[
    "garrafas25"
   ],
   "nome": "Garrafa Térmica Lisa 2,5L — com Alavanca",
-  "titulo": "Garrafa Térmica <b>Lisa 2,5L</b><br>com Alavanca",
+  "titulo": {
+   "tipo": "Garrafa Térmica",
+   "modelo": "Lisa 2,5L",
+   "complemento": "com Alavanca"
+  },
   "selo": "",
   "preco": {
    "varejo": 91,
@@ -593,7 +613,11 @@ const PRODUTOS=[
    "garrafas4"
   ],
   "nome": "Garrafa Térmica Black Erva 4L — com Alavanca",
-  "titulo": "Garrafa Térmica <b>Black Erva 4L</b><br>com Alavanca",
+  "titulo": {
+   "tipo": "Garrafa Térmica",
+   "modelo": "Black Erva 4L",
+   "complemento": "com Alavanca"
+  },
   "selo": "Black Erva",
   "preco": {
    "varejo": 139.67,
@@ -646,7 +670,11 @@ const PRODUTOS=[
    "garrafao6"
   ],
   "nome": "Garrafão Botijão Térmico AZARTE 6L — com Alavanca",
-  "titulo": "Garrafão Botijão <b>Térmico 6L</b><br>com Alavanca",
+  "titulo": {
+   "tipo": "Garrafão Botijão Térmico",
+   "modelo": "AZARTE 6L",
+   "complemento": "com Alavanca"
+  },
   "selo": "",
   "preco": {
    "varejo": null,
@@ -702,7 +730,11 @@ const PRODUTOS=[
    "garrafao95"
   ],
   "nome": "Garrafão Térmico AZARTE 9,5L — com Alavanca",
-  "titulo": "Garrafão Térmico <b>AZARTE 9,5L</b><br>com Alavanca",
+  "titulo": {
+   "tipo": "Garrafão Térmico",
+   "modelo": "AZARTE 9,5L",
+   "complemento": "com Alavanca"
+  },
   "selo": "Pro",
   "preco": {
    "varejo": 229.9,
@@ -759,7 +791,11 @@ const PRODUTOS=[
    "copos"
   ],
   "nome": "Copo Cuia Quadrado 250mL — AZARTE",
-  "titulo": "Copo Cuia <b>Quadrado 250mL</b>",
+  "titulo": {
+   "tipo": "Copo Cuia",
+   "modelo": "Quadrado 250mL",
+   "complemento": "AZARTE"
+  },
   "selo": "",
   "preco": {
    "varejo": 42.9,
@@ -851,7 +887,11 @@ const PRODUTOS=[
    "copos"
   ],
   "nome": "Copo Cuia Redondo 330mL — AZARTE",
-  "titulo": "Copo Cuia <b>Redondo 330mL</b>",
+  "titulo": {
+   "tipo": "Copo Cuia",
+   "modelo": "Redondo 330mL",
+   "complemento": "AZARTE"
+  },
   "selo": "",
   "preco": {
    "varejo": 25,
@@ -934,7 +974,11 @@ const PRODUTOS=[
    "copos"
   ],
   "nome": "Copo Térmico Redondo 300mL — AZARTE",
-  "titulo": "Copo Térmico <b>Redondo 300mL</b>",
+  "titulo": {
+   "tipo": "Copo Térmico",
+   "modelo": "Redondo 300mL",
+   "complemento": "AZARTE"
+  },
   "selo": "",
   "preco": {
    "varejo": 18.44,
@@ -1001,7 +1045,11 @@ const PRODUTOS=[
    "cuias"
   ],
   "nome": "Copo Térmico Cuia Redondo 269mL — AZARTE",
-  "titulo": "Copo Térmico Cuia <b>Redondo 269mL</b><br>AZARTE",
+  "titulo": {
+   "tipo": "Copo Térmico Cuia",
+   "modelo": "Redondo 269mL",
+   "complemento": "AZARTE"
+  },
   "selo": "",
   "preco": {
    "varejo": 48.4,
@@ -1058,7 +1106,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré Mola Externa Regulável — AZARTE",
-  "titulo": "Bomba de Tereré <b>Mola Externa</b> Regulável",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Mola Externa",
+   "complemento": "Regulável"
+  },
   "selo": "Mais amada",
   "preco": {
    "varejo": 29.99,
@@ -1157,7 +1209,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré Mola Externa Cônica Regulável — AZARTE",
-  "titulo": "Bomba de Tereré <b>Mola Externa Cônica</b><br>Regulável",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Mola Externa Cônica",
+   "complemento": "Regulável"
+  },
   "selo": "",
   "preco": {
    "varejo": null,
@@ -1248,7 +1304,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré Lisa com Corte na Base — AZARTE",
-  "titulo": "Bomba de Tereré Lisa <b>Corte na Base</b>",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Lisa",
+   "complemento": "com Corte na Base"
+  },
   "selo": "",
   "preco": {
    "varejo": 28.9,
@@ -1320,7 +1380,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré com Telinha V6 Grossa — AZARTE",
-  "titulo": "Bomba de Tereré <b>Telinha V6 Grossa</b>",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Telinha V6 Grossa",
+   "complemento": "com 6 telas anti-entupimento"
+  },
   "selo": "",
   "preco": {
    "varejo": 38.7,
@@ -1399,7 +1463,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré com Telinha V6 Slim — AZARTE",
-  "titulo": "Bomba de Tereré <b>Telinha V6 Slim</b>",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Telinha V6 Slim",
+   "complemento": "com 6 telas anti-entupimento"
+  },
   "selo": "",
   "preco": {
    "varejo": 35.68,
@@ -1457,7 +1525,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré Quadrada com Telinha — AZARTE",
-  "titulo": "Bomba de Tereré <b>Quadrada</b><br>com Telinha",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Quadrada",
+   "complemento": "com Telinha"
+  },
   "selo": "",
   "preco": {
    "varejo": null,
@@ -1515,7 +1587,11 @@ const PRODUTOS=[
    "bombas"
   ],
   "nome": "Bomba de Tereré Lisa com Perfuração na Base",
-  "titulo": "Bomba de Tereré <b>Lisa</b><br>com Perfuração na Base",
+  "titulo": {
+   "tipo": "Bomba de Tereré",
+   "modelo": "Lisa",
+   "complemento": "com Perfuração na Base"
+  },
   "selo": "",
   "preco": {
    "varejo": null,
@@ -1586,7 +1662,7 @@ const VARS={},GALS={},FOTOS={},TT={},SHORTS={},DESCS={},RELATED={};
 const P=PRODUTOS.map(p=>{
   VARS[p.id]={};FOTOS[p.id]={};
   p.cores.forEach(c=>{VARS[p.id][c.nome]=c.fotos[0];FOTOS[p.id][c.nome]=c.fotos;});
-  if(p.titulo)TT[p.id]=p.titulo; if(p.curto)SHORTS[p.id]=p.curto; if(p.descricao)DESCS[p.id]=p.descricao; RELATED[p.id]=p.relacionados;
+  TT[p.id]=`<span class="t1">${p.titulo.tipo}</span><span class="t2">${p.titulo.modelo}</span><span class="t3">${p.titulo.complemento}</span>`; if(p.curto)SHORTS[p.id]=p.curto; if(p.descricao)DESCS[p.id]=p.descricao; RELATED[p.id]=p.relacionados;
   const n=p.cores.length;
   const item={id:p.id,cats:p.familias,name:p.nome,varejo:p.preco.varejo,
     atac:p.atacado.vende?p.atacado.preco:null,atacCor:p.atacado.porCor,

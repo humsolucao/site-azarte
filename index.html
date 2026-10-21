@@ -453,6 +453,11 @@ body:has(.kit-bar.on) .wpp{bottom:96px}
 .foot-bar .proto{opacity:.7}
 @media(max-width:960px){.nav-busca{display:none}.nico-busca{display:grid}.vant .v3{display:none}}
 @media(max-width:600px){.vant>div{justify-content:center;padding:0 12px}.vant .v2{display:none}.wpp{right:14px;bottom:14px;height:50px;width:50px;padding:0;justify-content:center}.wpp span{display:none}}
+/* ==== v1: título do produto em 3 linhas — tipo (fino) / modelo (negrito) / complemento (fino) ==== */
+.pinfo h1 span{display:block}
+.pinfo h1 .t1{font-weight:100}
+.pinfo h1 .t2{font-weight:500}
+.pinfo h1 .t3{font-weight:100;font-size:.62em;letter-spacing:.01em;margin-top:6px;color:var(--ink-soft)}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -700,7 +705,7 @@ function renderHome(){
     </div>
     <div class="wrap sec" style="padding-top:64px">
       <div class="sec-head">
-        <div><h2>Lança<b>mentos</b></h2><p>Kits de tereré completos e as bombas que chegaram à linha AZARTE.</p></div>
+        <div><h2><b>Lançamentos</b></h2><p>Kits de tereré completos e as bombas que chegaram à linha AZARTE.</p></div>
         <a class="link-pill" href="#cat/kits">Ver kits</a>
       </div>
       <div class="grid">${['kitaz','kitli','conica','quadt'].map(id=>cardHtml(byId(id))).join('')}</div>
