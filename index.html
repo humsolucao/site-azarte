@@ -722,7 +722,7 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
 .br-vazio{bottom:auto;top:12px;color:var(--ink-soft)}
 .br-nota{font-size:.72rem;font-weight:300;color:var(--ink-soft);margin:10px 0 14px}
 .br-acoes{display:flex;gap:8px;margin-top:10px}
-.br-acoes .link-pill{flex:1;text-align:center}
+.br-acoes .link-pill{flex:1;text-align:center;white-space:nowrap;padding:11px 10px;font-size:.72rem}
 .link-pill[disabled]{opacity:.45;cursor:not-allowed}
 .br-modal{width:min(560px,100%)}
 .br-modal-img{width:100%;border-radius:18px;border:1px solid var(--bege-line);margin:6px 0 16px}
@@ -1691,7 +1691,7 @@ function brDesenha(){
     if(BR.logo){
       const key=BR.logoNome+'|'+brCorTinta().join(',');
       if(brCache.monoKey!==key||!brCache.mono){brCache.mono=brLogoMono();brCache.monoKey=key;}
-      const m=brCache.mono, lw=BR.esc*W, lh=lw*m.height/m.width, lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
+      const m=brCache.mono, hMax=((BRINDES_PRODUTOS[BR.prod]||{}).hmax||.34)*H; let lw=BR.esc*W, lh=lw*m.height/m.width; if(lh>hMax){lw=lw*hMax/lh;lh=hMax;} const lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
       g.drawImage(m,lx,ly,lw,lh); BR.caixa=[lx,ly,lw,lh];
     }
   };
