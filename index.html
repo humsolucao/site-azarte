@@ -628,6 +628,52 @@ body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
 .tab-atac .tp{font-weight:800;white-space:nowrap}.tab-atac .tp span{display:block}.tab-atac .tp small{display:inline;font-weight:300}
 .tab-atac .tp em{font-style:normal;font-weight:300;color:var(--ink-soft)}
 .tab-atac .link-pill{padding:8px 14px;font-size:.66rem;white-space:nowrap}
+/* ==== v1.7: atacado com abas e brindes ==== */
+.atac-nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 16px 8px}
+.atac-nav a{border:1.5px solid var(--bege-line);border-radius:var(--r-pill);padding:10px 20px;font-size:.74rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:.2s}
+.atac-nav a:hover{border-color:var(--ink)}
+.atac-nav a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.br-hero{padding-bottom:20px}
+.br-tabs{display:flex;gap:28px;border-bottom:1px solid var(--bege-line);margin-top:26px;margin-bottom:6px}
+.br-tabs a{padding:14px 2px;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid transparent;margin-bottom:-1px}
+.br-tabs a.on{color:var(--ink);border-color:var(--ink)}
+.br-cond{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.br-cond div{border:1px solid var(--bege-line);border-radius:18px;padding:18px}
+.br-cond b{display:block;font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bege);margin-bottom:6px}
+.br-cond span{font-weight:300;font-size:.9rem}
+.br-wrap{max-width:1240px;margin:0 auto;padding:20px 28px 100px;display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start}
+.br-side{position:sticky;top:calc(var(--nav-h) + 20px)}
+body.atac .br-side{top:calc(var(--nav-h) + 58px)}
+.br-prods{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.br-up{display:block;border:1.5px dashed var(--bege);border-radius:18px;padding:18px;cursor:pointer;background:var(--bege-soft);transition:.2s;font-size:.86rem;font-weight:300;text-transform:none;letter-spacing:0;color:var(--ink)}
+.br-up:hover{border-color:var(--ink)}
+.br-up b{font-weight:500}
+.br-up input{position:absolute;opacity:0;width:1px;height:1px}
+.br-ctrl{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+.br-ctrl>label{display:flex;align-items:center;gap:12px;font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.br-ctrl input[type=range]{flex:1;accent-color:#0B0B0A}
+.br-tinta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.br-tinta span{font-size:.66rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-right:6px}
+.br-tinta button{border:1px solid var(--bege-line);border-radius:var(--r-pill);padding:6px 12px;font-size:.74rem}
+.br-tinta button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.br-ctrl .clear-lnk{align-self:flex-start}
+.br-qtd{height:46px;width:max-content}
+.br-qtd span{min-width:52px}
+.br-canvas{position:relative;border:1px solid var(--bege-line);border-radius:20px;overflow:hidden;background:#fff}
+.br-canvas canvas{display:block;width:100%;height:auto;touch-action:none;cursor:grab}
+.br-canvas canvas.arr{cursor:grabbing}
+.br-dica,.br-vazio{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;font-size:.66rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.9);padding:6px 12px;border-radius:99px;white-space:nowrap;pointer-events:none}
+.br-vazio{bottom:auto;top:12px;color:var(--ink-soft)}
+.br-nota{font-size:.72rem;font-weight:300;color:var(--ink-soft);margin:10px 0 14px}
+.br-acoes{display:flex;gap:8px;margin-top:10px}
+.br-acoes .link-pill{flex:1;text-align:center}
+.link-pill[disabled]{opacity:.45;cursor:not-allowed}
+.br-modal{width:min(560px,100%)}
+.br-modal-img{width:100%;border-radius:18px;border:1px solid var(--bege-line);margin:6px 0 16px}
+.br-load{height:4px;border-radius:99px;background:linear-gradient(90deg,var(--bege-soft),var(--bege),var(--bege-soft));background-size:200% 100%;animation:brl 1.2s linear infinite;margin:20px 0}
+@keyframes brl{to{background-position:-200% 0}}
+@media(max-width:600px){.eyebrow{letter-spacing:.16em;padding:8px 14px;font-size:.62rem;white-space:nowrap}}
+@media(max-width:960px){.br-wrap{grid-template-columns:1fr;padding:12px 16px 100px}.br-side{position:static;order:-1}.br-cond{grid-template-columns:1fr 1fr}.br-tabs{padding-left:16px;padding-right:16px}}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -717,6 +763,7 @@ body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
     <div class="acc-pane" data-p="logado">
       <p class="acc-note">Você está no <b>atacado</b> com o CNPJ <b id="logCnpj"></b>. Os preços do site já são os de atacado.</p>
       <a class="buy" style="display:grid;place-items:center" href="#atacado" onclick="closeOv()">Ver como funciona</a>
+      <a class="buy notify" style="display:grid;place-items:center;margin-top:8px" href="#brindes/monte" onclick="closeOv()">Brindes personalizados</a>
       <p class="alt"><a href="#" onclick="sairAtacado();return false">Sair do atacado</a></p>
     </div>
     <div class="acc-pane" data-p="cad">
@@ -757,6 +804,7 @@ body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
 <a class="wpp" href="#" aria-label="Falar com a AZARTE no WhatsApp" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2A9.7 9.7 0 0 0 3.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.2-.2-.2-.4-.3Z"/></svg><span>Fale conosco</span></a>
 
 <script src="dados/produtos.js"></script>
+<script src="dados/brindes.js"></script>
 <script>
 /* Dados de produtos, famílias e fotos: dados/produtos.js */
 const fmt=v=>'R$ '+(Math.round((v+Number.EPSILON)*100)/100).toFixed(2).replace('.',',');
@@ -792,6 +840,7 @@ function route(){
   else if(h.startsWith('#produto/')) renderPDP(h.split('/')[1]);
   else if(h==='#kit') renderKit();
   else if(h==='#atacado') renderAtacado();
+  else if(h.startsWith('#brindes')) renderBrindes(h==='#brindes/monte'?'monte':'info');
   else renderHome();
   window.scrollTo({top:(veioDoProduto&&!h.startsWith('#produto/')&&rolagem[h])?rolagem[h]:0,behavior:'instant'});
 }
@@ -1436,6 +1485,174 @@ function tabelaAtacado(){
   }).join('');
   return `<div class="wrap tab-atac" id="tabAtac"><h2>Tabela de <b>atacado</b></h2><p>Preço por unidade · pedido mínimo de R$ 500,00 · pode misturar os produtos.</p><div class="tab-scroll"><table><thead><tr><th></th><th>Produto</th><th>Preço/un</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div></div>`;
 }
+function atacNav(at){
+  return `<nav class="atac-nav" aria-label="Opções do atacado"><a class="${at==='atacado'?'on':''}" href="#atacado">Como funciona o atacado</a>${ATACADO?`<a href="#atacado" onclick="setTimeout(()=>document.getElementById('tabAtac')?.scrollIntoView({behavior:'smooth'}),60)">Tabela de preços</a>`:''}<a class="${at==='brindes'?'on':''}" href="#brindes">Brindes personalizados</a></nav>`;
+}
+/* =================== BRINDES PERSONALIZADOS =================== */
+const BR={prod:'g800',cor:null,logo:null,logoNome:'',x:.5,y:.6,esc:.16,tinta:'auto',qtd:10,arr:null};
+const brProdutos=()=>Object.keys(BRINDES_PRODUTOS).map(byId).filter(Boolean);
+function brCondicao(v,txt){return v?txt.replace('#',v):'a combinar com o Comercial';}
+function renderBrindes(aba){
+  if(!BR.cor||!byId(BR.prod).colors.includes(BR.cor)) BR.cor=byId(BR.prod).colors[0];
+  app.innerHTML=`
+  <section class="view on">
+    <div class="atac-hero br-hero">
+      <span class="eyebrow" style="opacity:1;animation:none">Atacado · Brindes personalizados</span>
+      <h1>Brindes <b>AZARTE</b></h1>
+      <p>Garrafas, copos, cuias e kits com a marca da sua empresa, gravados a laser. Monte a prévia aqui e receba o orçamento do nosso Comercial.</p>
+    </div>
+    ${atacNav('brindes')}
+    <div class="wrap br-tabs"><a class="${aba==='info'?'on':''}" href="#brindes">Como funciona</a><a class="${aba==='monte'?'on':''}" href="#brindes/monte">Monte seu brinde</a></div>
+    ${aba==='monte'?brMonteHtml():brInfoHtml()}
+    ${footerHtml()}
+  </section>`;
+  if(aba==='monte'){brDesenha();brLigaArraste();}
+}
+function brInfoHtml(){
+  return `<div class="wrap atac-grid">
+      <div class="atac-card"><span>1</span><h3>Escolha o produto</h3><p>Garrafinhas, garrafas, copos, cuias e kits AZARTE, na cor que combina com a sua marca.</p></div>
+      <div class="atac-card"><span>2</span><h3>Envie a sua marca</h3><p>Suba a logo em PNG, JPG ou SVG. Você posiciona e ajusta o tamanho na prévia.</p></div>
+      <div class="atac-card"><span>3</span><h3>Receba a prévia e o orçamento</h3><p>Com CNPJ, gere um mockup realista com a nossa IA de imagens e mande para o Comercial.</p></div>
+    </div>
+    <div class="wrap br-cond">
+      <div><b>Técnica</b><span>Gravação a laser</span></div>
+      <div><b>Quantidade mínima</b><span>${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}</span></div>
+      <div><b>Prazo de produção</b><span>${brCondicao(BRINDES_CONDICOES.prazo,'# dias úteis')}</span></div>
+      <div><b>Preço</b><span>Sob orçamento, conforme produto e quantidade</span></div>
+    </div>
+    <div class="wrap atac-ctas"><a class="link-pill dark" href="#brindes/monte">Montar meu brinde agora</a>
+      <a class="link-pill" href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Quero orçamento de brindes personalizados AZARTE.'),'_blank','noopener');return false">Falar com o Comercial</a></div>`;
+}
+function brMonteHtml(){
+  const p=byId(BR.prod);
+  return `<div class="br-wrap">
+    <div class="br-main">
+      <div class="ks-step"><label>1 · Produto</label>
+        <div class="ks-prods br-prods">${brProdutos().map(q=>`<button class="${q.id===BR.prod?'on':''}" onclick="brProd('${q.id}')"><img src="${q.img}" alt="" loading="lazy"><span>${tituloCurto(q)}</span><small>${q.colors.length} ${q.colors.length===1?'cor':'cores'}</small></button>`).join('')}</div>
+      </div>
+      <div class="ks-step"><label>2 · Cor · <b id="brCorNome">${BR.cor}</b>${p.refs[BR.cor]?` <small>REF ${p.refs[BR.cor]}</small>`:''}</label>
+        <div class="sw-row">${p.colors.map(c=>`<button class="sw ${c===BR.cor?'on':''}" style="background:${HEX[c]}" title="${c}" aria-label="${c}" onclick="brCor('${c}')"></button>`).join('')}</div>
+      </div>
+      <div class="ks-step"><label>3 · Sua marca</label>
+        <label class="br-up" for="brFile"><input id="brFile" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onchange="brLogo(this.files[0])">
+          <span>${BR.logo?`<b>${esc(BR.logoNome)}</b> · trocar arquivo`:'<b>Enviar logo</b> · PNG, JPG ou SVG até 5 MB (fundo transparente fica melhor)'}</span></label>
+        ${BR.logo?`<div class="br-ctrl">
+          <label>Tamanho <input type="range" min="6" max="45" value="${Math.round(BR.esc*100)}" oninput="BR.esc=this.value/100;brDesenha()"></label>
+          <div class="br-tinta"><span>Cor da gravação</span>${[['auto','Automática'],['prata','Prata'],['grafite','Grafite'],['branca','Branca']].map(([k,n])=>`<button class="${BR.tinta===k?'on':''}" onclick="BR.tinta='${k}';brRender()">${n}</button>`).join('')}</div>
+          <button class="clear-lnk" onclick="brPosPadrao()">Voltar à posição padrão</button>
+        </div>`:''}
+      </div>
+      <div class="ks-step"><label>4 · Quantidade estimada</label>
+        <div class="qty br-qtd"><button onclick="brQtd(-10)" aria-label="Menos">−</button><span id="brQtd">${BR.qtd}</span><button onclick="brQtd(10)" aria-label="Mais">+</button></div>
+        <p class="ks-dica">Quantidade mínima: ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}.</p>
+      </div>
+    </div>
+    <aside class="br-side">
+      <div class="ks-card">
+        <h3>Prévia do <b>brinde</b></h3>
+        <div class="br-canvas"><canvas id="brCanvas" width="900" height="900" aria-label="Prévia do brinde"></canvas>${BR.logo?'<span class="br-dica">Arraste a logo para posicionar</span>':'<span class="br-vazio">Envie a sua logo para ver a prévia</span>'}</div>
+        <p class="br-nota">Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista.</p>
+        <button class="buy" onclick="gerarMockupIA()" ${BR.logo?'':'disabled'}>Gerar mockup com IA</button>
+        <div class="br-acoes"><button class="link-pill" onclick="brBaixar()" ${BR.logo?'':'disabled'}>Baixar prévia</button><button class="link-pill dark" onclick="brOrcamento()">Pedir orçamento</button></div>
+      </div>
+    </aside>
+  </div>`;
+}
+function brRender(){const y=window.scrollY;renderBrindes('monte');window.scrollTo(0,y);}
+function brProd(id){BR.prod=id;const p=byId(id);if(!p.colors.includes(BR.cor))BR.cor=p.colors[0];brPosPadrao(true);brRender();}
+function brCor(c){BR.cor=c;brRender();}
+function brQtd(d){BR.qtd=Math.max(1,BR.qtd+d);document.getElementById('brQtd').textContent=BR.qtd;}
+function brPosPadrao(silencio){const d=BRINDES_PRODUTOS[BR.prod]||{x:.5,y:.6,esc:.2};BR.x=d.x;BR.y=d.y;BR.esc=d.esc;if(!silencio)brRender();}
+function brLogo(f){
+  if(!f) return;
+  if(f.size>5*1024*1024){toast('Arquivo maior que 5 MB');return;}
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{BR.logo=im;BR.logoNome=f.name;BR.logoUrl=r.result;BR.arr=null;brRender();toast('Logo aplicada · arraste para posicionar');};im.onerror=()=>toast('Não consegui ler esse arquivo');im.src=r.result;};
+  r.readAsDataURL(f);
+}
+function brCorTinta(){
+  if(BR.tinta==='prata') return [200,203,205];
+  if(BR.tinta==='grafite') return [80,83,86];
+  if(BR.tinta==='branca') return [245,245,242];
+  return COR_INOX.includes(BR.cor)?[80,83,86]:(BR.cor==='Branco'?[150,153,156]:[200,203,205]);
+}
+/* logo em uma cor só (efeito gravação): usa a transparência do PNG ou o escuro do JPG */
+function brLogoMono(){
+  const im=BR.logo, w=im.naturalWidth||im.width||600, h=im.naturalHeight||im.height||600, k=Math.min(1,900/Math.max(w,h));
+  const c=document.createElement('canvas'); c.width=Math.max(1,Math.round(w*k)); c.height=Math.max(1,Math.round(h*k));
+  const g=c.getContext('2d'); g.drawImage(im,0,0,c.width,c.height);
+  const d=g.getImageData(0,0,c.width,c.height), a=d.data; let transp=0;
+  for(let i=3;i<a.length;i+=16) if(a[i]<240) transp++;
+  const usaAlfa=transp>a.length/16*0.03, [r,gg,b]=brCorTinta();
+  for(let i=0;i<a.length;i+=4){
+    const lum=.299*a[i]+.587*a[i+1]+.114*a[i+2];
+    const al=usaAlfa?a[i+3]*(lum>235?0:1):Math.max(0,Math.min(255,(215-lum)*2.2));
+    a[i]=r;a[i+1]=gg;a[i+2]=b;a[i+3]=al*.94;
+  }
+  g.putImageData(d,0,0); return c;
+}
+function brDesenha(){
+  const cv=document.getElementById('brCanvas'); if(!cv) return;
+  const g=cv.getContext('2d'), W=cv.width, H=cv.height, p=byId(BR.prod);
+  const foto=new Image();
+  foto.onload=()=>{
+    g.fillStyle='#fff'; g.fillRect(0,0,W,H);
+    const k=Math.min(W/foto.width,H/foto.height), fw=foto.width*k, fh=foto.height*k;
+    g.drawImage(foto,(W-fw)/2,(H-fh)/2,fw,fh);
+    if(BR.logo){
+      const m=brLogoMono(), lw=BR.esc*W, lh=lw*m.height/m.width, lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
+      g.drawImage(m,lx,ly,lw,lh); BR.caixa=[lx,ly,lw,lh];
+    }
+  };
+  foto.src=fotoCor(p,BR.cor);
+}
+function brLigaArraste(){
+  const cv=document.getElementById('brCanvas'); if(!cv) return;
+  const pt=e=>{const r=cv.getBoundingClientRect();return [(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height];};
+  cv.addEventListener('pointerdown',e=>{if(!BR.logo||!BR.caixa)return;const [x,y]=pt(e),[lx,ly,lw,lh]=BR.caixa.map(v=>v/cv.width);
+    if(x>=lx-.03&&x<=lx+lw+.03&&y>=ly-.03&&y<=ly+lh+.03){BR.arr=[x-BR.x,y-BR.y];cv.setPointerCapture(e.pointerId);cv.classList.add('arr');}});
+  cv.addEventListener('pointermove',e=>{if(!BR.arr)return;const [x,y]=pt(e);BR.x=Math.min(.95,Math.max(.05,x-BR.arr[0]));BR.y=Math.min(.95,Math.max(.05,y-BR.arr[1]));brDesenha();});
+  const fim=()=>{BR.arr=null;cv.classList.remove('arr');};
+  cv.addEventListener('pointerup',fim);cv.addEventListener('pointercancel',fim);
+}
+function brBaixar(){const cv=document.getElementById('brCanvas');if(!cv)return;const a=document.createElement('a');a.download='AZARTE-brinde-previa.png';a.href=cv.toDataURL('image/png');a.click();}
+function brResumo(){const p=byId(BR.prod),r=p.refs[BR.cor];return `${p.name.replace(/ — .*/,'')} · ${BR.cor}${r?' (REF '+r+')':''} · ${BR.qtd} peças · gravação a laser`;}
+function brOrcamento(){
+  const msg=`Olá! Quero orçamento de brinde personalizado AZARTE.\n${brResumo()}${CNPJ?'\nCNPJ: '+CNPJ:''}\nVou enviar a logo aqui pelo WhatsApp.`;
+  window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
+}
+/* Geração com IA: o site monta o pedido; o servidor (BRINDES_API) chama o motor de imagem com a chave guardada lá. */
+const brUso={};
+async function gerarMockupIA(){
+  if(!BR.logo){toast('Envie a sua logo primeiro');return;}
+  if(!ATACADO){abrirAtacado();toast('Entre com o seu CNPJ para gerar o mockup com IA');return;}
+  const hoje=new Date().toISOString().slice(0,10), chave=CNPJ+hoje;
+  if((brUso[chave]||0)>=BRINDES_LIMITE_DIA){toast('Limite de mockups de hoje atingido · fale com o Comercial');return;}
+  const p=byId(BR.prod), pos={x:BR.x,y:BR.y,esc:BR.esc};
+  const pedido={cnpj:CNPJ,produto:p.id,nome:p.name,cor:BR.cor,ref:p.refs[BR.cor]||'',quantidade:BR.qtd,tecnica:'gravacao_laser',
+    posicao:pos,tinta:BR.tinta,fotoProduto:location.origin+location.pathname.replace(/[^/]*$/,'')+fotoCor(p,BR.cor),
+    logo:BR.logoUrl,previa:document.getElementById('brCanvas').toDataURL('image/jpeg',.85),prompt:promptMockupBrinde(p,BR.cor,pos)};
+  if(!BRINDES_API){brModal('demo');return;}
+  brModal('gerando');
+  try{
+    const r=await fetch(BRINDES_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pedido)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const j=await r.json(); brUso[chave]=(brUso[chave]||0)+1; brModal('pronto',j.imagem);
+  }catch(e){brModal('erro');}
+}
+function brModal(estado,img){
+  let ov=document.getElementById('ovBrinde');
+  if(!ov){ov=document.createElement('div');ov.id='ovBrinde';ov.className='ov modal-c';ov.onclick=e=>{if(e.target===ov)closeOv();};document.body.appendChild(ov);}
+  const corpo={
+    demo:`<h2>Mockup com <b>IA</b></h2><p class="sub">Modo demonstração. No site final, a sua prévia vai para a nossa IA de imagens, que devolve em instantes uma foto realista do brinde com a gravação a laser.</p>
+      <img class="br-modal-img" src="${document.getElementById('brCanvas').toDataURL('image/jpeg',.85)}" alt="Prévia"><button class="buy" onclick="closeOv();brOrcamento()">Enviar pedido ao Comercial</button>`,
+    gerando:`<h2>Gerando o <b>mockup</b>…</h2><p class="sub">A nossa IA está aplicando a sua marca no produto. Isso leva alguns segundos.</p><div class="br-load"></div>`,
+    pronto:`<h2>Seu <b>mockup</b></h2><img class="br-modal-img" src="${img||''}" alt="Mockup gerado"><button class="buy" onclick="closeOv();brOrcamento()">Pedir orçamento com este mockup</button>`,
+    erro:`<h2>Não deu <b>certo</b></h2><p class="sub">A geração falhou agora. Tente de novo em instantes ou mande a prévia para o Comercial.</p><button class="buy" onclick="closeOv();brOrcamento()">Falar com o Comercial</button>`
+  }[estado];
+  ov.innerHTML=`<div class="modal br-modal"><button class="ov-close" onclick="closeOv()" aria-label="Fechar">✕</button>${corpo}</div>`;
+  ov.classList.add('on');
+}
 function renderAtacado(){
   app.innerHTML=`
   <section class="view on">
@@ -1444,6 +1661,7 @@ function renderAtacado(){
       <h1>Atacado <b>AZARTE</b></h1>
       <p>Para lojistas e revendedores com CNPJ. Preços de atacado por unidade, sem quantidade mínima por item.</p>
     </div>
+    ${atacNav('atacado')}
     <div class="wrap atac-grid">
       <div class="atac-card"><span>1</span><h3>Tenha um CNPJ</h3><p>O atacado é exclusivo para empresas.</p></div>
       <div class="atac-card"><span>2</span><h3>Pedido mínimo de R$ 500,00</h3><p>Pode misturar os produtos que quiser, independente do item.</p></div>
@@ -1466,6 +1684,7 @@ function footerHtml(){
         <a href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.7.9c.5 1 1.5 2 2.5 2.5l.9-.7 1.7.7v.8c0 .3 0 .7-.8 1-.8.4-2.7.2-4.6-1.6-1.8-1.9-2-3.8-1.6-4.6Z" fill="currentColor" stroke="none"/></svg> Contato</a>
         <a href="https://www.instagram.com/azarte.oficial/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @azarte.oficial</a>
         <a href="#atacado">Atacado (CNPJ)</a>
+        <a href="#brindes">Brindes personalizados</a>
         <a href="#" onclick="toast('SAC — canal definido no lançamento');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3.5a8.5 8.5 0 0 0-8.5 8.5c0 1.6.4 3 1.2 4.3L3.5 20.5l4.3-1.2A8.5 8.5 0 1 0 12 3.5Z"/></svg> SAC</a>
       </div>
       <div class="foot-r">${LOGOW}${LOGOW}${LOGOW}${LOGOW}</div>
