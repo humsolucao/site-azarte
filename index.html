@@ -598,6 +598,12 @@ body.atac .vant .v1,body.atac .vant .v2{display:none}
 .ks-dica{font-size:.74rem;font-weight:300;color:var(--ink-soft);margin:10px 0 16px}
 .ks-prods small{font-size:.66rem;color:var(--ink-soft);font-weight:300}
 .slot-num{flex:none;min-width:34px}
+.ks-wait .slot-num{flex:none}
+.ks-slot{scroll-margin-top:calc(var(--nav-h) + 20px)}
+.kit-total b{white-space:nowrap}
+body:has(.kit-bar.on) .toast{bottom:100px}
+.ks-comb-m{margin:8px 0 0;padding-top:8px;border-top:none}
+@media(max-width:960px){.ks-slot{scroll-margin-top:calc(var(--nav-h) + 200px)}.fam-prev{display:none}}
 @media(max-width:960px){.ks-stage-m{display:block;position:sticky;top:var(--nav-h);z-index:30;background:#fff;padding:6px 0 4px;margin:0 0 12px}.ks-stage-m .ks-stage{height:150px;margin:0}
  .ks-fams{grid-template-columns:repeat(3,1fr)}.ks-prods{grid-template-columns:repeat(2,1fr)}.kit-bar .buy{font-size:.72rem;letter-spacing:.08em;padding:0 18px;white-space:nowrap}.ks-hero p{font-size:.9rem}}
 body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
@@ -1151,7 +1157,7 @@ function renderKit(){
 }
 const famsKit=()=>CATS.filter(c=>c.id!=='kits'&&P.some(p=>p.cats.includes(c.id)&&p.price!=null));
 const poolDe=s=>{const f=PAPEIS[s.papel].fams;return P.filter(p=>p.price!=null&&!p.cats.includes('kits')&&(f?p.cats.some(c=>f.includes(c)):(!s.cat||p.cats.includes(s.cat))));};
-const tituloCurto=p=>{const t=(PRODUTOS.find(x=>x.id===p.id)||{}).titulo;return t?`${t.tipo} <b>${t.modelo}</b>`:p.name;};
+const tituloCurto=p=>{const t=(PRODUTOS.find(x=>x.id===p.id)||{}).titulo;return t?`${t.tipo} <b>${t.modelo}</b>${t.complemento&&t.complemento!=='AZARTE'?' '+t.complemento:''}`:p.name;};
 const GRUPOS_COR={'Preto':['Preto'],'Branco':['Branco'],'Inox':['Inox Escovado','Cromado'],'Verde':['Verde Militar'],'Rosa':['Rosa Claro','Rosa Pink'],'Rosé':['Rosé'],'Bege':['Bege Nude','Bege'],'Azul':['Azul Escuro','Azul Petróleo'],'Roxo':['Roxo','Violeta']};
 const corDoGrupo=(p,g)=>p.colors.find(c=>GRUPOS_COR[g].includes(c));
 const altCm=p=>{const m=String(p.specs.alt||'').match(/[\d,]+/);return m?parseFloat(m[0].replace(',','.')):20;};
@@ -1199,11 +1205,12 @@ function slotHtml(s,i){
     </div>`:''}
   </div>`;
 }
-function proxPapel(i){const k=slots.findIndex((x,j)=>j!==i&&!x.prod);return k<0?0:k+1;}
+function proxVazia(i){let k=slots.findIndex((x,j)=>j>i&&!x.prod&&!x.pulado);if(k<0)k=slots.findIndex((x,j)=>j!==i&&!x.prod&&!x.pulado);return k;}
+function proxPapel(i){const k=proxVazia(i);return k<0?0:k+1;}
 function drawSlots(){
   const body=document.getElementById('kitBody'); if(!body) return;
   body.innerHTML=slots.map(slotHtml).join('')+`<div class="ks-actions"><button class="kit-add" onclick="addSlot()">＋ Adicionar outro item</button>${slots.some(x=>x.prod)?`<button class="clear-lnk" onclick="clearKit()">Limpar kit</button>`:''}</div>`;
-  const m=document.getElementById('kitStageM'); if(m) m.innerHTML=stageHtml();
+  const m=document.getElementById('kitStageM'); if(m){const sel=slots.filter(x=>x.prod);const gr=Object.keys(GRUPOS_COR).filter(g=>sel.filter(x=>corDoGrupo(byId(x.prod),g)).length>=2);m.innerHTML=stageHtml()+(gr.length?`<div class="ks-comb ks-comb-m"><span>Combinar cores</span><div>${gr.map(g=>`<button onclick="kitCombinar('${g}')"><i style="background:${HEX[GRUPOS_COR[g][0]]}"></i>${g}</button>`).join('')}</div></div>`:'');}
   kitSum();
 }
 function drawSide(sel,total,n){
@@ -1213,15 +1220,16 @@ function drawSide(sel,total,n){
     <h3>Seu <b>kit</b></h3>
     ${stageHtml()}
     ${sel.length?`<ul>${sel.map(s=>{const p=byId(s.prod);const i=slots.indexOf(s);return `<li><button onclick="slotOpen(${i})"><img src="${fotoCor(p,s.color)}" alt=""></button><span>${tituloCurto(p)}<small>${s.color} · ${s.qty} un.</small></span><b>${fmt(precoDe(p,s.color)*s.qty)}</b></li>`;}).join('')}</ul>`
-      :`<p class="ks-vazio">Clique no modelo da garrafa para começar, ou use uma sugestão pronta.</p>`}
+      :`<p class="ks-vazio">Escolha os itens ao lado, ou use uma sugestão pronta.</p>`}
     ${grupos.length?`<div class="ks-comb"><span>Combinar cores</span><div>${grupos.map(g=>`<button onclick="kitCombinar('${g}')" title="Deixar o kit em ${g}"><i style="background:${HEX[GRUPOS_COR[g][0]]}"></i>${g}</button>`).join('')}</div></div>`:''}
     <div class="ks-tot"><span>Total · ${n} ${n===1?'item':'itens'}</span><b>${fmt(total)}</b></div>
     ${ATACADO?`<small class="ks-min">${total>=ATACADO_MINIMO?'Pedido mínimo do atacado atingido ✓':`Atacado: faltam ${fmt(ATACADO_MINIMO-total)} para o mínimo de ${fmt(ATACADO_MINIMO)} (pode completar na sacola)`}</small>`:''}
     <button class="buy" ${sel.length?'':'disabled'} onclick="kitBuy()">Adicionar kit à sacola</button>
   </div>`;
 }
-function irPara(i){requestAnimationFrame(()=>document.getElementById('slot'+i)?.scrollIntoView({behavior:'smooth',block:'center'}));}
+function irPara(i){requestAnimationFrame(()=>document.getElementById('slot'+i)?.scrollIntoView({behavior:'smooth',block:'start'}));}
 function kitPreset(garrafa){
+  if(slots.some(x=>x.prod)&&!confirm('Trocar o kit atual pela sugestão?'))return;
   slots=[{papel:'garrafa',cat:'garrafas25',prod:garrafa,color:'Preto',qty:1,open:false},{papel:'copo',cat:'copos',prod:'c300',color:'Preto',qty:1,open:false},{papel:'bomba',cat:'bombas',prod:'corte',color:'Preto',qty:1,open:false}]
     .filter(s=>byId(s.prod)&&byId(s.prod).price!=null);
   drawSlots(); toast('Kit montado em Preto · troque as cores em Combinar cores ou Editar');
@@ -1237,15 +1245,15 @@ function slotProd(i,id){const s=slots[i],p=byId(id); s.prod=id; s.cat=p.cats[0];
 function slotColor(i,c){slots[i].color=c;slotDone(i);}
 function slotQty(i,d){slots[i].qty=Math.max(1,slots[i].qty+d);drawSlots();}
 function slotDone(i){
-  const s=slots[i]; s.open=false;
-  const k=slots.findIndex(x=>!x.prod);
+  const s=slots[i]; s.open=false; s.pulado=false;
+  const k=proxVazia(i);
   if(k>=0){slots[k].open=true; drawSlots(); irPara(k); toast((s.prod?'Item registrado · ':'')+'agora: '+PAPEIS[slots[k].papel].nome.toLowerCase());}
-  else {drawSlots(); toast('Kit completo ✓ confira o total'); const side=document.getElementById('kitSide'); if(side&&getComputedStyle(side).display!=='none') side.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  else {drawSlots(); toast('Kit completo ✓ confira o total'); const side=document.getElementById('kitSide'); const alvo=(side&&getComputedStyle(side).display!=='none')?side:document.getElementById('kitStageM'); alvo?.scrollIntoView({behavior:'smooth',block:'start'});}
 }
-function slotPular(i){slots[i].open=false;const k=slots.findIndex((x,j)=>j>i&&!x.prod);if(k>=0){slots[k].open=true;}drawSlots();if(k>=0)irPara(k);}
+function slotPular(i){slots[i].open=false;slots[i].pulado=true;const k=proxVazia(i);if(k>=0){slots[k].open=true;}drawSlots();if(k>=0)irPara(k);}
 function slotOpen(i){slots.forEach((x,k)=>x.open=k===i);drawSlots();irPara(i);}
 function addSlot(){slots.forEach(x=>x.open=false);slots.push(BLANK('extra',true));drawSlots();irPara(slots.length-1);}
-function rmSlot(i){slots.splice(i,1);if(!slots.length)slots=slotsIniciais();drawSlots();}
+function rmSlot(i){const s=slots[i];if(s.papel!=='extra'){Object.assign(s,{cat:null,prod:null,color:null,qty:1,pulado:false});slots.forEach((x,k)=>x.open=k===i);}else{slots.splice(i,1);}if(!slots.length)slots=slotsIniciais();drawSlots();}
 function kitSum(){
   const sel=slots.filter(s=>s.prod);
   const total=sel.reduce((t,s)=>t+precoDe(byId(s.prod),s.color)*s.qty,0);
@@ -1364,12 +1372,12 @@ function entrarPF(){if(ATACADO)sairAtacado(true);closeOv();toast('Login demonstr
 function entrarCNPJ(){
   const v=document.getElementById('inCnpj').value;
   if(v.replace(/\D/g,'').length!==14){toast('Digite os 14 números do CNPJ');return;}
-  if(cart.length&&!confirm('Sua sacola será esvaziada, porque no atacado os preços mudam. Continuar?'))return;
+  if((cart.length||slots.some(x=>x.prod))&&!confirm('Sua sacola e o kit serão esvaziados, porque no atacado os preços mudam. Continuar?'))return;
   CNPJ=v; ATACADO=true; cart.length=0; slots=[]; updateCartN(); marcaLogin();
   document.body.classList.add('atac'); document.getElementById('atacCnpj').textContent=v;
   closeOv(); route(); toast('Você está no atacado: preços por unidade, mínimo R$ 500');
 }
-function sairAtacado(quiet){if(!quiet&&cart.length&&!confirm('Sua sacola será esvaziada, porque os preços voltam ao varejo. Continuar?'))return;ATACADO=false;CNPJ='';cart.length=0;slots=[];updateCartN();marcaLogin();closeOv();document.body.classList.remove('atac');route();if(!quiet)toast('Você saiu do atacado: preços de varejo');}
+function sairAtacado(quiet){if(!quiet&&(cart.length||slots.some(x=>x.prod))&&!confirm('Sua sacola e o kit serão esvaziados, porque os preços voltam ao varejo. Continuar?'))return;ATACADO=false;CNPJ='';cart.length=0;slots=[];updateCartN();marcaLogin();closeOv();document.body.classList.remove('atac');route();if(!quiet)toast('Você saiu do atacado: preços de varejo');}
 function finalizar(){
   if(!cart.length){toast('Sua sacola está vazia');return;}
   if(!ATACADO){toast('Checkout demonstrativo — na versão final: WooCommerce + Bling');return;}
