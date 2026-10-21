@@ -1501,7 +1501,7 @@ function renderBrindes(aba){
     <div class="atac-hero br-hero">
       <span class="eyebrow" style="opacity:1;animation:none">Atacado · Brindes personalizados</span>
       <h1>Brindes <b>AZARTE</b></h1>
-      <p>Garrafas, copos, cuias e kits com a marca da sua empresa, gravados a laser. Monte a prévia aqui e receba o orçamento do nosso Comercial.</p>
+      <p>Garrafas e kits com a marca da sua empresa, gravados a laser. Monte a prévia aqui e receba o orçamento do nosso Comercial.</p>
     </div>
     ${atacNav('brindes')}
     <div class="wrap br-tabs"><a class="${aba==='info'?'on':''}" href="#brindes">Passo a passo</a><a class="${aba==='monte'?'on':''}" href="#brindes/monte">Monte seu brinde</a></div>
@@ -1512,7 +1512,7 @@ function renderBrindes(aba){
 }
 function brInfoHtml(){
   return `<div class="wrap atac-grid">
-      <div class="atac-card"><span>1</span><h3>Escolha o produto</h3><p>Garrafinhas, garrafas, copos, cuias e kits AZARTE, na cor que combina com a sua marca.</p></div>
+      <div class="atac-card"><span>1</span><h3>Escolha o produto</h3><p>Garrafinhas, garrafas e kits AZARTE na versão lisa, só com a sua marca, na cor que combina com ela.</p></div>
       <div class="atac-card"><span>2</span><h3>Envie a sua marca</h3><p>Suba a logo em PNG, JPG ou SVG. Você posiciona e ajusta o tamanho na prévia.</p></div>
       <div class="atac-card"><span>3</span><h3>Receba a prévia e o orçamento</h3><p>Com CNPJ, gere um mockup realista com a nossa IA de imagens e mande para o Comercial.</p></div>
     </div>
@@ -1553,7 +1553,7 @@ function brMonteHtml(){
       <div class="ks-card">
         <h3>Prévia do <b>brinde</b></h3>
         <div class="br-canvas"><canvas id="brCanvas" width="900" height="900" aria-label="Prévia do brinde"></canvas>${BR.logo?'<span class="br-dica">Arraste a logo para posicionar</span>':'<span class="br-vazio">Envie a sua logo para ver a prévia</span>'}</div>
-        <p class="br-nota">Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista. A foto mostra o produto de linha: se o brinde terá também a marca AZARTE, o Comercial confirma no orçamento.</p>
+        <p class="br-nota">Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista.</p>
         <button class="buy" onclick="gerarMockupIA()" ${BR.logo?'':'disabled'}>Gerar mockup com IA</button>
         <div class="br-acoes"><button class="link-pill" onclick="brBaixar()" ${BR.logo?'':'disabled'}>Baixar prévia</button><button class="link-pill dark" onclick="brOrcamento()">Pedir orçamento</button></div>
       </div>

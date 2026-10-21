@@ -5,7 +5,7 @@
      No servidor fica a chave do motor de imagem (Magnific / Nano Banana Pro) —
      NUNCA colocar chave de API neste arquivo, ele é público.
    - BRINDES_PRODUTOS: produtos que aceitam mockup/gravação (regra do Alisson, 21/10/2026:
-     só copos, cuias, garrafinhas, garrafas e kits; bombas e garrafões NÃO), com a posição inicial
+     só copos, cuias, garrafinhas, garrafas e kits, e SÓ nas versões limpas, sem a marca AZARTE impressa; bombas e garrafões NÃO), com a posição inicial
      da logo na foto (x, y = centro em fração da foto; esc = largura da logo).
    - Condições (mínimo de peças, prazo, preço): a combinar com o Comercial.
      Quando o Alisson definir, preencher BRINDES_CONDICOES.
@@ -14,17 +14,15 @@ const BRINDES_API = '';
 const BRINDES_LIMITE_DIA = 5; /* gerações com IA por CNPJ por dia (controle de custo) */
 const BRINDES_CONDICOES = { minimo: null, prazo: null }; /* null = "a combinar com o Comercial" */
 
+/* Só versões LIMPAS (sem a marca AZARTE impressa) — regra do Alisson, 21/10/2026.
+   Copos e cuias voltam quando houver foto limpa deles (hoje todas têm a marca AZARTE). */
 const BRINDES_PRODUTOS = {
   g800:  { x: .50, y: .60, esc: .16 },
-  g25a:  { x: .44, y: .66, esc: .24 },
   g25l:  { x: .44, y: .62, esc: .26 },
-  kitaz: { x: .40, y: .64, esc: .20 },
-  kitli: { x: .40, y: .62, esc: .22 },
-  quad:  { x: .38, y: .52, esc: .16 },
-  red:   { x: .36, y: .52, esc: .18 },
-  c300:  { x: .38, y: .50, esc: .18 },
-  c269:  { x: .50, y: .60, esc: .28 }
+  kitli: { x: .40, y: .62, esc: .22 }
 };
+/* para quando houver fotos limpas: quad { x:.38, y:.52, esc:.16 }, red { x:.36, y:.52, esc:.18 },
+   c300 { x:.38, y:.50, esc:.18 }, c269 { x:.50, y:.60, esc:.28 } */
 
 /* nome das cores em inglês para o prompt do motor de imagem */
 const COR_EN = {
