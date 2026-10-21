@@ -725,6 +725,12 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
 .br-acoes .link-pill{flex:1;text-align:center;white-space:nowrap;padding:11px 10px;font-size:.72rem}
 .link-pill[disabled]{opacity:.45;cursor:not-allowed}
 .br-modal{width:min(560px,100%)}
+.br-modal:has(.br-opcoes){width:min(1100px,100%)}
+.br-rest{display:block;text-align:center;font-size:.7rem;font-weight:300;color:var(--ink-soft);margin:8px 0 4px}
+.br-opcoes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 16px}
+.br-opcoes img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;border:1px solid var(--bege-line)}
+.br-opcoes figcaption{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+@media(max-width:760px){.br-opcoes{grid-template-columns:1fr}}
 .br-modal-img{width:100%;border-radius:18px;border:1px solid var(--bege-line);margin:6px 0 16px}
 .br-load{height:4px;border-radius:99px;background:linear-gradient(90deg,var(--bege-soft),var(--bege),var(--bege-soft));background-size:200% 100%;animation:brl 1.2s linear infinite;margin:20px 0}
 @keyframes brl{to{background-position:-200% 0}}
@@ -1617,8 +1623,8 @@ function brMonteHtml(){
         <div class="sw-row">${p.colors.map(c=>`<button class="sw ${c===BR.cor?'on':''}" style="background:${HEX[c]}" title="${c}" aria-label="${c}" onclick="brCor('${c}')"></button>`).join('')}</div>
       </div>
       <div class="ks-step"><label>3 · Sua marca</label>
-        <label class="br-up" for="brFile"><input id="brFile" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onchange="brLogo(this.files[0])">
-          <span>${BR.logo?`<b>${esc(BR.logoNome)}</b> · trocar arquivo`:'<b>Enviar logo</b> · PNG, JPG ou SVG até 5 MB (fundo transparente fica melhor)'}</span></label>
+        <label class="br-up" for="brFile"><input id="brFile" type="file" accept="image/*" onchange="brLogo(this.files[0])">
+          <span>${BR.logo?`<b>${esc(BR.logoNome)}</b> · trocar imagem`:'<b>Enviar a sua logo</b> · pode ser foto, print ou qualquer imagem (até 5 MB). A nossa IA separa a logo do fundo.'}</span></label>
         ${BR.logo?`<div class="br-ctrl">
           <label>Tamanho <input type="range" min="6" max="${brEscMax()}" value="${Math.round(BR.esc*100)}" oninput="BR.esc=this.value/100;brDesenha()"></label>
           <p class="ks-dica">Gravação a laser: nos produtos coloridos a marca aparece em inox prateado; no inox, em grafite.</p>
@@ -1634,9 +1640,10 @@ function brMonteHtml(){
       <div class="ks-card">
         <h3>Prévia do <b>brinde</b></h3>
         <div class="br-canvas"><canvas id="brCanvas" width="900" height="900" aria-label="Prévia do brinde"></canvas>${BR.logo?'<span class="br-dica">Arraste a logo para posicionar</span>':'<span class="br-vazio">Envie a sua logo para ver a prévia</span>'}</div>
-        <p class="br-nota">Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista.</p>
+        <p class="br-nota">${BR.logo&&!brTemTransparencia(BR.logo)?'Prévia com a imagem como você enviou. Na geração, a IA separa só a logo e aplica como gravação a laser, sem cor.':'Prévia ilustrativa. O mockup com IA mostra a gravação a laser realista.'}</p>
         ${ATACADO?'':`<p class="br-trava">🔒 Monte à vontade. Para <b>gerar o mockup com IA</b> e <b>salvar a arte</b>, entre com o cadastro da sua empresa. <a href="#" onclick="abrirAtacado();return false">Entrar</a> · <a href="#" onclick="openLogin();accTab('cad');return false">Cadastrar CNPJ</a></p>`}
-        <button class="buy" onclick="gerarMockupIA()" ${BR.logo?'':'disabled'}>${ATACADO?'':'🔒 '}Gerar mockup com IA</button>
+        <button class="buy" onclick="gerarMockupIA()" ${BR.logo?'':'disabled'}>${ATACADO?'':'🔒 '}Gerar 3 opções com IA</button>
+        <small class="br-rest" id="brRest">${ATACADO?`${Math.max(0,BRINDES_LIMITE_HORA-brTentativas().length)} de ${BRINDES_LIMITE_HORA} tentativas nesta hora · cada uma gera 3 opções`:''}</small>
         <div class="br-acoes"><button class="link-pill" onclick="brSalvar()" ${BR.logo?'':'disabled'}>${ATACADO?'':'🔒 '}Salvar arte</button><button class="link-pill dark" onclick="brOrcamento()">Pedir orçamento</button></div>
       </div>
       ${ATACADO&&BR.salvos.length?`<div class="ks-card br-salvos"><h3>Suas artes <b>salvas</b></h3><ul>${BR.salvos.map((a,i)=>`<li><img src="${a.previa}" alt=""><span>${tituloCurto(byId(a.prod))}<small>${a.cor} · ${a.data}</small></span><div><button onclick="brAbrirSalva(${i})">Abrir</button><button onclick="brBaixar(${i})">Baixar</button><button onclick="brApagarSalva(${i})">Apagar</button></div></li>`).join('')}</ul><p class="br-nota">No site final as artes ficam guardadas no cadastro da empresa.</p></div>`:''}
@@ -1651,7 +1658,8 @@ function brQtd(d){BR.qtd=Math.max(10,Math.round((BR.qtd+d)/10)*10);document.getE
 function brPosPadrao(silencio){const d=BRINDES_PRODUTOS[BR.prod]||{x:.5,y:.6,esc:.2};BR.x=d.x;BR.y=d.y;BR.esc=d.esc;if(!silencio)brRender();}
 function brLogo(f){
   if(!f) return;
-  if(f.size>5*1024*1024){toast('Arquivo maior que 5 MB');return;}
+  if(f.size>5*1024*1024){toast('Imagem maior que 5 MB');return;}
+  if(f.type&&!f.type.startsWith('image/')){toast('Envie uma imagem (foto, print, JPG, PNG…)');return;}
   const r=new FileReader();
   r.onload=()=>{const im=new Image();im.onload=()=>{brCache.mono=null;BR.logo=im;BR.logoNome=f.name;BR.logoUrl=r.result;BR.arr=null;brRender();toast('Logo aplicada · arraste para posicionar');};im.onerror=()=>toast('Não consegui ler esse arquivo');im.src=r.result;};
   r.readAsDataURL(f);
@@ -1665,6 +1673,7 @@ function brCorTinta(){
   return COR_INOX.includes(BR.cor)?[80,83,86]:(BR.cor==='Branco'?[150,153,156]:[200,203,205]);
 }
 /* logo em uma cor só (efeito gravação): usa a transparência do PNG ou o escuro do JPG */
+function brTemTransparencia(im){const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(im,0,0,64,64);const a=g.getImageData(0,0,64,64).data;let t=0;for(let i=3;i<a.length;i+=4)if(a[i]<240)t++;return t>64*64*.03;}
 function brLogoMono(){
   const im=BR.logo, w=im.naturalWidth||im.width||600, h=im.naturalHeight||im.height||600, k=Math.min(1,900/Math.max(w,h));
   const c=document.createElement('canvas'); c.width=Math.max(1,Math.round(w*k)); c.height=Math.max(1,Math.round(h*k));
@@ -1690,8 +1699,8 @@ function brDesenha(){
     g.drawImage(foto,(W-fw)/2,(H-fh)/2,fw,fh);
     if(BR.logo){
       const key=BR.logoNome+'|'+brCorTinta().join(',');
-      if(brCache.monoKey!==key||!brCache.mono){brCache.mono=brLogoMono();brCache.monoKey=key;}
-      const m=brCache.mono, hMax=((BRINDES_PRODUTOS[BR.prod]||{}).hmax||.34)*H; let lw=BR.esc*W, lh=lw*m.height/m.width; if(lh>hMax){lw=lw*hMax/lh;lh=hMax;} const lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
+      if(brCache.monoKey!==key||!brCache.mono){brCache.mono=brTemTransparencia(BR.logo)?brLogoMono():BR.logo;brCache.monoKey=key;}
+      const m=brCache.mono, mw=m.naturalWidth||m.width, mh=m.naturalHeight||m.height, hMax=((BRINDES_PRODUTOS[BR.prod]||{}).hmax||.34)*H; let lw=BR.esc*W, lh=lw*mh/mw; if(lh>hMax){lw=lw*hMax/lh;lh=hMax;} const lx=BR.x*W-lw/2, ly=BR.y*H-lh/2;
       g.drawImage(m,lx,ly,lw,lh); BR.caixa=[lx,ly,lw,lh];
     }
   };
@@ -1728,31 +1737,34 @@ function brOrcamento(){
 }
 /* Geração com IA: o site monta o pedido; o servidor (BRINDES_API) chama o motor de imagem com a chave guardada lá. */
 const brUso={};
+const brTentativas=()=>(brUso[CNPJ]||[]).filter(t=>Date.now()-t<3600e3);
+function brRestante(){const el=document.getElementById('brRest');if(el)el.textContent=ATACADO?`${Math.max(0,BRINDES_LIMITE_HORA-brTentativas().length)} de ${BRINDES_LIMITE_HORA} tentativas nesta hora · cada uma gera 3 opções`:'';}
 async function gerarMockupIA(){
   if(!BR.logo){toast('Envie a sua logo primeiro');return;}
   if(!ATACADO){abrirAtacado();toast('Entre com o cadastro da empresa para gerar o mockup com IA');return;}
-  const hoje=new Date().toISOString().slice(0,10), chave=CNPJ+hoje;
-  if((brUso[chave]||0)>=BRINDES_LIMITE_DIA){toast('Limite de mockups de hoje atingido · fale com o Comercial');return;}
+  const agora=Date.now(), lista=brTentativas();
+  if(lista.length>=BRINDES_LIMITE_HORA){const min=Math.max(1,Math.ceil((3600e3-(agora-lista[0]))/60000));toast(`Limite de ${BRINDES_LIMITE_HORA} tentativas por hora · libera de novo em ${min} min`);return;}
+  brUso[CNPJ]=[...lista,agora];
   const p=byId(BR.prod), pos={x:BR.x,y:BR.y,esc:BR.esc};
   const pedido={cnpj:CNPJ,produto:p.id,nome:p.name,cor:BR.cor,ref:p.refs[BR.cor]||'',quantidade:BR.qtd,tecnica:'gravacao_laser',
     posicao:pos,tinta:BR.tinta,fotoProduto:location.origin+location.pathname.replace(/[^/]*$/,'')+fotoCor(p,BR.cor),
-    logo:BR.logoUrl,previa:document.getElementById('brCanvas').toDataURL('image/jpeg',.85),prompt:promptMockupBrinde(p,BR.cor,pos)};
-  if(!BRINDES_API){brModal('demo');return;}
+    logo:BR.logoUrl,previa:document.getElementById('brCanvas').toDataURL('image/jpeg',.85),formato:BRINDE_FORMATO,opcoes:promptsMockupBrinde(p,BR.cor,pos)};
+  if(!BRINDES_API){brModal('demo');brRestante();return;}
   brModal('gerando');
   try{
     const r=await fetch(BRINDES_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pedido)});
     if(!r.ok) throw new Error('HTTP '+r.status);
-    const j=await r.json(); brUso[chave]=(brUso[chave]||0)+1; brModal('pronto',j.imagem);
+    const j=await r.json(); brModal('pronto',j.imagens||[j.imagem]);
   }catch(e){brModal('erro');}
 }
 function brModal(estado,img){
   let ov=document.getElementById('ovBrinde');
   if(!ov){ov=document.createElement('div');ov.id='ovBrinde';ov.className='ov modal-c';ov.onclick=e=>{if(e.target===ov)closeOv();};document.body.appendChild(ov);}
   const corpo={
-    demo:`<h2>Mockup com <b>IA</b></h2><p class="sub">Modo demonstração. No site final, a sua prévia vai para a nossa IA de imagens, que devolve em instantes uma foto realista do brinde com a gravação a laser.</p>
+    demo:`<h2>Mockup com <b>IA</b></h2><p class="sub">Modo demonstração. No site final, a nossa IA devolve 3 opções em formato largo: ${BRINDE_OPCOES.map((o,i)=>`${i+1} · ${o.nome.toLowerCase()}`).join(', ')}.</p>
       <img class="br-modal-img" src="${document.getElementById('brCanvas').toDataURL('image/jpeg',.85)}" alt="Prévia"><p class="sub">Baixe a prévia e anexe na conversa do WhatsApp junto com a sua logo.</p><div class="br-acoes"><button class="link-pill" onclick="brBaixar()">Baixar prévia</button><button class="link-pill dark" onclick="closeOv();brOrcamento()">Enviar ao Comercial</button></div>`,
     gerando:`<h2>Gerando o <b>mockup</b>…</h2><p class="sub">A nossa IA está aplicando a sua marca no produto. Isso leva alguns segundos.</p><div class="br-load"></div>`,
-    pronto:`<h2>Seu <b>mockup</b></h2><img class="br-modal-img" src="${img||''}" alt="Mockup gerado"><button class="buy" onclick="closeOv();brOrcamento()">Pedir orçamento com este mockup</button>`,
+    pronto:`<h2>Suas <b>3 opções</b></h2><div class="br-opcoes">${(img||[]).map((u,i)=>`<figure><img src="${u}" alt="Opção ${i+1}"><figcaption>${i+1} · ${(BRINDE_OPCOES[i]||{}).nome||''}</figcaption></figure>`).join('')}</div><button class="buy" onclick="closeOv();brOrcamento()">Pedir orçamento com estes mockups</button>`,
     erro:`<h2>Não deu <b>certo</b></h2><p class="sub">A geração falhou agora. Tente de novo em instantes ou mande a prévia para o Comercial.</p><button class="buy" onclick="closeOv();brOrcamento()">Falar com o Comercial</button>`
   }[estado];
   ov.innerHTML=`<div class="modal br-modal"><button class="ov-close" onclick="closeOv()" aria-label="Fechar">✕</button>${corpo}</div>`;

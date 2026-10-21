@@ -11,7 +11,8 @@
      Quando o Alisson definir, preencher BRINDES_CONDICOES.
    ===================================================================== */
 const BRINDES_API = '';
-const BRINDES_LIMITE_DIA = 5; /* gerações com IA por CNPJ por dia (controle de custo) */
+const BRINDES_LIMITE_HORA = 3; /* tentativas de geração com IA por CNPJ por hora (regra do Alisson, 21/10/2026).
+   Cada tentativa gera as 3 opções. O servidor TEM que aplicar o mesmo limite. */
 const BRINDES_CONDICOES = { minimo: null, prazo: null }; /* null = "a combinar com o Comercial" */
 
 /* Só versões LIMPAS (sem a marca AZARTE impressa) — regra do Alisson, 21/10/2026.
@@ -50,31 +51,47 @@ const KIT_IDS = ['kitaz', 'kitli'];
 const COPO_IDS = ['quad', 'red', 'c300', 'c269'];
 
 /* Prompt no padrão do agente de imagens da Hum (inglês, logo pixel-fiel, ≤ 2400 caracteres, Fidelity Lock).
-   Referência 1 = foto do produto na cor escolhida; referência 2 = logo do cliente.
-   Gravação a laser: em produto pintado aparece o inox prateado; em inox aparece marca grafite. */
-function promptMockupBrinde(p, cor, pos) {
+   Referência 1 = foto do produto na cor escolhida; referência 2 = imagem que o cliente enviou
+   (pode ser foto, print ou JPG com fundo: o prompt manda isolar só a logo).
+   Sempre 3 opções em 16:9, nesta ordem (regra do Alisson, 21/10/2026):
+   1 horizontal · 2 vertical · 3 logo completa. */
+const BRINDE_FORMATO = '16:9';
+const BRINDE_OPCOES = [
+  { tipo: 'horizontal', nome: 'Horizontal',
+    texto: 'LAYOUT 1, HORIZONTAL: arrange the logo elements from reference 2 in one horizontal line, symbol on the left and brand name to its right, reusing the exact artwork of each element' },
+  { tipo: 'vertical', nome: 'Vertical',
+    texto: 'LAYOUT 2, VERTICAL: symbol on top and the brand name below it written vertically along the body, reading from bottom to top, reusing the exact artwork of each element' },
+  { tipo: 'completa', nome: 'Logo completa',
+    texto: 'LAYOUT 3, COMPLETE LOGO: the entire logo exactly as provided in reference 2, every element including any tagline, in its original arrangement' }
+];
+function promptMockupBrinde(p, cor, pos, opcao) {
+  opcao = opcao || BRINDE_OPCOES[2];
   const corEn = COR_EN[cor] || cor;
   const inox = COR_INOX.includes(cor);
   const kit = KIT_IDS.includes(p.id), copo = COPO_IDS.includes(p.id);
   const nome = PRODUTO_EN[p.id] || 'product';
-  const lado = pos.x < .42 ? "slightly to the viewer's left of center" : pos.x > .58 ? "slightly to the viewer's right of center" : 'horizontally centered';
-  const altura = Math.round(pos.y * 100), largura = Math.round(pos.esc * 100);
+  const d = BRINDES_PRODUTOS[p.id] || { y: .6 };
+  const faixa = pos.y < d.y - .06 ? 'upper part of the front body' : pos.y > d.y + .06 ? 'lower part of the front body' : 'middle of the front body';
   const gravacao = inox
-    ? 'laser etching: the logo appears as a fine dark matte graphite mark etched into the stainless steel surface, no paint, no sticker'
+    ? 'laser etching: a fine dark matte graphite mark etched into the stainless steel, no paint, no sticker'
     : `laser engraving: inside the logo shapes the ${corEn} coating is removed and bright brushed stainless steel shows through, flush with the surface, no paint, no sticker`;
-  const onde = kit ? 'on the front body of the jug (not on the cup)' : 'on the front body';
+  const onde = kit ? `${faixa} of the jug (not on the cup)` : faixa;
   const detalhes = p.id === 'g800'
-    ? (cor === 'Azul Petróleo' ? ' Keep the exact cap: black top, navy blue ring at the base of the cap, black handle.' : ' Keep the exact cap and handle exactly as in reference 1.')
-    : kit ? ' Keep every part of the kit exactly as in reference 1: the jug, its lever lid, the side cup holder, the cup and the bombilla straw.'
-    : copo ? ' Keep the exact rim, walls and base exactly as in reference 1.'
-    : ' Keep the exact lever lid and handle exactly as in reference 1.';
+    ? (cor === 'Azul Petróleo' ? ' Keep the exact cap: black top, navy blue ring at the base of the cap, black handle.' : ' Keep the exact cap and handle as in reference 1.')
+    : kit ? ' Keep every kit part exactly as in reference 1: jug, lever lid, side cup holder, cup and bombilla straw.'
+    : copo ? ' Keep the exact rim, walls and base as in reference 1.'
+    : ' Keep the exact lever lid and handle as in reference 1.';
   return [
-    `Commercial product mockup photograph on a clean neutral light-gray studio background with a soft natural floor shadow.`,
-    `Use reference image 1 as the exact product: a ${nome} in ${corEn}, same shape, proportions, materials, finish and any existing factory markings.${detalhes}`,
-    `Apply the logo from reference image 2 ${onde} as ${gravacao}.`,
-    `Placement: ${lado}, logo center at about ${altura}% of the image height from the top, logo width about ${largura}% of the image width, following the curvature and perspective of the surface.`,
-    `Do not redraw the logo: preserve exact letterforms, shapes and proportions, single color only, crisp edges.`,
-    `— TECHNICAL — Subject: ${kit ? 'the complete kit as one group' : 'single product'}, same camera angle and framing as reference 1. Lighting: large softbox key from viewer's left, gentle fill, realistic metal reflections. Lens: 85mm, f/8, tack-sharp on the engraving. Color: true-to-life, neutral white balance. Sharpness: crisp edges, high microcontrast, no AI artifacts. Realism: real photograph, not CGI. Aspect ratio 1:1.`,
-    `Fidelity Lock: product geometry, color, ${kit ? 'all kit parts' : copo ? 'rim and walls' : 'lid and handle'} and the logo design must stay unchanged; no extra text, no extra objects.`
+    `Commercial product mockup photograph, clean neutral light-gray studio background, soft natural floor shadow.`,
+    `Reference 1 is the exact product: a ${nome} in ${corEn}, same shape, proportions, materials, finish and factory markings.${detalhes}`,
+    `Reference 2 is the customer's brand image; it may be a photo, screenshot, print or file with a background or other objects: isolate only the logo artwork (symbol and lettering), discard backgrounds, paper, borders, mockups and anything else.`,
+    `${opcao.texto}. Place it on the ${onde}, sized to fit comfortably inside the body, following the curvature and perspective of the surface, as ${gravacao}.`,
+    `Ignore the original colors of the logo: the whole mark becomes only the engraved metal tone, no ink, no print, no color fill. Do not redraw or invent letters: keep the exact letterforms, shapes and proportions of every element, crisp edges.`,
+    `— TECHNICAL — Subject: ${kit ? 'the complete kit as one group' : 'single product'}, same camera angle as reference 1, centered with generous side space. Lighting: large softbox key from viewer's left, gentle fill, realistic metal reflections. Lens: 85mm, f/8, tack-sharp on the engraving. Color: true-to-life, neutral white balance. Sharpness: crisp edges, high microcontrast, no AI artifacts. Realism: real photograph, not CGI. Aspect ratio ${BRINDE_FORMATO}.`,
+    `Fidelity Lock: product geometry, color, ${kit ? 'all kit parts' : copo ? 'rim and walls' : 'lid and handle'} and the logo artwork unchanged; no extra text, no extra objects.`
   ].join(' ');
+}
+/* as 3 opções na ordem fixa */
+function promptsMockupBrinde(p, cor, pos) {
+  return BRINDE_OPCOES.map((o, i) => ({ ordem: i + 1, tipo: o.tipo, nome: o.nome, formato: BRINDE_FORMATO, prompt: promptMockupBrinde(p, cor, pos, o) }));
 }
