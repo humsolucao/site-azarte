@@ -121,7 +121,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 
 
 /* ============ SECTIONS ============ */
-.sec{padding:96px 0 40px}
+.sec{padding-top:96px;padding-bottom:40px}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px;flex-wrap:wrap}
 .sec-head h2{font-weight:100;font-size:clamp(1.9rem,3.4vw,2.8rem);letter-spacing:-.01em}
 .sec-head h2 b{font-weight:500}
@@ -176,7 +176,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .cat-title .pills{display:inline-flex;flex-direction:column;gap:7px;align-items:center}
 .cat-title span{background:rgba(255,255,255,.92);backdrop-filter:blur(4px);border-radius:8px;padding:7px 18px;font-weight:500;letter-spacing:.22em;font-size:clamp(.9rem,2.4vw,1.5rem);text-transform:uppercase;color:var(--ink)}
 .cat-title span.vol{font-size:.85rem;color:var(--bege)}
-.cat-body{padding:56px 0 80px}
+.cat-body{padding-top:56px;padding-bottom:80px}
 
 /* ============ PRODUCT PAGE ============ */
 .crumb{font-size:.72rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:26px 0 8px;display:flex;gap:10px;flex-wrap:wrap}
@@ -321,7 +321,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .dr-foot .buy{width:100%;height:52px}
 /* toast */
 .toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:#fff;border-radius:var(--r-pill);padding:14px 28px;font-weight:500;font-size:.85rem;letter-spacing:.04em;z-index:130;transition:.45s cubic-bezier(.34,1.3,.64,1)}
-.toast.on{transform:translate(-50%,0)}
+.toast{opacity:0;visibility:hidden;max-width:calc(100vw - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0);opacity:1;visibility:visible}
 
 /* ============ FOOTER ============ */
 footer{background:var(--bege);color:#fff;margin-top:60px}
@@ -360,6 +361,7 @@ footer{background:var(--bege);color:#fff;margin-top:60px}
 .mstrip{position:sticky;top:var(--nav-h);z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--bege-line)}
 .mstrip-in{display:flex;gap:10px;overflow-x:auto;padding:12px 22px;max-width:1280px;margin:0 auto;scrollbar-width:none}
 .mstrip-in::-webkit-scrollbar{display:none}
+.mstrip-in>:first-child{margin-left:auto}.mstrip-in>:last-child{margin-right:auto}
 .ms{flex:none;width:56px;height:56px;border:1px solid var(--bege-line);border-radius:16px;overflow:hidden;background:#fff;transition:.35s var(--ease);padding:4px}
 .ms img{width:100%;height:100%;object-fit:contain}
 .ms:hover{transform:translateY(-4px) scale(1.16);border-color:var(--bege);box-shadow:0 12px 26px rgba(11,11,10,.14)}
@@ -541,6 +543,64 @@ body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
 .ks-card .buy{width:100%;height:50px}
 @media(min-width:961px){.kit-bar{display:none}}
 @media(max-width:960px){.ks-wrap{grid-template-columns:1fr;padding:10px 16px 120px}.ks-side{display:none}.ks-cols{grid-template-columns:1fr}.ks-photo{max-width:220px;order:-1}.ks-done{grid-template-columns:28px 52px 1fr auto;row-gap:8px}.ks-done .qty{grid-column:3}.ks-sub{grid-column:4}.ks-ed{grid-column:1/-1;flex-direction:row;justify-content:flex-end;gap:16px}.ks-mini{width:52px;height:52px}}
+/* ==== v1.6: correções e montagem visual do kit ==== */
+.drawer{transform:translateX(calc(100% + 140px))}
+.dr-back{position:fixed;inset:0;background:rgba(11,11,10,.38);backdrop-filter:blur(2px);z-index:105;opacity:0;pointer-events:none;transition:.3s}
+body.cart-on .dr-back{opacity:1;pointer-events:auto}
+.dr-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.dr-rm{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--ink-soft);transition:.2s}
+.dr-rm:hover{background:#F6E9E7;color:#B0483C}
+.dr-it .pr small{display:block;font-weight:300;font-size:.66rem;color:var(--ink-soft)}
+.dr-pix{display:block;font-size:.76rem;font-weight:300;color:var(--ink-soft)}
+.dr-pix b{color:var(--ink);font-weight:800}
+.buy[disabled]{opacity:.55;cursor:not-allowed}
+.dots .dot{cursor:pointer;padding:0;transition:transform .15s}
+.dots .dot:hover{transform:scale(1.2)}
+.dots .dot.on{outline:1.5px solid var(--ink);outline-offset:2px}
+.sr a{gap:14px}
+.sr a img{width:46px;height:46px;object-fit:contain;flex:none}
+.sr a .sr-n{flex:1;color:var(--ink);font-weight:300}
+.sr a .sr-n small{display:block;font-size:.72rem;color:var(--ink-soft)}
+.sr a span:last-child{white-space:nowrap}
+.sr a.first{background:var(--bege-soft)}
+.vant .v0{display:none}
+body.atac .vant .v0{display:inline}
+body.atac .vant .v1,body.atac .vant .v2{display:none}
+.vant .v3{color:#fff}
+.atac-bar>div{height:38px;padding-top:0;padding-bottom:0;white-space:nowrap;overflow:hidden}
+.atac-bar>div>span{overflow:hidden;text-overflow:ellipsis}
+.nico.logado::after{content:"";position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--bege)}
+.modal-c{overflow-y:auto}
+.modal{width:min(430px,100%);margin:auto}
+.f input{font-size:16px}
+@media(max-width:600px){.modal{padding:34px 22px}.modal-c{padding:16px;place-items:start center}}
+.ks-hero{padding:46px 24px 22px}
+.ks-hero .kit-logo .l1{font-size:clamp(1.2rem,3vw,2rem)}.ks-hero .kit-logo .l2{font-size:clamp(1.6rem,4vw,2.8rem)}.ks-hero .kit-logo .l3 .k{font-size:clamp(2rem,5vw,3.4rem)}
+.ks-stage{height:230px;margin:4px 0 16px;border-radius:20px;background:radial-gradient(ellipse 70% 60% at 50% 85%,#EDEBE2,var(--bege-soft) 70%);display:flex;align-items:flex-end;justify-content:center;gap:2px;padding:16px 12px 14px;overflow:hidden}
+.st-p{position:relative;display:flex;align-items:flex-end;justify-content:center;transition:transform .25s var(--ease),height .3s var(--ease);flex:0 1 auto;min-width:0}
+.st-p img{height:100%;width:auto;max-width:150px;object-fit:contain;animation:stIn .35s var(--ease)}
+.st-p:hover{transform:translateY(-4px)}
+.st-p i{position:absolute;top:0;right:-4px;font-style:normal;font-size:.62rem;font-weight:800;background:var(--ink);color:#fff;border-radius:99px;padding:2px 6px}
+.st-vazio{opacity:.55;flex-direction:column;align-items:center}
+.st-vazio img{height:calc(100% - 18px);animation:none}
+.st-vazio em{font-style:normal;font-size:.55rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;white-space:nowrap}
+.st-vazio:hover{opacity:1}
+@keyframes stIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ks-stage-m{display:none}
+.ks-wait{display:flex;align-items:center;gap:14px;width:100%;padding:14px 18px;text-align:left;border-style:dashed;transition:.2s}
+.ks-wait img{height:38px;width:auto;opacity:.7}
+.ks-wait span{flex:1;font-size:.9rem;font-weight:300}
+.ks-wait span b{font-weight:500}
+.ks-wait i{font-style:normal;color:var(--bege)}
+.ks-wait:hover{border-color:var(--ink);background:var(--bege-soft)}
+.ks-pp{font-size:.58rem!important;letter-spacing:.14em;text-transform:uppercase;color:var(--bege)!important}
+.ks-dica{font-size:.74rem;font-weight:300;color:var(--ink-soft);margin:10px 0 16px}
+.ks-prods small{font-size:.66rem;color:var(--ink-soft);font-weight:300}
+.slot-num{flex:none;min-width:34px}
+@media(max-width:960px){.ks-stage-m{display:block;position:sticky;top:var(--nav-h);z-index:30;background:#fff;padding:6px 0 4px;margin:0 0 12px}.ks-stage-m .ks-stage{height:150px;margin:0}
+ .ks-fams{grid-template-columns:repeat(3,1fr)}.ks-prods{grid-template-columns:repeat(2,1fr)}.kit-bar .buy{font-size:.72rem;letter-spacing:.08em;padding:0 18px;white-space:nowrap}.ks-hero p{font-size:.9rem}}
+body.atac .ks-stage-m{top:calc(var(--nav-h) + 38px)}
+@media(max-width:960px){body:has(.kit-bar.on) .wpp{bottom:96px}}
 /* ==== v1: REF, selos do catálogo, miniaturas ==== */
 .swatches .lab .ref{font-weight:300;color:var(--ink-soft);letter-spacing:.1em}
 .swatches .lab .ref b{color:var(--ink);font-weight:500}
@@ -568,9 +628,10 @@ body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
 <!-- NAV -->
 <header class="nav">
   <div class="vant" aria-label="Vantagens"><div>
-    <span><b>5% de desconto</b> no Pix</span>
+    <span class="v1"><b>5% de desconto</b> no Pix</span>
+    <span class="v0"><b>Modo atacado</b> · preço por unidade · mínimo R$ 500</span>
     <span class="v2"><b>Atacado</b> para CNPJ · mínimo R$ 500</span>
-    <span class="v3">Atendimento pelo <b>WhatsApp</b> (44) 99183-2018</span>
+    <a class="v3" href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false">Atendimento pelo <b>WhatsApp</b> (44) 99183-2018</a>
   </div></div>
   <div class="nav-in">
     <a href="#home" class="nav-logo" aria-label="AZARTE — início">
@@ -599,7 +660,7 @@ body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
 <!-- SEARCH -->
 <div class="ov ov-search" id="ovSearch">
   <button class="ov-close" onclick="closeOv()" aria-label="Fechar">✕</button>
-  <input id="searchIn" placeholder="Buscar na AZARTE" oninput="doSearch(this.value)">
+  <input id="searchIn" placeholder="Buscar produto, cor ou código REF" oninput="doSearch(this.value)" onkeydown="if(event.key==='Enter'){const a=document.querySelector('#srBox a.first');if(a)a.click();}">
   <div class="sr" id="srBox"></div>
 </div>
 
@@ -626,6 +687,11 @@ body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
       <button class="buy" onclick="entrarCNPJ()">Entrar no atacado</button>
       <p class="alt">Ainda não tem cadastro? <a href="#" onclick="accTab('cad');return false">Cadastrar meu CNPJ</a> · <a href="#atacado" onclick="closeOv()">Como funciona</a></p>
     </div>
+    <div class="acc-pane" data-p="logado">
+      <p class="acc-note">Você está no <b>atacado</b> com o CNPJ <b id="logCnpj"></b>. Os preços do site já são os de atacado.</p>
+      <a class="buy" style="display:grid;place-items:center" href="#atacado" onclick="closeOv()">Ver como funciona</a>
+      <p class="alt"><a href="#" onclick="sairAtacado();return false">Sair do atacado</a></p>
+    </div>
     <div class="acc-pane" data-p="cad">
       <p class="acc-note">Cadastro de atacado (B2B). Nosso Comercial confere os dados e libera o seu acesso aos preços de atacado.</p>
       <div class="f"><label>CNPJ</label><input id="cadCnpj" inputmode="numeric" placeholder="00.000.000/0000-00" oninput="this.value=mascaraCnpj(this.value)"></div>
@@ -645,6 +711,7 @@ body.atac .ks-side{top:calc(var(--nav-h) + 58px)}
 </div></div>
 
 <!-- CART DRAWER -->
+<div class="dr-back" onclick="closeCart()"></div>
 <div class="drawer" id="drawer">
   <div class="dr-head">
     <h2>Sua <b>sacola</b></h2>
@@ -686,8 +753,11 @@ const starsHtml=(v,n)=>!v?'':`<div class="stars"><span class="s">${'★'.repeat(
 
 /* =================== ROUTER =================== */
 const app=document.getElementById('app');
+const rolagem={}; let ultHash=location.hash||'#home', ultY=0;
+window.addEventListener('scroll',()=>{ultY=window.scrollY;},{passive:true});
 function route(){
   const h=location.hash||'#home';
+  const veioDoProduto=ultHash.startsWith('#produto/'); rolagem[ultHash]=ultY; ultHash=h;
   homeTimers.forEach(clearInterval);homeTimers=[];
   closeOv(); closeCart();
   document.getElementById('kitBarWrap')?.remove();
@@ -696,7 +766,7 @@ function route(){
   else if(h==='#kit') renderKit();
   else if(h==='#atacado') renderAtacado();
   else renderHome();
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:(veioDoProduto&&!h.startsWith('#produto/')&&rolagem[h])?rolagem[h]:0,behavior:'instant'});
 }
 window.addEventListener('hashchange',route);
 
@@ -735,7 +805,7 @@ function cardHtml(p){
            <span class="parc">${p.parc}</span>
            <span class="pix">ou <b>${fmt(p.price*(1-PIX_DESCONTO))}</b> no Pix</span>
            ${p.atac!=null?`<button class="b2b-lnk" onclick="abrirAtacado()">Compre no atacado (B2B) →</button>`:''}`}
-      <div class="dots">${p.colors.slice(0,8).map(c=>`<span class="dot" style="background:${HEX[c]}" title="${c}"></span>`).join('')}</div>
+      <div class="dots">${p.colors.slice(0,8).map((c,k)=>`<button class="dot ${k===0?'on':''}" style="background:${HEX[c]}" title="${c}" aria-label="${c}" onclick="cardCor(this,'${p.id}','${c}')"></button>`).join('')}</div>
       <div class="card-buy">
         ${out
          ? `<button class="buy notify" onclick="interesse('${p.id}')">${ATACADO?'Tenho interesse no atacado':'Tenho interesse'}</button>`
@@ -746,15 +816,19 @@ function cardHtml(p){
   </article>`;
 }
 let corPedida=null;
-function goProduct(id,cor){corPedida=cor||null;location.hash='#produto/'+id;}
+function goProduct(id,cor){if(location.hash==='#produto/'+id){corPedida=null;closeOv();if(cor)pdpSet(cor);return;}corPedida=cor||null;location.hash='#produto/'+id;}
 const semAcento=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function qtyStep(btn,d){
   const span=btn.parentElement.querySelector('span');
   span.textContent=Math.max(1,parseInt(span.textContent)+d);
 }
+function cardCor(b,id,c){const card=b.closest('.card');card.dataset.cor=c;card.querySelectorAll('.dot').forEach(d=>d.classList.toggle('on',d===b));const im=card.querySelector('.ph img');if(im)im.src=fotoCor(byId(id),c);}
 function addFromCard(id,btn){
+  const card=btn.closest('.card'), p=byId(id), cor=card.dataset.cor||p.colors[0];
+  if(ATACADO&&p.atacCor&&Object.keys(p.atacCor).length&&!card.dataset.cor){goProduct(id);toast('Escolha a cor: no atacado o preço muda conforme a cor');return;}
   const q=parseInt(btn.parentElement.querySelector('.qty span').textContent);
-  addCart(id,byId(id).colors[0],q);
+  addCart(id,cor,q,true); toast('Adicionado à sacola: '+cor+' · '+q+' un.');
+  btn.parentElement.querySelector('.qty span').textContent='1';
 }
 
 /* =================== HOME =================== */
@@ -769,9 +843,9 @@ function renderHome(){
         <div class="bs-slide" onclick="document.querySelector('.home-top')?.scrollIntoView({behavior:'smooth'})">${bannerPic('hero','AZARTE — linha completa')}<div class="fade"></div></div>
         ${CATS.map(c=>`<div class="bs-slide" onclick="location.hash='#cat/${c.id}'">${bannerPic(c.id,c.n,true)}<div class="fade"></div></div>`).join('')}
       </div>
-      <button class="bs-arrow l" onclick="bsGo(bsI-1)" aria-label="Banner anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="bs-arrow r" onclick="bsGo(bsI+1)" aria-label="Próximo banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
-      <div class="bs-dots" id="bsDots">${[{n:'Linha completa'},...CATS].map((c,i)=>`<button class="${i===0?'on':''}" onclick="bsGo(${i})" aria-label="${c.n}"></button>`).join('')}</div>
+      <button class="bs-arrow l" onclick="bsGo(bsI-1);bsAuto()" aria-label="Banner anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="bs-arrow r" onclick="bsGo(bsI+1);bsAuto()" aria-label="Próximo banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="bs-dots" id="bsDots">${[{n:'Linha completa'},...CATS].map((c,i)=>`<button class="${i===0?'on':''}" onclick="bsGo(${i});bsAuto()" aria-label="${c.n}"></button>`).join('')}</div>
     </div>
     <div class="home-top">
       <div class="fam-wrap" onmouseleave="famShow(famFix)">
@@ -813,7 +887,9 @@ function renderHome(){
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ht.classList.add('in');io.disconnect();}}),{threshold:.18});
     io.observe(ht);
   }
-  homeTimers.push(setInterval(()=>bsGo(bsI+1),4800));
+  bsAuto();
+  const bsl=document.querySelector('.bslider');
+  if(bsl){bsl.addEventListener('mouseenter',()=>clearInterval(bsT));bsl.addEventListener('mouseleave',bsAuto);let x0=null;bsl.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});bsl.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){bsGo(bsI+(dx<0?1:-1));bsAuto();}x0=null;});}
 }
 /* menu de famílias: passar o mouse mostra a família na hora; clicar leva direto */
 let famFix=0;
@@ -837,6 +913,8 @@ function famShow(i){
     <div class="fp-prods">${its.slice(0,5).map(p=>`<a href="#produto/${p.id}" title="${p.name}"><img src="${p.img}" alt="${p.name}" loading="lazy"><span>${p.price==null?'Preço em breve':(ATACADO?'':'')+fmt(precoMin(p))}</span></a>`).join('')}</div>`;
 }
 function hcarStep(d){famFix=(famFix+d+CATS.length)%CATS.length;famShow(famFix);}
+let bsT=null;
+function bsAuto(){clearInterval(bsT);bsT=setInterval(()=>bsGo(bsI+1),5200);homeTimers.push(bsT);}
 function bsGo(i){
   bsI=(i+NSLIDES)%NSLIDES;
   const tr=document.getElementById('bsTrack');
@@ -873,7 +951,9 @@ function renderCat(cid){
     const h=bn.offsetHeight;
     veil.style.opacity=Math.min(1,Math.max(0,(window.scrollY-40)/(h*0.85)));
   };
-  window.addEventListener('scroll',onScroll,{passive:true});
+  if(window.__catScroll) window.removeEventListener('scroll',window.__catScroll);
+  window.__catScroll=onScroll; window.addEventListener('scroll',onScroll,{passive:true});
+  centraAtivo(document.querySelector('.strip-in'),document.querySelector('.chip-cat.on'));
 }
 
 /* =================== PDP (todos os produtos) =================== */
@@ -884,10 +964,10 @@ function renderPDP(id){
   const out=p.price==null;
   const gal=VARS[p.id]||null;
   const shots=GALS[p.id]||null; pdpShot=0;
-  const multi=!!(shots&&shots.length>1)||!!(gal&&Object.keys(gal).length>1);
+  const multi=Object.values(FOTOS[p.id]||{}).flat().length>1;
   app.innerHTML=`
   <section class="view on">
-    <div class="mstrip"><div class="mstrip-in" style="justify-content:center">
+    <div class="mstrip"><div class="mstrip-in">
       ${CATS.map(c=>`<button class="pdp-ic ${c.id===cat.id?'on':''}" title="${c.n}" onclick="location.hash='#cat/${c.id}'"><img src="${IMGS.cat[c.id]}" alt="${c.n}"></button>`).join('')}
     </div></div>
     <div class="wrap">
@@ -953,9 +1033,11 @@ function renderPDP(id){
     ${footerHtml()}
   </section>`;
   drawThumbs();
-  if(!DESCS[p.id]){const sb=document.querySelector('.saiba');if(sb)sb.remove();}
+  if(!DESCS[p.id]){const sb=document.querySelector('.saiba');if(sb)sb.remove();document.getElementById('pdesc')?.remove();}
+  centraAtivo(document.querySelector('.mstrip-in'),document.querySelector('.pdp-ic.on'));
 }
 function fotoCor(p,c){return (VARS[p.id]&&VARS[p.id][c])||p.img;}
+function centraAtivo(box,item){if(!box||!item)return;box.scrollLeft=item.offsetLeft-box.clientWidth/2+item.clientWidth/2;}
 function refHtml(p,c){const r=p.refs&&p.refs[c];return r?` · REF <b>${r}</b>`:'';}
 function tagsHtml(p){return p.tags&&p.tags.length?`<div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>`:'';}
 function drawThumbs(){
@@ -964,7 +1046,7 @@ function drawThumbs(){
   box.innerHTML=fs.length>1?fs.map((f,i)=>`<button class="${i===0?'on':''}" onclick="pdpFoto(${i})"><img src="${f}" alt=""></button>`).join(''):'';
 }
 function pdpFoto(i){
-  const fs=FOTOS[pdpId][pdpColor]; const img=document.getElementById('pdpImg');
+  pdpFotoIdx=i; const fs=FOTOS[pdpId][pdpColor]; const img=document.getElementById('pdpImg');
   img.classList.add('sw'); setTimeout(()=>{img.src=fs[i];img.onload=()=>img.classList.remove('sw');},150);
   document.querySelectorAll('#pdpThumbs button').forEach((b,x)=>b.classList.toggle('on',x===i));
 }
@@ -976,7 +1058,8 @@ function interesse(id,cor){
   window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
 }
 function pdpSet(c){
-  pdpColor=c;
+  pdpColor=c; pdpFotoIdx=0;
+  const kb=document.getElementById('kitBtn'); if(kb) kb.innerHTML=kitBtnLabel(pdpId);
   document.getElementById('swName').textContent=c;
   document.getElementById('swRef').innerHTML=refHtml(byId(pdpId),c);
   const pp=document.getElementById('pPrice'); if(pp) pp.textContent=fmt(precoDe(byId(pdpId),c));
@@ -989,18 +1072,14 @@ function pdpSet(c){
     setTimeout(()=>{img.src=gal[c];img.onload=()=>img.classList.remove('sw');},180);
   }
 }
+let pdpFotoIdx=0;
 function pdpNav(d){
-  const shots=GALS[pdpId];
-  if(shots){
-    pdpShot=(pdpShot+d+shots.length)%shots.length;
-    const img=document.getElementById('pdpImg');
-    img.classList.add('sw');
-    setTimeout(()=>{img.src=shots[pdpShot];img.onload=()=>img.classList.remove('sw');},180);
-    return;
-  }
-  const cols=byId(pdpId).colors;
-  const i=(cols.indexOf(pdpColor)+d+cols.length)%cols.length;
-  pdpSet(cols[i]);
+  const p=byId(pdpId); const seq=p.colors.flatMap(c=>(FOTOS[pdpId][c]||[]).map((f,k)=>[c,k]));
+  if(seq.length<2) return;
+  const pos=Math.max(0,seq.findIndex(([c,k])=>c===pdpColor&&k===pdpFotoIdx));
+  const [c,k]=seq[(pos+d+seq.length)%seq.length];
+  if(c!==pdpColor) pdpSet(c);
+  pdpFoto(k);
 }
 function pdpQtyStep(d){
   pdpQty=Math.max(1,pdpQty+d);
@@ -1009,44 +1088,54 @@ function pdpQtyStep(d){
 
 /* =================== KIT =================== */
 let slots=[];
-const BLANK=()=>({cat:null,prod:null,color:null,qty:1,open:true});
+const PAPEIS={garrafa:{nome:'Garrafa',fams:['garrafinhas','garrafas25','garrafas4','garrafao6','garrafao95'],icone:'garrafas25',alt:90},
+ copo:{nome:'Copo ou cuia',fams:['copos','cuias'],icone:'copos',alt:45},
+ bomba:{nome:'Bomba',fams:['bombas'],icone:'bombas',alt:70},
+ extra:{nome:'Item extra',fams:null,icone:null,alt:0}};
+const ORDEM_PAPEL=['garrafa','copo','bomba','extra'];
+const papelDe=p=>p.cats.some(c=>PAPEIS.garrafa.fams.includes(c))?'garrafa':p.cats.some(c=>PAPEIS.copo.fams.includes(c))?'copo':p.cats.includes('bombas')?'bomba':'extra';
+const BLANK=(papel='extra',open=true)=>({papel,cat:null,prod:null,color:null,qty:1,open});
+const slotsIniciais=()=>[BLANK('garrafa',true),BLANK('copo',false),BLANK('bomba',false)];
 const KIT_ADD_LBL=`Adicionar ao kit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`;
 const KIT_GO_LBL=`Vá para o kit <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
-function kitHasProd(id){return slots.some(x=>x.prod===id);}
-function kitBtnLabel(id){return kitHasProd(id)?KIT_GO_LBL:KIT_ADD_LBL;}
+function kitHasProd(id,c){return slots.some(x=>x.prod===id&&(!c||x.color===c));}
+function kitBtnLabel(id){return kitHasProd(id,pdpColor)?KIT_GO_LBL:KIT_ADD_LBL;}
 function kitBtnClick(){
-  if(kitHasProd(pdpId)){location.hash='#kit';return;}
+  if(kitHasProd(pdpId,pdpColor)){location.hash='#kit';return;}
   addToKit(pdpId,pdpColor,pdpQty);
   const b=document.getElementById('kitBtn');
   if(b) b.innerHTML=KIT_GO_LBL;
 }
 function addToKit(id,color,qty){
-  const p=byId(id);
-  let sl=slots.find(x=>!x.prod);
-  if(!sl){sl=BLANK();slots.push(sl);}
+  const p=byId(id), papel=papelDe(p);
+  if(!slots.length) slots=slotsIniciais();
+  let sl=slots.find(x=>!x.prod&&x.papel===papel)||slots.find(x=>!x.prod&&x.papel==='extra');
+  if(!sl){sl=BLANK(papel==='garrafa'||papel==='copo'||papel==='bomba'?'extra':papel,false);slots.push(sl);}
   sl.cat=p.cats[0]; sl.prod=id; sl.color=color||p.colors[0]; sl.qty=qty||1; sl.open=false;
+  const prox=slots.find(x=>!x.prod); slots.forEach(x=>x.open=false); if(prox) prox.open=true;
   toast('Adicionado ao seu kit 🧩');
 }
-function clearCart(){cart.length=0;updateCartN();drawCart();toast('Sacola esvaziada');}
-function clearKit(){slots=[BLANK()];drawSlots();toast('Kit limpo');}
+function clearCart(){if(cart.length&&!confirm('Esvaziar a sacola?'))return;cart.length=0;updateCartN();drawCart();toast('Sacola esvaziada');}
+function clearKit(){if(slots.some(x=>x.prod)&&!confirm('Limpar todos os itens do kit?'))return;slots=slotsIniciais();drawSlots();toast('Kit limpo');}
 function renderKit(){
-  if(!slots.length) slots=[BLANK()];
+  if(!slots.length) slots=slotsIniciais();
   app.innerHTML=`
   <section class="view on">
-    <div class="kit-hero">
+    <div class="kit-hero ks-hero">
       <div class="kit-logo">
         <span class="l1">MONTE</span><span class="l2">SEU</span>
         <span class="l3"><span class="k">KIT</span><span class="plus">+</span></span>
       </div>
-      <p>Escolha a família, o modelo, a cor e a quantidade de cada item. Dois itens já formam um kit.</p>
+      <p>Garrafa, copo e bomba do seu jeito. Clique no modelo e na cor: o kit vai se montando sozinho.</p>
     </div>
     <div class="ks-wrap">
       <div class="ks-main">
         <div class="ks-presets">
-          <span>Comece por uma sugestão</span>
+          <span>Ou comece por uma sugestão</span>
           <button onclick="kitPreset('g25a')"><b>Garrafa AZARTE 2,5L</b> + copo térmico 300mL + bomba lisa corte</button>
           <button onclick="kitPreset('g25l')"><b>Garrafa Lisa 2,5L</b> + copo térmico 300mL + bomba lisa corte</button>
         </div>
+        <div class="ks-stage-m" id="kitStageM"></div>
         <div id="kitBody"></div>
       </div>
       <aside class="ks-side" id="kitSide"></aside>
@@ -1060,47 +1149,60 @@ function renderKit(){
   drawSlots();
 }
 const famsKit=()=>CATS.filter(c=>c.id!=='kits'&&P.some(p=>p.cats.includes(c.id)&&p.price!=null));
-const prodsKit=cat=>P.filter(p=>p.cats.includes(cat)&&p.price!=null);
+const poolDe=s=>{const f=PAPEIS[s.papel].fams;return P.filter(p=>p.price!=null&&!p.cats.includes('kits')&&(f?p.cats.some(c=>f.includes(c)):(!s.cat||p.cats.includes(s.cat))));};
 const tituloCurto=p=>{const t=(PRODUTOS.find(x=>x.id===p.id)||{}).titulo;return t?`${t.tipo} <b>${t.modelo}</b>`:p.name;};
 const GRUPOS_COR={'Preto':['Preto'],'Branco':['Branco'],'Inox':['Inox Escovado','Cromado'],'Verde':['Verde Militar'],'Rosa':['Rosa Claro','Rosa Pink'],'Rosé':['Rosé'],'Bege':['Bege Nude','Bege'],'Azul':['Azul Escuro','Azul Petróleo'],'Roxo':['Roxo','Violeta']};
 const corDoGrupo=(p,g)=>p.colors.find(c=>GRUPOS_COR[g].includes(c));
+const altCm=p=>{const m=String(p.specs.alt||'').match(/[\d,]+/);return m?parseFloat(m[0].replace(',','.')):20;};
+function stageHtml(){
+  const its=[...slots].sort((a,b)=>ORDEM_PAPEL.indexOf(a.papel)-ORDEM_PAPEL.indexOf(b.papel));
+  const sel=its.filter(s=>s.prod);
+  const max=Math.max(30,...sel.map(s=>altCm(byId(s.prod))));
+  const pecas=its.map(s=>{
+    const i=slots.indexOf(s);
+    if(s.prod){const p=byId(s.prod);return `<button class="st-p" style="height:${Math.max(26,Math.round(altCm(p)/max*100))}%" onclick="slotOpen(${i})" title="${p.name} · ${s.color}"><img src="${fotoCor(p,s.color)}" alt="">${s.qty>1?`<i>${s.qty}x</i>`:''}</button>`;}
+    const ic=PAPEIS[s.papel].icone; return ic?`<button class="st-p st-vazio" style="height:${PAPEIS[s.papel].alt}%" onclick="slotOpen(${i})" title="Escolher ${PAPEIS[s.papel].nome.toLowerCase()}"><img src="${IMGS.cat[ic]}" alt=""><em>${PAPEIS[s.papel].nome}</em></button>`:'';
+  }).join('');
+  return `<div class="ks-stage">${pecas}</div>`;
+}
 function slotHtml(s,i){
-  const prod=s.prod?byId(s.prod):null;
-  if(prod&&!s.open){
+  const prod=s.prod?byId(s.prod):null, pp=PAPEIS[s.papel];
+  if(!s.open){
+    if(!prod) return `<button class="ks-slot ks-wait" id="slot${i}" onclick="slotOpen(${i})"><span class="slot-num">${i+1}</span>${pp.icone?`<img src="${IMGS.cat[pp.icone]}" alt="">`:''}<span><b>${pp.nome}</b> · escolher</span><i>→</i></button>`;
     return `<div class="ks-slot ks-done" id="slot${i}">
       <span class="slot-num">${i+1}</span>
       <button class="ks-mini" onclick="slotOpen(${i})" aria-label="Editar item"><img src="${fotoCor(prod,s.color)}" alt=""></button>
-      <div class="ks-info"><span>${tituloCurto(prod)}</span><small><i class="ks-dot" style="background:${HEX[s.color]||'#ccc'}"></i>${s.color}${prod.refs[s.color]?' · REF '+prod.refs[s.color]:''}</small></div>
+      <div class="ks-info"><small class="ks-pp">${pp.nome}</small><span>${tituloCurto(prod)}</span><small><i class="ks-dot" style="background:${HEX[s.color]||'#ccc'}"></i>${s.color}${prod.refs[s.color]?' · REF '+prod.refs[s.color]:''}</small></div>
       <div class="qty"><button onclick="slotQty(${i},-1)" aria-label="Menos">−</button><span>${s.qty}</span><button onclick="slotQty(${i},1)" aria-label="Mais">+</button></div>
       <b class="ks-sub">${fmt(precoDe(prod,s.color)*s.qty)}</b>
       <div class="ks-ed"><button onclick="slotOpen(${i})">Editar</button><button onclick="rmSlot(${i})">Remover</button></div>
     </div>`;
   }
-  const prods=s.cat?prodsKit(s.cat):[];
+  const prods=poolDe(s);
   return `<div class="ks-slot ks-open" id="slot${i}">
-    <div class="ks-head"><span class="slot-num">${i+1}</span><h3>${prod?tituloCurto(prod):'Novo item'}</h3>${slots.length>1||prod?`<button class="slot-rm" onclick="rmSlot(${i})">Remover</button>`:''}</div>
-    <div class="ks-step"><label>1 · Família</label>
-      <div class="ks-fams">${famsKit().map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}</div>
-    </div>
-    ${s.cat?`<div class="ks-step"><label>2 · Modelo</label>
-      <div class="ks-prods">${prods.map(p=>`<button class="${s.prod===p.id?'on':''}" onclick="slotProd(${i},'${p.id}')"><img src="${fotoCor(p,s.prod===p.id?s.color:p.colors[0])}" alt="" loading="lazy"><span>${tituloCurto(p)}</span><em>${precoMin(p)<p.price?'a partir de ':''}${fmt(precoMin(p))}</em></button>`).join('')}</div>
+    <div class="ks-head"><span class="slot-num">${i+1}</span><h3><b>${pp.nome}</b>${prod?' · '+tituloCurto(prod):''}</h3>${prod||s.papel==='extra'?`<button class="slot-rm" onclick="rmSlot(${i})">Remover</button>`:`<button class="slot-rm" onclick="slotPular(${i})">Pular</button>`}</div>
+    ${s.papel==='extra'?`<div class="ks-step"><label>Família</label><div class="ks-fams">${famsKit().map(c=>`<button class="${s.cat===c.id?'on':''}" onclick="slotCat(${i},'${c.id}')"><img src="${IMGS.cat[c.id]}" alt=""><span>${c.n2}${c.vol?'<br>'+c.vol:''}</span></button>`).join('')}</div></div>`:''}
+    ${prods.length&&(s.papel!=='extra'||s.cat)?`<div class="ks-step"><label>${prod?'Modelo':'Escolha o modelo'}</label>
+      <div class="ks-prods">${prods.map(p=>`<button class="${s.prod===p.id?'on':''}" onclick="slotProd(${i},'${p.id}')"><img src="${fotoCor(p,s.prod===p.id?s.color:p.colors[0])}" alt="" loading="lazy"><span>${tituloCurto(p)}</span><em>${precoMin(p)<p.price?'a partir de ':''}${fmt(precoMin(p))}</em><small>${p.colors.length} ${p.colors.length===1?'cor':'cores'}</small></button>`).join('')}</div>
     </div>`:''}
-    ${prod?`<div class="ks-step ks-cols">
+    ${prod?`<div class="ks-step ks-cols" id="slotCor${i}">
       <div>
-        <label>3 · Cor · <b>${s.color}</b>${prod.refs[s.color]?` <small>REF ${prod.refs[s.color]}</small>`:''}</label>
+        <label>Cor · <b>${s.color}</b>${prod.refs[s.color]?` <small>REF ${prod.refs[s.color]}</small>`:''}</label>
         <div class="sw-row">${prod.colors.map(c=>`<button class="sw ${c===s.color?'on':''}" style="background:${HEX[c]}" title="${c}" aria-label="${c}" onclick="slotColor(${i},'${c}')"></button>`).join('')}</div>
-        <label class="ks-l4">4 · Quantidade</label>
+        <p class="ks-dica">Clique na cor para confirmar e seguir.</p>
         <div class="ks-qtyrow"><div class="qty"><button onclick="slotQty(${i},-1)" aria-label="Menos">−</button><span>${s.qty}</span><button onclick="slotQty(${i},1)" aria-label="Mais">+</button></div>
           <span class="ks-each">${s.qty} × ${fmt(precoDe(prod,s.color))} = <b>${fmt(precoDe(prod,s.color)*s.qty)}</b></span></div>
-        <button class="buy ks-ok" onclick="slotDone(${i})">Confirmar item</button>
+        <button class="buy ks-ok" onclick="slotDone(${i})">${proxPapel(i)?`Confirmar e escolher ${PAPEIS[slots[proxPapel(i)-1].papel].nome.toLowerCase()} →`:'Confirmar item ✓'}</button>
       </div>
       <div class="ks-photo"><img src="${fotoCor(prod,s.color)}" alt="${prod.name}"></div>
     </div>`:''}
   </div>`;
 }
+function proxPapel(i){const k=slots.findIndex((x,j)=>j!==i&&!x.prod);return k<0?0:k+1;}
 function drawSlots(){
   const body=document.getElementById('kitBody'); if(!body) return;
   body.innerHTML=slots.map(slotHtml).join('')+`<div class="ks-actions"><button class="kit-add" onclick="addSlot()">＋ Adicionar outro item</button>${slots.some(x=>x.prod)?`<button class="clear-lnk" onclick="clearKit()">Limpar kit</button>`:''}</div>`;
+  const m=document.getElementById('kitStageM'); if(m) m.innerHTML=stageHtml();
   kitSum();
 }
 function drawSide(sel,total,n){
@@ -1108,32 +1210,41 @@ function drawSide(sel,total,n){
   const grupos=Object.keys(GRUPOS_COR).filter(g=>sel.filter(s=>corDoGrupo(byId(s.prod),g)).length>=2);
   side.innerHTML=`<div class="ks-card">
     <h3>Seu <b>kit</b></h3>
+    ${stageHtml()}
     ${sel.length?`<ul>${sel.map(s=>{const p=byId(s.prod);const i=slots.indexOf(s);return `<li><button onclick="slotOpen(${i})"><img src="${fotoCor(p,s.color)}" alt=""></button><span>${tituloCurto(p)}<small>${s.color} · ${s.qty} un.</small></span><b>${fmt(precoDe(p,s.color)*s.qty)}</b></li>`;}).join('')}</ul>`
-      :`<p class="ks-vazio">Escolha o primeiro item ao lado ou comece por uma sugestão.</p>`}
+      :`<p class="ks-vazio">Clique no modelo da garrafa para começar, ou use uma sugestão pronta.</p>`}
     ${grupos.length?`<div class="ks-comb"><span>Combinar cores</span><div>${grupos.map(g=>`<button onclick="kitCombinar('${g}')" title="Deixar o kit em ${g}"><i style="background:${HEX[GRUPOS_COR[g][0]]}"></i>${g}</button>`).join('')}</div></div>`:''}
     <div class="ks-tot"><span>Total · ${n} ${n===1?'item':'itens'}</span><b>${fmt(total)}</b></div>
     ${ATACADO?`<small class="ks-min">${total>=ATACADO_MINIMO?'Pedido mínimo do atacado atingido ✓':`Atacado: faltam ${fmt(ATACADO_MINIMO-total)} para o mínimo de ${fmt(ATACADO_MINIMO)} (pode completar na sacola)`}</small>`:''}
     <button class="buy" ${sel.length?'':'disabled'} onclick="kitBuy()">Adicionar kit à sacola</button>
   </div>`;
 }
+function irPara(i){requestAnimationFrame(()=>document.getElementById('slot'+i)?.scrollIntoView({behavior:'smooth',block:'center'}));}
 function kitPreset(garrafa){
-  const cor=c=>c;
-  slots=[{cat:'garrafas25',prod:garrafa,color:'Preto',qty:1,open:false},{cat:'copos',prod:'c300',color:'Preto',qty:1,open:false},{cat:'bombas',prod:'corte',color:'Preto',qty:1,open:false}]
+  slots=[{papel:'garrafa',cat:'garrafas25',prod:garrafa,color:'Preto',qty:1,open:false},{papel:'copo',cat:'copos',prod:'c300',color:'Preto',qty:1,open:false},{papel:'bomba',cat:'bombas',prod:'corte',color:'Preto',qty:1,open:false}]
     .filter(s=>byId(s.prod)&&byId(s.prod).price!=null);
-  drawSlots(); toast('Sugestão montada em Preto · use Combinar cores ou Editar');
+  drawSlots(); toast('Kit montado em Preto · troque as cores em Combinar cores ou Editar');
 }
 function kitCombinar(g){
   let n=0; slots.forEach(s=>{if(!s.prod)return; const c=corDoGrupo(byId(s.prod),g); if(c){s.color=c;n++;}});
   drawSlots(); toast(n+' itens em '+g);
 }
-function slotCat(i,c){const s=slots[i]; s.cat=c; const ps=prodsKit(c); if(ps.length===1){s.prod=ps[0].id;s.color=ps[0].colors[0];}else{s.prod=null;s.color=null;} drawSlots();}
-function slotProd(i,id){const s=slots[i],p=byId(id); s.prod=id; if(!p.colors.includes(s.color)) s.color=p.colors[0]; drawSlots();}
-function slotColor(i,c){slots[i].color=c;drawSlots();}
+function slotCat(i,c){const s=slots[i]; if(s.cat===c) return; s.cat=c; const ps=poolDe(s); if(ps.length===1){s.prod=ps[0].id;s.color=ps[0].colors[0];}else if(s.prod&&!byId(s.prod).cats.includes(c)){s.prod=null;s.color=null;} drawSlots();}
+function slotProd(i,id){const s=slots[i],p=byId(id); s.prod=id; s.cat=p.cats[0]; if(!p.colors.includes(s.color)) s.color=p.colors[0];
+  if(p.colors.length===1){slotDone(i);return;}
+  drawSlots(); requestAnimationFrame(()=>document.getElementById('slotCor'+i)?.scrollIntoView({behavior:'smooth',block:'center'}));}
+function slotColor(i,c){slots[i].color=c;slotDone(i);}
 function slotQty(i,d){slots[i].qty=Math.max(1,slots[i].qty+d);drawSlots();}
-function slotDone(i){slots[i].open=false;drawSlots();}
-function slotOpen(i){slots.forEach((x,k)=>x.open=k===i);drawSlots();document.getElementById('slot'+i)?.scrollIntoView({behavior:'smooth',block:'center'});}
-function addSlot(){slots.forEach(x=>{if(x.prod)x.open=false;});slots.push(BLANK());drawSlots();const k=slots.length-1;document.getElementById('slot'+k)?.scrollIntoView({behavior:'smooth',block:'center'});}
-function rmSlot(i){slots.splice(i,1);if(!slots.length)slots=[BLANK()];drawSlots();}
+function slotDone(i){
+  const s=slots[i]; s.open=false;
+  const k=slots.findIndex(x=>!x.prod);
+  if(k>=0){slots[k].open=true; drawSlots(); irPara(k); toast((s.prod?'Item registrado · ':'')+'agora: '+PAPEIS[slots[k].papel].nome.toLowerCase());}
+  else {drawSlots(); toast('Kit completo ✓ confira o total'); const side=document.getElementById('kitSide'); if(side&&getComputedStyle(side).display!=='none') side.scrollIntoView({behavior:'smooth',block:'nearest'});}
+}
+function slotPular(i){slots[i].open=false;const k=slots.findIndex((x,j)=>j>i&&!x.prod);if(k>=0){slots[k].open=true;}drawSlots();if(k>=0)irPara(k);}
+function slotOpen(i){slots.forEach((x,k)=>x.open=k===i);drawSlots();irPara(i);}
+function addSlot(){slots.forEach(x=>x.open=false);slots.push(BLANK('extra',true));drawSlots();irPara(slots.length-1);}
+function rmSlot(i){slots.splice(i,1);if(!slots.length)slots=slotsIniciais();drawSlots();}
 function kitSum(){
   const sel=slots.filter(s=>s.prod);
   const total=sel.reduce((t,s)=>t+precoDe(byId(s.prod),s.color)*s.qty,0);
@@ -1150,7 +1261,7 @@ function kitBuy(){
   const sel=slots.filter(s=>s.prod);
   if(!sel.length) return;
   sel.forEach(s=>addCart(s.prod,s.color||byId(s.prod).colors[0],s.qty,true));
-  slots=[BLANK()];drawSlots();
+  slots=slotsIniciais();drawSlots();
   toast('Kit adicionado à sacola 🧉');
   openCart();
 }
@@ -1179,9 +1290,9 @@ function drawCart(){
     return `<div class="dr-it">
       <div class="th"><img src="${fotoCor(p,i.color)}" alt=""></div>
       <div class="inf"><h4>${p.name}</h4><small>${i.color}${p.refs&&p.refs[i.color]?' · REF '+p.refs[i.color]:''}</small>
-        <div class="qty" style="margin-top:6px;width:max-content"><button onclick="cartQty(${ix},-1)">−</button><span>${i.q}</span><button onclick="cartQty(${ix},1)">+</button></div>
+        <div class="dr-row"><div class="qty" style="width:max-content"><button onclick="cartQty(${ix},-1)" aria-label="Menos">−</button><span>${i.q}</span><button onclick="cartQty(${ix},1)" aria-label="Mais">+</button></div><button class="dr-rm" onclick="cartRm(${ix})" aria-label="Remover item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></button></div>
       </div>
-      <div class="pr">${fmt(precoDe(p,i.color)*i.q)}</div>
+      <div class="pr">${fmt(precoDe(p,i.color)*i.q)}<small>${fmt(precoDe(p,i.color))}/un</small></div>
     </div>`;
   }).join('');
   const tot=cart.reduce((t,i)=>t+precoDe(byId(i.id),i.color)*i.q,0);
@@ -1190,9 +1301,10 @@ function drawCart(){
   if(ATACADO){
     const falta=Math.max(0,ATACADO_MINIMO-tot), pc=Math.min(100,tot/ATACADO_MINIMO*100);
     mn.innerHTML=`<div class="min-bar"><i style="width:${pc}%"></i></div><small>${falta>0?`Faltam <b>${fmt(falta)}</b> para o pedido mínimo de ${fmt(ATACADO_MINIMO)}`:'Pedido mínimo atingido ✓'}</small>`;
-    bt.textContent='Enviar pedido ao Comercial';
-  } else { mn.innerHTML=''; bt.textContent='Finalizar compra'; }
+    bt.textContent=falta>0?'Faltam '+fmt(falta)+' para enviar':'Enviar pedido ao Comercial'; bt.disabled=falta>0;
+  } else { mn.innerHTML=`<small class="dr-pix">ou <b>${fmt(tot*(1-PIX_DESCONTO))}</b> no Pix (5% de desconto)</small>`; bt.textContent='Finalizar compra'; bt.disabled=false; }
 }
+function cartRm(ix){cart.splice(ix,1);updateCartN();drawCart();toast('Item removido');}
 function cartQty(ix,d){
   cart[ix].q+=d;
   if(cart[ix].q<=0) cart.splice(ix,1);
@@ -1202,21 +1314,28 @@ function toggleFav(id,btn){
   if(favs.has(id)){favs.delete(id);btn.classList.remove('on');toast('Removido dos favoritos');}
   else{favs.add(id);btn.classList.add('on');toast('Salvo nos favoritos ♥');}
 }
-function openCart(){drawCart();document.getElementById('drawer').classList.add('on');}
-function closeCart(){document.getElementById('drawer').classList.remove('on');}
-function openSearch(){document.getElementById('ovSearch').classList.add('on');setTimeout(()=>document.getElementById('searchIn').focus(),80);}
-function openLogin(){document.getElementById('ovLogin').classList.add('on');}
+function openCart(){drawCart();document.getElementById('drawer').classList.add('on');document.body.classList.add('cart-on');}
+function closeCart(){document.getElementById('drawer').classList.remove('on');document.body.classList.remove('cart-on');}
+function openSearch(){document.getElementById('ovSearch').classList.add('on');setTimeout(()=>{const i=document.getElementById('searchIn');i.focus();i.select();},80);}
+function openLogin(){accTab(ATACADO?'logado':'pf');if(ATACADO)document.getElementById('logCnpj').textContent=CNPJ;document.getElementById('ovLogin').classList.add('on');}
 function closeOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOv();closeCart();}});
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function doSearch(v){
   const box=document.getElementById('srBox');
-  if(!v.trim()){box.innerHTML='';return;}
-  const q=semAcento(v.trim()), palavras=q.split(/\s+/).filter(Boolean);
-  const corRef=p=>Object.keys(p.refs||{}).find(c=>p.refs[c]&&p.refs[c].toLowerCase().includes(q));
-  const rs=P.filter(p=>palavras.every(w=>semAcento(p.name).includes(w))||corRef(p));
+  const q=semAcento(v.trim()).replace(/(\d)\.(\d)/g,'$1,$2');
+  if(q.length<2){box.innerHTML=q?`<a><span style="color:var(--ink-soft)">Digite pelo menos 2 letras</span></a>`:'';return;}
+  const palavras=q.split(/\s+/).filter(Boolean);
+  const corRef=p=>q.length>=4?Object.keys(p.refs||{}).find(c=>p.refs[c]&&semAcento(p.refs[c]).replace(/^0+/,'').startsWith(q.replace(/^0+/,''))):null;
+  const texto=p=>semAcento([p.name,...p.colors,...CATS.filter(c=>p.cats.includes(c.id)).map(c=>c.n+' '+c.n2)].join(' '));
+  const corPal=p=>p.colors.find(c=>palavras.some(w=>w.length>=3&&semAcento(c).includes(w)));
+  const rs=P.map(p=>({p,cor:corRef(p)||corPal(p)||null,ref:!!corRef(p)}))
+    .filter(x=>x.ref||palavras.every(w=>texto(x.p).includes(w)))
+    .sort((a,b)=>(a.p.cats.includes('kits')?1:0)-(b.p.cats.includes('kits')?1:0));
+  const preco=(p,c)=>ATACADO?(p.atac==null?'Atacado sob consulta':fmt(c?precoDe(p,c):precoMin(p))):(p.price==null?'Preço em breve':fmt(p.price));
   box.innerHTML=rs.length
-    ? rs.map(p=>`<a href="#" onclick="closeOv();goProduct('${p.id}'${corRef(p)?`,'${corRef(p)}'`:''});return false"><span style="color:var(--ink);font-weight:300">${p.name.replace(new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','i'),'<b>$1</b>')}</span><span>${corRef(p)?`${corRef(p)} · REF ${p.refs[corRef(p)]} · `:''}${p.price==null?'Preço em breve':fmt(p.price)}</span></a>`).join('')
-    : `<a><span style="color:var(--ink-soft)">Nenhum resultado para “${v}”</span></a>`;
+    ? rs.map(({p,cor},k)=>`<a href="#" class="${k===0?'first':''}" onclick="closeOv();goProduct('${p.id}'${cor?`,'${cor}'`:''});return false"><img src="${cor?fotoCor(p,cor):p.img}" alt=""><span class="sr-n">${esc(p.name)}${cor?`<small>${esc(cor)}${p.refs[cor]?' · REF '+esc(p.refs[cor]):''}</small>`:''}</span><span>${preco(p,cor)}</span></a>`).join('')
+    : `<a><span style="color:var(--ink-soft)">Nenhum resultado para “${esc(v)}”</span></a>`;
 }
 let tT;
 function toast(m){
@@ -1227,8 +1346,8 @@ function toast(m){
 
 /* =================== ACESSO: Pessoa Física x CNPJ =================== */
 let CNPJ='';
-function abrirAtacado(){openLogin();accTab('cnpj');}
-function accTab(t){document.querySelectorAll('.acc-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===(t==='cad'?'cnpj':t)));document.querySelectorAll('.acc-pane').forEach(p=>p.classList.toggle('on',p.dataset.p===t));}
+function abrirAtacado(){if(ATACADO){toast('Você já está no atacado');return;}openLogin();accTab('cnpj');}
+function accTab(t){const tb=document.querySelector('.acc-tabs');if(tb)tb.style.display=t==='logado'?'none':'';document.querySelectorAll('.acc-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===(t==='cad'?'cnpj':t)));document.querySelectorAll('.acc-pane').forEach(p=>p.classList.toggle('on',p.dataset.p===t));}
 function mascaraCnpj(v){v=v.replace(/\D/g,'').slice(0,14);return v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');}
 function cadastrarCNPJ(){
   const g=id=>document.getElementById(id).value.trim();
@@ -1236,24 +1355,28 @@ function cadastrarCNPJ(){
   if(!g('cadRazao')||!g('cadNome')||g('cadWhats').replace(/\D/g,'').length<10){toast('Preencha razão social, nome e WhatsApp');return;}
   const msg=`Olá! Quero me cadastrar no atacado AZARTE (B2B).\nCNPJ: ${g('cadCnpj')}\nRazão social: ${g('cadRazao')}\nResponsável: ${g('cadNome')}\nWhatsApp: ${g('cadWhats')}\n\nEstou ciente do pedido mínimo de R$ 500,00.`;
   window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
+  ['cadCnpj','cadRazao','cadNome','cadWhats'].forEach(id=>document.getElementById(id).value='');
   closeOv(); toast('Cadastro enviado ao Comercial. Você recebe o acesso pelo WhatsApp.');
 }
+function marcaLogin(){const a=document.querySelector('.nav-atac');if(a)a.textContent=ATACADO?'Atacado ✓':'Atacado';const u=document.querySelector('.nico[aria-label=Entrar]');if(u)u.classList.toggle('logado',ATACADO);}
 function entrarPF(){if(ATACADO)sairAtacado(true);closeOv();toast('Login demonstrativo — Pessoa Física (preços de varejo)');}
 function entrarCNPJ(){
   const v=document.getElementById('inCnpj').value;
   if(v.replace(/\D/g,'').length!==14){toast('Digite os 14 números do CNPJ');return;}
-  CNPJ=v; ATACADO=true; cart.length=0; slots=[]; updateCartN();
+  if(cart.length&&!confirm('Sua sacola será esvaziada, porque no atacado os preços mudam. Continuar?'))return;
+  CNPJ=v; ATACADO=true; cart.length=0; slots=[]; updateCartN(); marcaLogin();
   document.body.classList.add('atac'); document.getElementById('atacCnpj').textContent=v;
   closeOv(); route(); toast('Você está no atacado: preços por unidade, mínimo R$ 500');
 }
-function sairAtacado(quiet){ATACADO=false;CNPJ='';cart.length=0;slots=[];updateCartN();document.body.classList.remove('atac');route();if(!quiet)toast('Você saiu do atacado: preços de varejo');}
+function sairAtacado(quiet){if(!quiet&&cart.length&&!confirm('Sua sacola será esvaziada, porque os preços voltam ao varejo. Continuar?'))return;ATACADO=false;CNPJ='';cart.length=0;slots=[];updateCartN();marcaLogin();closeOv();document.body.classList.remove('atac');route();if(!quiet)toast('Você saiu do atacado: preços de varejo');}
 function finalizar(){
   if(!cart.length){toast('Sua sacola está vazia');return;}
   if(!ATACADO){toast('Checkout demonstrativo — na versão final: WooCommerce + Bling');return;}
   const tot=cart.reduce((t,i)=>t+precoDe(byId(i.id),i.color)*i.q,0);
   if(tot<ATACADO_MINIMO){toast('Faltam '+fmt(ATACADO_MINIMO-tot)+' para o pedido mínimo');return;}
   const linhas=cart.map(i=>{const p=byId(i.id),r=p.refs[i.color];return `• ${i.q}x ${p.name.replace(/ — .*/,'')} - ${i.color}${r?' (REF '+r+')':''} - ${fmt(precoDe(p,i.color))}/un = ${fmt(precoDe(p,i.color)*i.q)}`;}).join('\n');
-  const msg=`Olá! Pedido de atacado pelo site AZARTE.\nCNPJ: ${CNPJ}\n\n${linhas}\n\nTotal: ${fmt(tot)}`;
+  const pecas=cart.reduce((t,i)=>t+i.q,0);
+  const msg=`Olá! Pedido de atacado pelo site AZARTE.\nCNPJ: ${CNPJ}\n\n${linhas}\n\nTotal de peças: ${pecas}\nTotal: ${fmt(tot)}`;
   window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent(msg),'_blank','noopener');
 }
 /* =================== PÁGINA ATACADO =================== */
@@ -1283,7 +1406,7 @@ function footerHtml(){
   return `<footer>
     <div class="foot">
       <div class="foot-l">
-        <a href="#" onclick="window.open('https://wa.me/'+WHATS,'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.7.9c.5 1 1.5 2 2.5 2.5l.9-.7 1.7.7v.8c0 .3 0 .7-.8 1-.8.4-2.7.2-4.6-1.6-1.8-1.9-2-3.8-1.6-4.6Z" fill="currentColor" stroke="none"/></svg> Contato</a>
+        <a href="#" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.7.9c.5 1 1.5 2 2.5 2.5l.9-.7 1.7.7v.8c0 .3 0 .7-.8 1-.8.4-2.7.2-4.6-1.6-1.8-1.9-2-3.8-1.6-4.6Z" fill="currentColor" stroke="none"/></svg> Contato</a>
         <a href="https://www.instagram.com/azarte.oficial/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @azarte.oficial</a>
         <a href="#atacado">Atacado (CNPJ)</a>
         <a href="#" onclick="toast('SAC — canal definido no lançamento');return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3.5a8.5 8.5 0 0 0-8.5 8.5c0 1.6.4 3 1.2 4.3L3.5 20.5l4.3-1.2A8.5 8.5 0 1 0 12 3.5Z"/></svg> SAC</a>
