@@ -19,6 +19,7 @@ Protótipo navegável da loja AZARTE (garrafas térmicas, copos, cuias, bombas e
 Rotas: `#home`, `#cat/<familia>`, `#produto/<id>`, `#kit` (Monte seu Kit), `#atacado`, `#brindes` (vitrine) e `#brindes/monte` (personalizador).
 
 ## O que o protótipo simula e precisa virar real
+- **Modo demonstração (`MODO_DEMO` em `dados/produtos.js`)**: hoje está `true` para o link público. O botão "Entrar no atacado" entra sem CNPJ e sem senha, para os donos verem a galeria e os preços de atacado. No site final, mudar para `false` e ligar o login de verdade.
 1. **Preço e estoque (Bling).** Sem login o site mostra sempre o preço B2C (varejo) vindo do Bling. Os preços de varejo no `produtos.js` são provisórios. "Indisponível" deve sair automático pelo estoque do Bling. Fotos: hoje as do catálogo, com opção de trocar pelas do Bling.
 2. **Atacado B2B (CNPJ).**
    - Cadastro com CNPJ, razão social, responsável e WhatsApp; o Comercial aprova.

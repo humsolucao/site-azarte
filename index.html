@@ -832,6 +832,7 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
     </div>
     <div class="acc-pane" data-p="cnpj">
       <p class="acc-note">Preços de atacado · pedido mínimo de <b>R$ 500,00 em produtos</b> · pode misturar os produtos que quiser · frete à parte, não conta no mínimo.</p>
+      <p class="acc-note demo-aviso" hidden><b>Versão de demonstração:</b> não precisa de CNPJ nem senha. É só clicar em <b>Entrar no atacado</b>.</p>
       <div class="f"><label>CNPJ</label><input id="inCnpj" inputmode="numeric" placeholder="00.000.000/0000-00" oninput="this.value=mascaraCnpj(this.value)"></div>
       <div class="f"><label>Senha</label><input type="password" placeholder="••••••••"></div>
       <button class="buy" onclick="entrarCNPJ()">Entrar no atacado</button>
@@ -880,8 +881,8 @@ body.atac .br-side{top:calc(var(--nav-h) + 58px)}
 <div class="toast" id="toastEl"></div>
 <a class="wpp" href="#" aria-label="Falar com a AZARTE no WhatsApp" onclick="window.open('https://wa.me/'+WHATS+'?text='+encodeURIComponent('Olá! Vim pelo site da AZARTE.'),'_blank','noopener');return false"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2A9.7 9.7 0 0 0 3.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.2-.2-.2-.4-.3Z"/></svg><span>Fale conosco</span></a>
 
-<script src="dados/produtos.js"></script>
-<script src="dados/brindes.js"></script>
+<script src="dados/produtos.js?v=20261021b"></script>
+<script src="dados/brindes.js?v=20261021b"></script>
 <script>
 /* Dados de produtos, famílias e fotos: dados/produtos.js */
 const fmt=v=>'R$ '+(Math.round((v+Number.EPSILON)*100)/100).toFixed(2).replace('.',',');
@@ -1531,11 +1532,14 @@ function cadastrarCNPJ(){
   ['cadCnpj','cadRazao','cadNome','cadWhats'].forEach(id=>document.getElementById(id).value='');
   closeOv(); toast('Cadastro enviado ao Comercial. Você recebe o acesso pelo WhatsApp.');
 }
+const DEMO=()=>typeof MODO_DEMO!=='undefined'&&MODO_DEMO;
+document.querySelectorAll('.demo-aviso').forEach(el=>el.hidden=!DEMO());
 function marcaLogin(){const a=document.querySelector('.nav-atac');if(a)a.textContent=ATACADO?'Atacado ✓':'Atacado';const u=document.querySelector('.nico[aria-label=Entrar]');if(u)u.classList.toggle('logado',ATACADO);}
 function entrarPF(){if(ATACADO)sairAtacado(true);closeOv();toast('Login demonstrativo — Pessoa Física (preços de varejo)');}
 function entrarCNPJ(){
-  const v=document.getElementById('inCnpj').value;
-  if(v.replace(/\D/g,'').length!==14){toast('Digite os 14 números do CNPJ');return;}
+  let v=document.getElementById('inCnpj').value;
+  if(DEMO()&&!v.replace(/\D/g,'').length) v='Demonstração';
+  else if(v.replace(/\D/g,'').length!==14){toast('Digite os 14 números do CNPJ');return;}
   if((cart.length||slots.some(x=>x.prod))&&!confirm('Sua sacola e o kit serão esvaziados, porque no atacado os preços mudam. Continuar?'))return;
   CNPJ=v; ATACADO=true; cart.length=0; slots=[]; updateCartN(); marcaLogin();
   document.body.classList.add('atac'); document.getElementById('atacCnpj').textContent=v;

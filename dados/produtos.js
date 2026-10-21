@@ -9,6 +9,9 @@
    - produto com preco.varejo = null mostra "Preço em breve" + botão "Tenho interesse" (WhatsApp).
    ===================================================================== */
 const WHATS='5544991832018';
+/* MODO_DEMO: true = versão de demonstração (link público), o botão Entrar no atacado funciona sem CNPJ e sem senha.
+   No site final (WooCommerce + login de verdade) mudar para false. */
+const MODO_DEMO = true;
 const ATACADO_MINIMO=500;
 const PIX_DESCONTO=0.05; /* 5% de desconto no Pix (varejo) */
 const CATALOGO_PDF='https://drive.google.com/file/d/10w4QfCUntm82I-lIwRd35vAmS0mBHIpJ/view?usp=sharing';
