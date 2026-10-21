@@ -1552,7 +1552,7 @@ function atacNav(at){
   return `<nav class="atac-nav" aria-label="Opções do atacado"><a class="${at==='atacado'?'on':''}" href="#atacado">Como funciona o atacado</a>${ATACADO?`<a href="#atacado" onclick="setTimeout(()=>document.getElementById('tabAtac')?.scrollIntoView({behavior:'smooth'}),60)">Tabela de preços</a>`:''}<a class="${at==='brindes'?'on':''}" href="#brindes">Brindes personalizados</a></nav>`;
 }
 /* =================== BRINDES PERSONALIZADOS =================== */
-const BR={prod:'g800',cor:null,logo:null,logoNome:'',x:.5,y:.6,esc:.16,rot:0,tinta:'auto',qtd:10,arr:null,salvos:[]};
+const BR={prod:'g800',cor:null,logo:null,logoNome:'',x:.5,y:.6,esc:.16,rot:0,tinta:'auto',qtd:(BRINDES_CONDICOES.minimo||10),arr:null,salvos:[]};
 const brProdutos=()=>Object.keys(BRINDES_PRODUTOS).map(byId).filter(Boolean);
 function brCondicao(v,txt){return v?txt.replace('#',v):'a combinar com o Comercial';}
 function renderBrindes(aba){
@@ -1579,7 +1579,7 @@ function brHeroHtml(){
       <h1>Brinde corporativo<br><b>com a sua própria marca</b></h1>
       <p>Garrafas térmicas e kits de tereré AZARTE gravados a laser com a logo da sua empresa. Para clientes, equipe, eventos e datas especiais.</p>
       <div class="brh-cta"><a class="link-pill dark" href="#brindes/monte">Montar meu brinde</a><button class="link-pill" onclick="brWhats('Olá! Quero orçamento de brinde corporativo com a minha marca.')">Falar com o Comercial</button></div>
-      <small>Quantidade mínima, prazo e preço combinados direto com você pelo WhatsApp do Comercial.</small>
+      <small>A partir de ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}. Prazo e preço combinados direto com você pelo WhatsApp do Comercial.</small>
     </div>
     <div class="brh-vit">${ps.map((p,i)=>`<a href="#brindes/monte" onclick="BR.prod='${p.id}';BR.cor='${cores[p.id]||p.colors[0]}';brPosPadrao(true)" class="brh-p brh-p${i}"><img src="${fotoCor(p,cores[p.id]||p.colors[0])}" alt="${p.name}">${i===0?'<span class="brh-tag">sua marca aqui</span>':''}</a>`).join('')}</div>
   </div>`;
@@ -1588,7 +1588,7 @@ function brInfoHtml(){
   const ps=brProdutos();
   const faq=[['Preciso ter a arte pronta?','Basta a logo da sua empresa em PNG, JPG ou SVG. Você monta a prévia aqui ou manda a logo direto para o nosso Comercial.'],
     ['Consigo ver como fica antes de pedir?','Sim. A prévia aparece na hora, enquanto você posiciona a logo. Com o cadastro da sua empresa, você também gera um mockup realista com IA.'],
-    ['Qual é a quantidade mínima e o prazo?','Quantidade mínima, prazo de produção e preço são combinados com você, conforme o produto e a quantidade. É só chamar o Comercial no WhatsApp.'],
+    ['Qual é a quantidade mínima e o prazo?',`A quantidade mínima é de ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}. Prazo de produção e preço são combinados com você, conforme o produto e a quantidade, pelo WhatsApp do Comercial.`],
     ['Por que preciso entrar para gerar e salvar?','O mockup com IA e as artes salvas ficam ligados ao cadastro da sua empresa (CNPJ). Montar a prévia e pedir orçamento é livre.']];
   return `
     <div class="wrap br-sec"><div class="br-vant">
@@ -1607,7 +1607,7 @@ function brInfoHtml(){
       <div class="atac-card"><span>3</span><h3>Gere, salve e peça</h3><p>Entre com o cadastro da empresa para gerar o mockup com IA e salvar. Depois é só mandar para o Comercial.</p></div>
     </div></div>
     <div class="wrap br-sec"><div class="br-combina">
-      <div><h2>Quantidade, prazo e preço <b>combinados com você</b></h2><p>Cada brinde corporativo é sob medida. A quantidade mínima, o prazo de produção e o preço dependem do produto e da quantidade, e o nosso Comercial combina tudo direto com você.</p></div>
+      <div><h2>Quantidade, prazo e preço <b>combinados com você</b></h2><p>Cada brinde corporativo é sob medida, a partir de ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}. O prazo de produção e o preço dependem do produto e da quantidade, e o nosso Comercial combina tudo direto com você.</p></div>
       <button class="buy" onclick="brWhats('Olá! Quero orçamento de brinde corporativo com a minha marca.')">Chamar o Comercial no WhatsApp</button>
     </div></div>
     <div class="wrap br-sec"><h2 class="br-h2">Perguntas <b>frequentes</b></h2><div class="br-faq">${faq.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div></div>
@@ -1635,7 +1635,7 @@ function brMonteHtml(){
         </div>`:''}
       </div>
       <div class="ks-step"><label>4 · Quantidade estimada</label>
-        <div class="qty br-qtd"><button onclick="brQtd(-10)" aria-label="Menos">−</button><input id="brQtd" type="number" min="10" step="10" inputmode="numeric" value="${BR.qtd}" onchange="BR.qtd=Math.max(10,parseInt(this.value)||10);this.value=BR.qtd" aria-label="Quantidade"><button onclick="brQtd(10)" aria-label="Mais">+</button></div>
+        <div class="qty br-qtd"><button onclick="brQtd(-5)" aria-label="Menos">−</button><input id="brQtd" type="number" min="${brQtdMin()}" step="5" inputmode="numeric" value="${BR.qtd}" onchange="BR.qtd=Math.max(brQtdMin(),parseInt(this.value)||brQtdMin());this.value=BR.qtd" aria-label="Quantidade"><button onclick="brQtd(5)" aria-label="Mais">+</button></div>
         <p class="ks-dica">Quantidade mínima: ${brCondicao(BRINDES_CONDICOES.minimo,'# peças')}.</p>
       </div>
     </div>
@@ -1657,7 +1657,8 @@ const brEscMax=()=>Math.round(((BRINDES_PRODUTOS[BR.prod]||{esc:.2}).esc)*170);
 function brRender(){const y=window.scrollY;renderBrindes('monte');window.scrollTo(0,y);}
 function brProd(id){BR.prod=id;const p=byId(id);if(!p.colors.includes(BR.cor))BR.cor=p.colors[0];brPosPadrao(true);brRender();}
 function brCor(c){BR.cor=c;brRender();}
-function brQtd(d){BR.qtd=Math.max(10,Math.round((BR.qtd+d)/10)*10);document.getElementById('brQtd').value=BR.qtd;}
+const brQtdMin=()=>BRINDES_CONDICOES.minimo||10;
+function brQtd(d){BR.qtd=Math.max(brQtdMin(),BR.qtd+d);document.getElementById('brQtd').value=BR.qtd;}
 function brPosPadrao(silencio){const d=BRINDES_PRODUTOS[BR.prod]||{x:.5,y:.6,esc:.2};BR.x=d.x;BR.y=d.y;BR.esc=d.esc;BR.rot=0;if(!silencio)brRender();}
 function brLogo(f){
   if(!f) return;

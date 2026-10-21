@@ -14,7 +14,8 @@ const BRINDES_API = '';
 const BRINDES_LIMITE_DIA = 5;  /* e no máximo 5 tentativas por CNPJ por dia (regra do Alisson, 21/10/2026) */
 const BRINDES_LIMITE_HORA = 3; /* tentativas de geração com IA por CNPJ por hora (regra do Alisson, 21/10/2026).
    Cada tentativa gera as 3 opções. O servidor TEM que aplicar o mesmo limite. */
-const BRINDES_CONDICOES = { minimo: null, prazo: null }; /* null = "a combinar com o Comercial" */
+/* minimo: peças por pedido de brinde (Alisson, 21/10/2026: 25 por ora, pode mudar). prazo: null = "a combinar com o Comercial" */
+const BRINDES_CONDICOES = { minimo: 25, prazo: null };
 
 /* Só versões LIMPAS (sem a marca AZARTE impressa) — regra do Alisson, 21/10/2026.
    Copos e cuias voltam quando houver foto limpa deles (hoje todas têm a marca AZARTE). */
